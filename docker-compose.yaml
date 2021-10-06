@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  # maistissa-frontend:
+  #   container_name: maistissa-frontend
+  #   depends_on:
+  #     - wineapp
+  #   image: maistissa-frontend
+  #   ports:
+  #     - "3000:3000"
+  #   restart:
+  #     unless-stopped
+
+  postgres:
+    container_name: postgres
+    environment:
+      POSTGRES_DATABASE: wine_app
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    image: postgres:11.6
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    volumes:
+      - pg_data:/var/lib/postgres
+
+  wineapp:
+    container_name: wineapp
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: admin
+    expose:
+      - 8080
+    image: mikaalaoutinen/wineapp:latest
+    ports:
+      - "8082:8080"
+    restart: unless-stopped
+
+volumes:
+  pg_data:
