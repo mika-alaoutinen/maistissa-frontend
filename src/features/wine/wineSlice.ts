@@ -3,6 +3,12 @@ import { RootState } from '../../app/store'
 import api, { Wine } from './wineAPI'
 
 // Thunk actions
+export const addWine = createAsyncThunk('wines/addWine', async (wine: Wine) => {
+  const saved = await api.addWine(wine)
+  console.log('saved', saved)
+  return saved
+})
+
 export const fetchWines = createAsyncThunk('wines/fetchWines', async () => {
   return await api.getWines()
 })
@@ -17,7 +23,7 @@ const initialState: WineState = {
   status: 'idle',
 }
 
-export const wineSlice = createSlice({
+const wineSlice = createSlice({
   name: 'wines',
   initialState,
   reducers: {
@@ -27,6 +33,9 @@ export const wineSlice = createSlice({
   },
   extraReducers: builder => {
     builder
+      .addCase(addWine.fulfilled, (state, action) => {
+        state.wines.push(action.payload)
+      })
       .addCase(fetchWines.pending, state => {
         state.status = 'loading'
       })
@@ -44,7 +53,7 @@ export const wineSlice = createSlice({
 export const { addOne } = wineSlice.actions
 
 // Selectors
-export const wineCount = (state: RootState): number => state.wines.wines.length
-export const wines = (state: RootState): Wine[] => state.wines.wines
+export const selectWineCount = (state: RootState): number => state.wines.wines.length
+export const selectWines = (state: RootState): Wine[] => state.wines.wines
 
 export default wineSlice.reducer

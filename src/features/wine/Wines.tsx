@@ -1,11 +1,11 @@
 import React from 'react'
 import { useAppSelector } from '../../app/hooks'
-import { wines } from './wineSlice'
+import { selectWines } from './wineSlice'
 
 const Wines: React.FC = () => {
-  const allWines = useAppSelector(wines)
+  const wines = useAppSelector(selectWines)
 
-  const renderWines = (): JSX.Element[] => allWines.map(({ name }) => <p key={name}>{name}</p>)
+  const renderWines = (): JSX.Element[] => wines.map(({ name }) => <p key={name}>{name}</p>)
 
   return <div>{renderWines()}</div>
 }

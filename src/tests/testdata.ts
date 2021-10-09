@@ -10,6 +10,7 @@ export const wines: Wine[] = [
     volume: 0.75,
     description: ['dry', 'aromatic'],
     foodPairings: ['white meat'],
+    url: '',
   },
   {
     id: 2,
@@ -20,5 +21,6 @@ export const wines: Wine[] = [
     volume: 3,
     description: ['full bodied', 'rich'],
     foodPairings: ['barbeque'],
+    url: '',
   },
 ]
