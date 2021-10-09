@@ -3,4 +3,5 @@ import { WinesCrudService } from '../../generated/services/WinesCrudService'
 
 const getWines = async (): Promise<Wine[]> => await WinesCrudService.getWines()
 
+export { Wine }
 export default { getWines }

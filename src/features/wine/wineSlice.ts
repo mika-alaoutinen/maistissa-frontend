@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
-import { Wine } from '../../generated'
-import wineService from './wineService'
+import api, { Wine } from './wineAPI'
 
 // Thunk actions
 export const fetchWines = createAsyncThunk('wines/fetchWines', async () => {
-  return await wineService.getWines()
+  return await api.getWines()
 })
 
 export interface WineState {
