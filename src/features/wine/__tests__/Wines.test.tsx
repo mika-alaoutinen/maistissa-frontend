@@ -1,29 +1,48 @@
+import { configureStore } from '@reduxjs/toolkit'
 import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { store } from '../../../app/store'
+import { RootState } from '../../../app/store'
 import { wines } from '../../../tests/testdata'
-import api from '../wineAPI'
+import counterReducer, { CounterState } from '../../counter/counterSlice'
 import Wines from '../Wines'
+import wineReducer, { WineState } from '../wineSlice'
 
-const mockAPI = api as jest.Mocked<typeof api>
-jest.mock('../wineAPI')
+const initStore = () => {
+  const counterState: CounterState = {
+    value: 0,
+    status: 'idle',
+  }
 
-beforeEach(() => {
-  mockAPI.getWines.mockResolvedValue(Promise.resolve(wines))
-})
+  const wineState: WineState = {
+    wines,
+    status: 'idle',
+  }
 
-afterEach(() => {
-  jest.clearAllMocks()
-})
+  const preloadedState: RootState = {
+    counter: counterState,
+    wines: wineState,
+  }
 
-test('fetches wines', async () => {
-  render(
-    <Provider store={store}>
-      <Wines />
-    </Provider>
-  )
+  return configureStore({
+    reducer: {
+      counter: counterReducer,
+      wines: wineReducer,
+    },
+    preloadedState,
+  })
+}
 
-  expect(await screen.findByText(/White wine 1/)).toBeInTheDocument()
-  expect(mockAPI.getWines).toHaveBeenCalledTimes(1)
+describe('Displays wine names', () => {
+  const store = initStore()
+
+  it('renders two wine names as paragraphs', () => {
+    render(
+      <Provider store={store}>
+        <Wines />
+      </Provider>
+    )
+
+    expect(screen.getAllByText(/wine/)).toHaveLength(2)
+  })
 })
