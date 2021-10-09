@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import Counter from './features/counter/Counter'
+import wineService from './features/wine/wineService'
 import { Wine } from './generated/models/Wine'
-import wineService from './services/wineService'
 
 const App: React.FC = () => {
   const [wines, setWines] = useState<Wine[]>([])

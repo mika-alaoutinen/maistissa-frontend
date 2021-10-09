@@ -3,11 +3,11 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import App from '../App'
 import { store } from '../app/store'
-import wineService from '../services/wineService'
+import wineService from '../features/wine/wineService'
 import { wines } from './testdata'
 
 const mockService = wineService as jest.Mocked<typeof wineService>
-jest.mock('../services/wineService')
+jest.mock('../features/wine/wineService')
 
 beforeEach(() => {
   mockService.getWines.mockResolvedValue(Promise.resolve(wines))
