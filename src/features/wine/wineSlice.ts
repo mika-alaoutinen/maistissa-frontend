@@ -4,9 +4,7 @@ import api, { Wine } from './wineAPI'
 
 // Thunk actions
 export const addWine = createAsyncThunk('wines/addWine', async (wine: Wine) => {
-  const saved = await api.addWine(wine)
-  console.log('saved', saved)
-  return saved
+  return await api.addWine(wine)
 })
 
 export const fetchWines = createAsyncThunk('wines/fetchWines', async () => {
