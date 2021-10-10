@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
 import api, { Wine } from './wineAPI';
 
 // Thunk actions
@@ -38,8 +37,5 @@ const wineSlice = createSlice({
       });
   },
 });
-
-// Selectors
-export const selectWines = (state: RootState): Wine[] => state.wines.wines;
 
 export default wineSlice.reducer;

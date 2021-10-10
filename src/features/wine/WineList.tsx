@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
-import { selectWines } from './wineSlice';
+import { selectWines } from '../../app/selectors';
 
 const WineList: React.FC = () => {
   const wines = useAppSelector(selectWines);
