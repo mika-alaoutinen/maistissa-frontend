@@ -1,4 +1,7 @@
-import { Wine } from '../generated/models/Wine'
+import { Review } from '../generated';
+import { Wine } from '../generated/models/Wine';
+
+export const reviews: Review[] = [];
 
 export const wines: Wine[] = [
   {
@@ -23,4 +26,4 @@ export const wines: Wine[] = [
     foodPairings: ['barbeque'],
     url: '',
   },
-]
+];

@@ -1,29 +1,44 @@
-extends:
-  - eslint:recommended
-  - plugin:react/recommended
-  - plugin:react-hooks/recommended
-  - plugin:@typescript-eslint/recommended
-  - plugin:@typescript-eslint/recommended-requiring-type-checking
-  - prettier
-
 env:
   browser: true
-  es6: true
+  es2021: true
   jest: true
 
+extends:
+  - 'plugin:react/recommended'
+  - 'plugin:@typescript-eslint/recommended'
+  - airbnb
+
+overrides:
+  - {
+      files: ['*.tsx'],
+      rules: { 'no-undef': 'off' }
+    }
+
+parser: '@typescript-eslint/parser'
+
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 12
+  sourceType: module
+
 plugins:
-  - "@typescript-eslint"
   - react
-  - prettier
+  - '@typescript-eslint'
 
 rules:
-  prettier/prettier: error
+  'import/extensions': [
+    'error',
+    'ignorePackages', {
+      'ts': 'never',
+      'tsx': 'never'
+    }
+  ]
+  no-param-reassign: ['error', { 'props': false }]
+  no-use-before-define: 'off'
+  'react/jsx-filename-extension': [ 'warn', {'extensions': ['.tsx']} ]
+  '@typescript-eslint/no-use-before-define': ['error']
 
 settings:
-  react:
-    pragma: "React"
-    version: "detect"
-
-parser: "@typescript-eslint/parser"
-parserOptions:
-  project: "./tsconfig.json"
+  import/resolver:
+    typescript: {}
