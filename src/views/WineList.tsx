@@ -14,7 +14,7 @@ const WineList: React.FC = () => {
 
   return (
     <div>
-      <h2>Wines page ({count} wines)</h2>
+      <h2>{`Wines page (${count} wines)`}</h2>
       <AddWine />
       <Wines />
     </div>
