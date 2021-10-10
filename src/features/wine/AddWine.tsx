@@ -20,7 +20,7 @@ const AddWine: React.FC = () => {
 
   const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-    dispatch(addWine(wine));
+    void dispatch(addWine(wine));
   };
 
   return (

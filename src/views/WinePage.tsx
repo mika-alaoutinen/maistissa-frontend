@@ -10,7 +10,7 @@ const WinePage: React.FC = () => {
   const count = useAppSelector(selectWines).length;
 
   useEffect(() => {
-    dispatch(fetchWines());
+    void dispatch(fetchWines());
   }, [dispatch]);
 
   return (
