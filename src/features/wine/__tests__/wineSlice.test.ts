@@ -1,6 +1,4 @@
-import { RootState } from '../../../app/store'
-import { wines } from '../../../tests/testdata'
-import { CounterState } from '../../counter/counterSlice'
+import { initRootState } from '../../../tests/testutils'
 import wineReducer, { selectWineCount, selectWines, WineState } from '../wineSlice'
 
 describe('Wine reducer', () => {
@@ -13,23 +11,6 @@ describe('Wine reducer', () => {
   })
 })
 
-const initRootState = (): RootState => {
-  const counterState: CounterState = {
-    value: 0,
-    status: 'idle',
-  }
-
-  const wineState: WineState = {
-    wines,
-    status: 'idle',
-  }
-
-  return {
-    counter: counterState,
-    wines: wineState,
-  }
-}
-
 describe('Selectors', () => {
   const state = initRootState()
 
@@ -38,6 +19,8 @@ describe('Selectors', () => {
   })
 
   it('should return all wines', () => {
-    expect(selectWines(state)).toEqual(wines)
+    const allWines = selectWines(state)
+    expect(allWines[0].name).toBe('White wine 1')
+    expect(allWines[1].name).toBe('Red wine 1')
   })
 })
