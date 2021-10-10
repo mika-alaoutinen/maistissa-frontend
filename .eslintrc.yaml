@@ -9,12 +9,6 @@ extends:
   - airbnb
   - airbnb-typescript
 
-overrides:
-  - {
-      files: ['*.tsx'],
-      rules: { 'no-undef': 'off' }
-    }
-
 parser: '@typescript-eslint/parser'
 
 parserOptions:
