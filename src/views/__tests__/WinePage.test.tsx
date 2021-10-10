@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { store } from '../../app/store'
 import api from '../../features/wine/wineAPI'
 import { wines } from '../../tests/testdata'
-import WineList from '../WineList'
+import WinePage from '../WinePage'
 
 const mockAPI = api as jest.Mocked<typeof api>
 jest.mock('../../features/wine/wineAPI')
@@ -19,7 +19,7 @@ describe('Fetches all wines on component load', () => {
 
     render(
       <Provider store={store}>
-        <WineList />
+        <WinePage />
       </Provider>
     )
 

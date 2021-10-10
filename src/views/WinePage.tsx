@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import AddWine from '../features/wine/AddWine'
-import Wines from '../features/wine/Wines'
-import { fetchWines, selectWineCount } from '../features/wine/wineSlice'
+import WineList from '../features/wine/WineList'
+import { fetchWines, selectWines } from '../features/wine/wineSlice'
 
-const WineList: React.FC = () => {
+const WinePage: React.FC = () => {
   const dispatch = useAppDispatch()
-  const count = useAppSelector(selectWineCount)
+  const count = useAppSelector(selectWines).length
 
   useEffect(() => {
     void dispatch(fetchWines())
@@ -16,9 +16,9 @@ const WineList: React.FC = () => {
     <div>
       <h2>{`Wines page (${count} wines)`}</h2>
       <AddWine />
-      <Wines />
+      <WineList />
     </div>
   )
 }
 
-export default WineList
+export default WinePage
