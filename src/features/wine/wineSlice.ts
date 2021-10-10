@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
 import api, { Wine } from './wineAPI'
 
@@ -24,11 +24,7 @@ const initialState: WineState = {
 const wineSlice = createSlice({
   name: 'wines',
   initialState,
-  reducers: {
-    addOne: (state, action: PayloadAction<Wine>) => {
-      state.wines.push(action.payload)
-    },
-  },
+  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(addWine.fulfilled, (state, action) => {
@@ -46,9 +42,6 @@ const wineSlice = createSlice({
       })
   },
 })
-
-// Actions
-export const { addOne } = wineSlice.actions
 
 // Selectors
 export const selectWineCount = (state: RootState): number => state.wines.wines.length
