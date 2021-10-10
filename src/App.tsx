@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css'
 import Counter from './features/counter/Counter'
-import WineList from './views/WineList'
+import WinePage from './views/WinePage'
 
 const App: React.FC = () => {
   return (
@@ -51,7 +51,7 @@ const App: React.FC = () => {
         </span>
       </header>
 
-      <WineList />
+      <WinePage />
     </div>
   )
 }
