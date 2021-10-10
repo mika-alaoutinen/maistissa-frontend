@@ -1,23 +1,27 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api, { Wine } from './wineAPI';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import api, { Wine } from "./wineAPI";
 
 // Thunk actions
-export const addWine = createAsyncThunk('wines/addWine', async (wine: Wine) => api.addWine(wine));
+export const addWine = createAsyncThunk("wines/addWine", async (wine: Wine) =>
+  api.addWine(wine)
+);
 
-export const fetchWines = createAsyncThunk('wines/fetchWines', async () => api.getWines());
+export const fetchWines = createAsyncThunk("wines/fetchWines", async () =>
+  api.getWines()
+);
 
 export interface WineState {
-  wines: Wine[]
-  status: 'idle' | 'loading' | 'failed'
+  wines: Wine[];
+  status: "idle" | "loading" | "failed";
 }
 
 const initialState: WineState = {
   wines: [],
-  status: 'idle',
+  status: "idle",
 };
 
 const wineSlice = createSlice({
-  name: 'wines',
+  name: "wines",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -26,14 +30,14 @@ const wineSlice = createSlice({
         state.wines.push(action.payload);
       })
       .addCase(fetchWines.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(fetchWines.fulfilled, (state, action) => {
-        state.status = 'idle';
+        state.status = "idle";
         state.wines = action.payload;
       })
       .addCase(fetchWines.rejected, (state) => {
-        state.status = 'failed';
+        state.status = "failed";
       });
   },
 });

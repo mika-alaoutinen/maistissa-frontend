@@ -1,6 +1,6 @@
-import React from 'react';
-import Header from './components/Header';
-import WinePage from './views/WinePage';
+import React from "react";
+import Header from "./components/Header";
+import WinePage from "./views/WinePage";
 
 const App: React.FC = () => (
   <div className="App">
