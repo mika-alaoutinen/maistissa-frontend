@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './App.css'
 import Counter from './features/counter/Counter'
-import { Wine } from './generated/models/Wine'
-import wineService from './services/wineService'
+import WineList from './views/WineList'
 
 const App: React.FC = () => {
-  const [wines, setWines] = useState<Wine[]>([])
-
-  useEffect(() => {
-    const fetchWines = async (): Promise<void> => {
-      setWines(await wineService.getWines())
-    }
-    void fetchWines()
-  }, [])
-
   return (
     <div className='App'>
       <header className='App-header'>
-        <h2>Number of wines {wines ? wines.length : 0}</h2>
-
         <Counter />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -62,6 +50,8 @@ const App: React.FC = () => {
           </a>
         </span>
       </header>
+
+      <WineList />
     </div>
   )
 }

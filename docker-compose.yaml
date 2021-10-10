@@ -25,7 +25,7 @@ services:
       - pg_data:/var/lib/postgres
 
   wineapp:
-    container_name: wineapp
+    container_name: maistissa-backend
     depends_on:
       - postgres
     environment:
@@ -35,7 +35,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: admin
     expose:
       - 8080
-    image: mikaalaoutinen/wineapp:latest
+    image: maistissa-backend
     ports:
       - "8082:8080"
     restart: unless-stopped
