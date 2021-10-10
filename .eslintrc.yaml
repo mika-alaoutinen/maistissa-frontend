@@ -6,7 +6,9 @@ env:
 extends:
   - 'plugin:react/recommended'
   - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:@typescript-eslint/recommended-requiring-type-checking'
   - airbnb
+  - airbnb/hooks
   - airbnb-typescript
 
 parser: '@typescript-eslint/parser'
@@ -19,4 +21,5 @@ plugins:
   - '@typescript-eslint'
 
 rules:
+  no-console: 'off'
   no-param-reassign: ['error', { 'props': false }]
