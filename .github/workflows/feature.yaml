@@ -28,8 +28,6 @@ jobs:
         auto_fix: true
         eslint: true
         eslint_extensions: ts,tsx
-        prettier: true
-        prettier_extensions: ts,tsx
 
   test:
     name: Run tests

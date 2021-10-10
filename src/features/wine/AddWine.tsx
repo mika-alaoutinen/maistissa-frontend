@@ -1,7 +1,7 @@
-import React from 'react'
-import { useAppDispatch } from '../../app/hooks'
-import { Wine } from './wineAPI'
-import { addWine } from './wineSlice'
+import React from 'react';
+import { useAppDispatch } from '../../app/hooks';
+import { Wine } from './wineAPI';
+import { addWine } from './wineSlice';
 
 const wine: Wine = {
   id: 1,
@@ -13,21 +13,23 @@ const wine: Wine = {
   description: ['dry', 'aromatic'],
   foodPairings: ['white meat'],
   url: '',
-}
+};
 
 const AddWine: React.FC = () => {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
-    e.preventDefault()
-    void dispatch(addWine(wine))
-  }
+    e.preventDefault();
+    void dispatch(addWine(wine));
+  };
 
   return (
     <div>
-      <button onClick={handleAddWine}>Add wine</button>
+      <button onClick={handleAddWine} type="submit">
+        Add wine
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default AddWine
+export default AddWine;

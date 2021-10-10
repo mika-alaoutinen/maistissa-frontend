@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../app/hooks'
-import AddWine from '../features/wine/AddWine'
-import WineList from '../features/wine/WineList'
-import { fetchWines, selectWines } from '../features/wine/wineSlice'
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { selectWines } from '../app/selectors';
+import AddWine from '../features/wine/AddWine';
+import WineList from '../features/wine/WineList';
+import { fetchWines } from '../features/wine/wineSlice';
 
 const WinePage: React.FC = () => {
-  const dispatch = useAppDispatch()
-  const count = useAppSelector(selectWines).length
+  const dispatch = useAppDispatch();
+  const count = useAppSelector(selectWines).length;
 
   useEffect(() => {
-    void dispatch(fetchWines())
-  }, [dispatch])
+    void dispatch(fetchWines());
+  }, [dispatch]);
 
   return (
     <div>
@@ -18,7 +19,7 @@ const WinePage: React.FC = () => {
       <AddWine />
       <WineList />
     </div>
-  )
-}
+  );
+};
 
-export default WinePage
+export default WinePage;
