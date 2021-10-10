@@ -44,7 +44,6 @@ const wineSlice = createSlice({
 })
 
 // Selectors
-export const selectWineCount = (state: RootState): number => state.wines.wines.length
 export const selectWines = (state: RootState): Wine[] => state.wines.wines
 
 export default wineSlice.reducer
