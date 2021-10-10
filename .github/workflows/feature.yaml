@@ -1,0 +1,44 @@
+# Workflow that is run when a push is made to any branch except master or release.
+# Runs linter, builds code and runs tests. If linting errors are found, attempt to auto-fix them
+# by pushing a new commit to the feature branch.
+
+name: Feature branch workflow
+
+on:
+  push:
+    branches-ignore:
+     - master
+     - release*
+
+jobs:
+  lint:
+    name: Run linter
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14
+    - run: npm ci
+    - run: npm run openapi
+    - name: run linter action
+      uses: wearerequired/lint-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        auto_fix: true
+        eslint: true
+        eslint_extensions: ts,tsx
+        prettier: true
+        prettier_extensions: ts,tsx
+
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 14
+    - run: npm ci
+    - run: npm run openapi
+    - run: npm run test
