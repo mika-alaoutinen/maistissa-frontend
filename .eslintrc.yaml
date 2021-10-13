@@ -23,5 +23,5 @@ plugins:
 rules:
   linebreak-style: ['warn', 'unix']
   no-console: 'off'
-  no-param-reassign: ['error', { 'props': false }]
-  no-void: 'off'
+  no-param-reassign: ['error', { props: false }]
+  no-void: ['error', { allowAsStatement: true }]

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api, { Wine } from './wineAPI';
 
-// Thunk actions
+// Thunks
 export const addWine = createAsyncThunk('wines/addWine', async (wine: Wine) => api.addWine(wine));
 
 export const fetchWines = createAsyncThunk('wines/fetchWines', async () => api.getWines());

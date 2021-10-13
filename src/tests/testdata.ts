@@ -1,5 +1,5 @@
-import { Review } from '../generated';
-import { Wine } from '../generated/models/Wine';
+import { Review } from '../features/review/reviewAPI';
+import { Wine } from '../features/wine/wineAPI';
 
 export const reviews: Review[] = [];
 
