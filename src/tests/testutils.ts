@@ -1,15 +1,22 @@
 import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
+import reviewReducer, { ReviewState } from '../features/review/reviewSlice';
 import wineReducer, { WineState } from '../features/wine/wineSlice';
-import { wines } from './testdata';
+import { reviews, wines } from './testdata';
 
 export const initRootState = (): RootState => {
+  const reviewState: ReviewState = {
+    reviews,
+    status: 'idle',
+  };
+
   const wineState: WineState = {
     wines,
     status: 'idle',
   };
 
   return {
+    reviews: reviewState,
     wines: wineState,
   };
 };
@@ -20,6 +27,7 @@ export const initRootState = (): RootState => {
  */
 export const initStore = (): EnhancedStore<{ wines: WineState }> => configureStore({
   reducer: {
+    reviews: reviewReducer,
     wines: wineReducer,
   },
   preloadedState: initRootState(),
