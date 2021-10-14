@@ -1,7 +1,22 @@
-import { Review } from '../generated';
-import { Wine } from '../generated/models/Wine';
+import { Review } from '../features/review/reviewAPI';
+import { Wine } from '../features/wine/wineAPI';
 
-export const reviews: Review[] = [];
+export const reviews: Review[] = [
+  {
+    id: 1,
+    author: 'Pekka Kana',
+    date: '2020-01-01',
+    reviewText: 'Review of White wine 1',
+    rating: 4,
+  },
+  {
+    id: 2,
+    author: 'Kukko Pena',
+    date: '2020-01-02',
+    reviewText: 'Another review of White wine 1',
+    rating: 2,
+  },
+];
 
 export const wines: Wine[] = [
   {

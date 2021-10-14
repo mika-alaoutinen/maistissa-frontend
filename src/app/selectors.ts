@@ -1,7 +1,8 @@
+import { Review } from '../features/review/reviewAPI';
 import { Wine } from '../features/wine/wineAPI';
 import { RootState } from './store';
 
-const selectWineCount = (state: RootState): number => state.wines.wines.length;
+const selectReviews = (state: RootState): Review[] => state.reviews.reviews;
 const selectWines = (state: RootState): Wine[] => state.wines.wines;
 
-export { selectWineCount, selectWines };
+export { selectReviews, selectWines };
