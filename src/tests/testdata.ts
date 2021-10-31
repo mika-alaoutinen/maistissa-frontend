@@ -1,5 +1,5 @@
 import { Review } from '../features/review/reviewAPI';
-import { Wine } from '../features/wine/wineAPI';
+import { Wine, WineType } from '../features/wine/wineAPI';
 
 export const reviews: Review[] = [
   {
@@ -22,7 +22,7 @@ export const wines: Wine[] = [
   {
     id: 1,
     name: 'White wine 1',
-    type: Wine.type.WHITE,
+    type: WineType.WHITE,
     country: 'Spain',
     price: 10.5,
     volume: 0.75,
@@ -33,7 +33,7 @@ export const wines: Wine[] = [
   {
     id: 2,
     name: 'Red wine 1',
-    type: Wine.type.RED,
+    type: WineType.RED,
     country: 'Italy',
     price: 33.5,
     volume: 3,

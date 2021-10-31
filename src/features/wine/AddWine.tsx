@@ -1,12 +1,11 @@
 import React from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { Wine } from './wineAPI';
+import { NewWine, WineType } from './wineAPI';
 import { addWine } from './wineSlice';
 
-const wine: Wine = {
-  id: 1,
+const wine: NewWine = {
   name: 'White wine 1',
-  type: Wine.type.WHITE,
+  type: WineType.WHITE,
   country: 'Spain',
   price: 10.5,
   volume: 0.75,
