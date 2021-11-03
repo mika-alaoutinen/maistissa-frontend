@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { selectWines } from '../../app/selectors';
 import { Wine } from './wineAPI';
-
-type WineProps = 'name' | 'type' | 'country' | 'volume' | 'price';
+import { sortWines, WineProps } from './wineSorting';
 
 type Headers = {
   key: WineProps,
@@ -44,23 +43,14 @@ const WineList: React.FC = () => {
     setWines(initialWines);
   }, [initialWines]);
 
-  const sortDescending = (key: WineProps, unsortedWines: Wine[]): Wine[] => unsortedWines
-    .slice()
-    .sort((w1, w2) => {
-      if (w1[key] < w2[key]) return -1;
-      if (w1[key] > w2[key]) return 1;
-      return 0;
-    });
+  const sortAscending = (key: WineProps) => setWines(sortWines(wines, key, 'ASC'));
 
-  const sortWines = (key: WineProps): void => {
-    const sorted = sortDescending(key, wines);
-    setWines(sorted);
-  };
+  // const sortDescending = (key: WineProps) => setWines(sortWines(wines, key, 'DESC'));
 
   const renderHeader = ({ key, text }: Headers): JSX.Element => (
     <Th
       key={key}
-      onClick={() => sortWines(key)}
+      onClick={() => sortAscending(key)}
       style={{ cursor: 'pointer' }}
     >
       {text}
