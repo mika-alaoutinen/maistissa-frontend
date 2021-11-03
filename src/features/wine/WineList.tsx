@@ -1,38 +1,79 @@
 import {
   Table, Tbody, Th, Thead, Tr,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { selectWines } from '../../app/selectors';
+import { Wine } from './wineAPI';
+
+type WineProps = 'name' | 'type' | 'country' | 'volume' | 'price';
+
+type Headers = {
+  key: WineProps,
+  text: string
+};
+
+const wineHeaders: Headers[] = [
+  {
+    key: 'name',
+    text: 'Nimi',
+  },
+  {
+    key: 'type',
+    text: 'Tyyppi',
+  },
+  {
+    key: 'country',
+    text: 'Maa',
+  },
+  {
+    key: 'volume',
+    text: 'Määrä (l)',
+  },
+  {
+    key: 'price',
+    text: 'Hinta (€)',
+  },
+];
 
 const WineList: React.FC = () => {
-  const wines = useAppSelector(selectWines);
+  const initialWines = useAppSelector(selectWines);
+  const [wines, setWines] = useState<Wine[]>([]);
 
-  const sortWines = (key: string): void => {
-    // How to sort wines e.g. by type or volume?
-    console.log(key);
+  useEffect(() => {
+    setWines(initialWines);
+  }, [initialWines]);
+
+  const sortDescending = (key: WineProps, unsortedWines: Wine[]): Wine[] => unsortedWines
+    .slice()
+    .sort((w1, w2) => {
+      if (w1[key] < w2[key]) return -1;
+      if (w1[key] > w2[key]) return 1;
+      return 0;
+    });
+
+  const sortWines = (key: WineProps): void => {
+    const sorted = sortDescending(key, wines);
+    setWines(sorted);
   };
 
-  const renderHeader = (header: string): JSX.Element => (
+  const renderHeader = ({ key, text }: Headers): JSX.Element => (
     <Th
-      key={header}
-      onClick={() => sortWines(header)}
+      key={key}
+      onClick={() => sortWines(key)}
       style={{ cursor: 'pointer' }}
     >
-      {header}
+      {text}
     </Th>
   );
 
-  const renderTableHead = (): JSX.Element => {
-    const headers = ['Nimi', 'Tyyppi', 'Maa', 'Määrä (l)', 'Hinta (€)'];
-    return (
-      <Thead>
-        <Tr>
-          {headers.map(renderHeader)}
-        </Tr>
-      </Thead>
-    );
-  };
+  const renderTableHead = (): JSX.Element => (
+    <Thead>
+      <Tr>
+        {wineHeaders.map(renderHeader)}
+      </Tr>
+    </Thead>
+  );
 
   const renderTablebody = (): JSX.Element => (
     <Tbody>
