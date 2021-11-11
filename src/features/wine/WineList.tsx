@@ -1,11 +1,11 @@
 import {
   Table, Tbody, Th, Thead, Tr,
 } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import { useAppSelector } from '../../app/hooks';
+import React from 'react';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { selectWines } from '../../app/selectors';
-import { Wine } from './wineAPI';
-import { sortWines, WineProps } from './wineSorting';
+import { WineProps } from './wineSorting';
+import { sort } from './wineSlice';
 
 type Headers = {
   key: WineProps,
@@ -36,16 +36,15 @@ const wineHeaders: Headers[] = [
 ];
 
 const WineList: React.FC = () => {
-  const initialWines = useAppSelector(selectWines);
-  const [wines, setWines] = useState<Wine[]>([]);
+  const wines = useAppSelector(selectWines);
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    setWines(initialWines);
-  }, [initialWines]);
-
-  const sortAscending = (key: WineProps) => setWines(sortWines(wines, key, 'ASC'));
-
-  // const sortDescending = (key: WineProps) => setWines(sortWines(wines, key, 'DESC'));
+  const sortAscending = (key: WineProps) => {
+    dispatch(sort({
+      key,
+      sortType: 'ASC',
+    }));
+  };
 
   const renderHeader = ({ key, text }: Headers): JSX.Element => (
     <Th
