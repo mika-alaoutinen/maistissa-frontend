@@ -21,14 +21,12 @@ const wineSlice = createSlice({
   name: 'wines',
   initialState,
   reducers: {
-    sortAsc: (state, { payload }: PayloadAction<WineProps>) => ({
-      ...state,
-      wines: sortAscending(state.wines, payload),
-    }),
-    sortDesc: (state, { payload }: PayloadAction<WineProps>) => ({
-      ...state,
-      wines: sortDescending(state.wines, payload),
-    }),
+    sortAsc: (state, { payload }: PayloadAction<WineProps>) => {
+      state.wines = sortAscending(state.wines, payload);
+    },
+    sortDesc: (state, { payload }: PayloadAction<WineProps>) => {
+      state.wines = sortDescending(state.wines, payload);
+    },
   },
   extraReducers: (builder) => {
     builder
