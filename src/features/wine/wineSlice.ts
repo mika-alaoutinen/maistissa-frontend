@@ -1,5 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api, { NewWine, Wine } from './wineAPI';
+import { sortWines, SortType, WineProps } from './wineSorting';
+
+// Actions
+interface SortAction {
+  key: WineProps,
+  sortType: SortType
+}
 
 // Thunks
 export const addWine = createAsyncThunk('wines/addWine', async (wine: NewWine) => api.addWine(wine));
@@ -19,7 +26,15 @@ const initialState: WineState = {
 const wineSlice = createSlice({
   name: 'wines',
   initialState,
-  reducers: {},
+  reducers: {
+    sort: (state, { payload }: PayloadAction<SortAction>) => {
+      const { key, sortType } = payload;
+      return {
+        ...state,
+        wines: sortWines(state.wines, key, sortType),
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addWine.fulfilled, (state, action) => {
@@ -38,4 +53,6 @@ const wineSlice = createSlice({
   },
 });
 
-export default wineSlice.reducer;
+const { actions, reducer } = wineSlice;
+export const { sort } = actions;
+export default reducer;
