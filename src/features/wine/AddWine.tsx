@@ -1,3 +1,4 @@
+import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { NewWine, WineType } from './wineAPI';
@@ -24,9 +25,9 @@ const AddWine: React.FC = () => {
 
   return (
     <div>
-      <button onClick={handleAddWine} type="submit">
+      <Button colorScheme="red" onClick={handleAddWine} type="submit">
         Add wine
-      </button>
+      </Button>
     </div>
   );
 };
