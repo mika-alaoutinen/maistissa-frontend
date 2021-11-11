@@ -5,7 +5,7 @@ import React from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { selectWines } from '../../app/selectors';
 import { WineProps } from './wineSorting';
-import { sort } from './wineSlice';
+import { sortAsc } from './wineSlice';
 
 type Headers = {
   key: WineProps,
@@ -39,17 +39,10 @@ const WineList: React.FC = () => {
   const wines = useAppSelector(selectWines);
   const dispatch = useAppDispatch();
 
-  const sortAscending = (key: WineProps) => {
-    dispatch(sort({
-      key,
-      sortType: 'ASC',
-    }));
-  };
-
   const renderHeader = ({ key, text }: Headers): JSX.Element => (
     <Th
       key={key}
-      onClick={() => sortAscending(key)}
+      onClick={() => dispatch(sortAsc(key))}
       style={{ cursor: 'pointer' }}
     >
       {text}
