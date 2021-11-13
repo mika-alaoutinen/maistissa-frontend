@@ -14,9 +14,9 @@ const Navigation: React.FC = () => {
   ));
 
   return (
-    <div>
+    <nav>
       {createLinks()}
-    </div>
+    </nav>
   );
 };
 
