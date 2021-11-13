@@ -1,6 +1,7 @@
 import { configureStore, EnhancedStore } from '@reduxjs/toolkit';
 import { render, RenderResult } from '@testing-library/react';
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { RootState } from '../app/store';
 import reviewReducer, { ReviewState } from '../features/review/reviewSlice';
@@ -40,4 +41,10 @@ export const renderWithStore = (component: JSX.Element): RenderResult => render(
   <Provider store={initStore()}>
     {component}
   </Provider>,
+);
+
+export const renderWithRouter = (component: JSX.Element): RenderResult => render(
+  <Router>
+    {component}
+  </Router>,
 );
