@@ -38,3 +38,10 @@ describe('Header has navigation links', () => {
       .forEach((href) => expect(expectedHrefs).toContain(href));
   });
 });
+
+describe('Header has a login button', () => {
+  it('button has text login', () => {
+    renderWithRouter(<Header />);
+    expect(screen.getByText('Login')).toBeInTheDocument();
+  });
+});

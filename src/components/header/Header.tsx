@@ -1,7 +1,8 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import React from 'react';
 import { links } from '../../app/Router';
 import AppName from './AppName';
+import LoginButton from './LoginButton';
 import Navigation from './Navigation';
 
 const Header: React.FC = () => {
@@ -19,15 +20,7 @@ const Header: React.FC = () => {
     >
       <AppName home={home} />
       <Navigation links={navLinks} />
-
-      <Button
-        onClick={() => console.log('sign in not implemented')}
-        _hover={{ bg: 'teal.700', borderColor: 'teal.700' }}
-        variant="outline"
-      >
-        Sign in
-      </Button>
-
+      <LoginButton />
     </Flex>
   );
 };
