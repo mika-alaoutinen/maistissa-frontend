@@ -4,7 +4,7 @@ import HomePage from '../views/HomePage';
 import ReviewPage from '../views/ReviewPage';
 import WinePage from '../views/WinePage';
 
-interface Link {
+export interface Link {
   text: string
   to: string
 }
