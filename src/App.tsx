@@ -1,13 +1,11 @@
 import React from 'react';
-import Header from './components/Header';
-import ReviewPage from './views/ReviewPage';
-import WinePage from './views/WinePage';
+import Header from './components/header/Header';
+import Router from './app/Router';
 
 const App: React.FC = () => (
   <div className="App">
     <Header />
-    <WinePage />
-    <ReviewPage />
+    <Router />
   </div>
 );
 
