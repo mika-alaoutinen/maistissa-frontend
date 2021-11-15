@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { selectWines } from '../../app/selectors';
-import { WineProps } from './wineSorting';
+import { WineProps } from './wineAPI';
 import { sortAsc } from './wineSlice';
 
 type Headers = {

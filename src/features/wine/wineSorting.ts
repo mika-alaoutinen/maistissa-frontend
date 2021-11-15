@@ -1,6 +1,4 @@
-import { Wine } from './wineAPI';
-
-export type WineProps = 'name' | 'type' | 'country' | 'volume' | 'price';
+import { Wine, WineProps } from './wineAPI';
 
 const sortAsc = (a: Wine, b: Wine, key: WineProps): number => {
   if (a[key] < b[key]) return -1;
