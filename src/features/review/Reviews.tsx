@@ -2,10 +2,10 @@ import {
   Table, Tbody, Th, Thead, Tr,
 } from '@chakra-ui/react';
 import React from 'react';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectReviews } from '../../app/selectors';
-
-type ReviewProps = 'author' | 'date' | 'rating' | 'reviewText' | 'wine';
+import { ReviewProps } from './reviewAPI';
+import { sortAsc } from './reviewSlice';
 
 type Header = {
   key: ReviewProps,
@@ -36,7 +36,7 @@ const reviewHeaders: Header[] = [
 ];
 
 const Reviews: React.FC = () => {
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const reviews = useAppSelector(selectReviews);
 
   const renderTableHead = (): JSX.Element => (
@@ -45,7 +45,7 @@ const Reviews: React.FC = () => {
         {reviewHeaders.map(({ key, text }) => (
           <Th
             key={key}
-            onClick={() => console.log('klik')}
+            onClick={() => dispatch(sortAsc(key))}
             style={{ cursor: 'pointer' }}
           >
             {text}
