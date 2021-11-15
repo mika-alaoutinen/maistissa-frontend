@@ -36,23 +36,21 @@ const wineHeaders: Headers[] = [
 ];
 
 const WineList: React.FC = () => {
-  const wines = useAppSelector(selectWines);
   const dispatch = useAppDispatch();
-
-  const renderHeader = ({ key, text }: Headers): JSX.Element => (
-    <Th
-      key={key}
-      onClick={() => dispatch(sortAsc(key))}
-      style={{ cursor: 'pointer' }}
-    >
-      {text}
-    </Th>
-  );
+  const wines = useAppSelector(selectWines);
 
   const renderTableHead = (): JSX.Element => (
     <Thead>
       <Tr>
-        {wineHeaders.map(renderHeader)}
+        {wineHeaders.map(({ key, text }) => (
+          <Th
+            key={key}
+            onClick={() => dispatch(sortAsc(key))}
+            style={{ cursor: 'pointer' }}
+          >
+            {text}
+          </Th>
+        ))}
       </Tr>
     </Thead>
   );
