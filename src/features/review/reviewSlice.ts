@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { sortAscending, sortDescending } from '../../utils/sorting';
 import api, { Review, ReviewProps } from './reviewAPI';
-import { sortAscending, sortDescending } from './reviewSorting';
 
 // Thunks
 export const fetchReviews = createAsyncThunk('reviews/fetchReviews', async () => api.getReviews());

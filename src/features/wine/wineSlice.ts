@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { sortAscending, sortDescending } from '../../utils/sorting';
 import api, { NewWine, Wine, WineProps } from './wineAPI';
-import { sortAscending, sortDescending } from './wineSorting';
 
 // Thunks
 export const addWine = createAsyncThunk('wines/addWine', async (wine: NewWine) => api.addWine(wine));

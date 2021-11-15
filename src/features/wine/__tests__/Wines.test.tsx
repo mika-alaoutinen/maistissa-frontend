@@ -3,10 +3,8 @@ import React from 'react';
 import { renderWithStore } from '../../../tests/testutils';
 import Wines from '../Wines';
 
-// No idea why Eslint warns about any type here
 describe('Displays wine names', () => {
-  it('renders two wine names as paragraphs', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  it('renders two wines in a table', () => {
     renderWithStore(<Wines />);
     expect(screen.getAllByText(/wine/)).toHaveLength(2);
   });

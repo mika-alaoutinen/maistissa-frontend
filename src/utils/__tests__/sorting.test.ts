@@ -1,7 +1,8 @@
-import { wines } from '../../../tests/testdata';
-import { WineType } from '../wineAPI';
-import { sortAscending, sortDescending } from '../wineSorting';
+import { wines } from '../../tests/testdata';
+import { WineType } from '../../features/wine/wineAPI';
+import { sortAscending, sortDescending } from '../sorting';
 
+// Tests for sorting Wine objects
 describe('Sort ascending by key', () => {
   it('sorts wines by country from a to z', () => {
     const sorted = sortAscending(wines, 'country');
