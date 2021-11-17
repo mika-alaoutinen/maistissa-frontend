@@ -32,10 +32,10 @@ describe('Wine information is presented as a table', () => {
   it('renders headers', () => {
     ['Name', 'Type', 'Country', 'Volume (l)', 'Price (€)']
       .map((header) => screen.getByText(header))
-      .forEach((htmlElement) => expect(htmlElement).toBeInTheDocument());
+      .forEach((html) => expect(html).toBeInTheDocument());
   });
 
-  it('renders two wines in a table', async () => {
+  it('renders two wines in a table', () => {
     const whiteWine: WineInfo = {
       name: 'White wine 1',
       type: 'WHITE',
