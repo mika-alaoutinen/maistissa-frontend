@@ -10,7 +10,7 @@ const sortArray = <T>(
   key: keyof T,
   direction: 'ASC' | 'DESC',
 ): T[] => {
-  const compare = (a: T, b: T) => {
+  const compare = (a: T, b: T): number => {
     const valueA = a[key];
     const valueB = b[key];
 

@@ -51,7 +51,8 @@ describe('Review information is presented as a table', () => {
 
     verifyReviewIsRendered(review1);
     verifyReviewIsRendered(review2);
-    expect(screen.getAllByText(/White wine 1/).length).toBe(2);
+    expect(screen.getAllByText(/White wine 1/).length).toBe(1);
+    expect(screen.getAllByText(/Red wine 1/).length).toBe(1);
   });
 });
 

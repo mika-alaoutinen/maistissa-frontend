@@ -42,6 +42,6 @@ export const reviews: Review[] = [
     date: '2020-01-02',
     reviewText: 'Another review',
     rating: 2,
-    wine: white,
+    wine: red,
   },
 ];
