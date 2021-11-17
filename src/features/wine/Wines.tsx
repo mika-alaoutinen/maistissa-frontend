@@ -15,23 +15,23 @@ type Headers = {
 const wineHeaders: Headers[] = [
   {
     key: 'name',
-    text: 'Nimi',
+    text: 'Name',
   },
   {
     key: 'type',
-    text: 'Tyyppi',
+    text: 'Type',
   },
   {
     key: 'country',
-    text: 'Maa',
+    text: 'Country',
   },
   {
     key: 'volume',
-    text: 'Määrä (l)',
+    text: 'Volume (l)',
   },
   {
     key: 'price',
-    text: 'Hinta (€)',
+    text: 'Price (€)',
   },
 ];
 

@@ -15,23 +15,23 @@ type Header = {
 const reviewHeaders: Header[] = [
   {
     key: 'date',
-    text: 'Päivämäärä',
+    text: 'Date',
   },
   {
     key: 'author',
-    text: 'Arvostelija',
+    text: 'Author',
   },
   {
     key: 'reviewText',
-    text: 'Arvostelu',
+    text: 'Review',
   },
   {
     key: 'rating',
-    text: 'Arvosana',
+    text: 'Rating',
   },
   {
     key: 'wine',
-    text: 'Viini',
+    text: 'Wine',
   },
 ];
 
