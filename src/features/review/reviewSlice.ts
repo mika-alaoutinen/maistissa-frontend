@@ -1,5 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import api, { Review } from './reviewAPI';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { sortAscending, sortDescending } from '../../utils/sorting';
+import api, { Review, ReviewProps } from './reviewAPI';
+import { sortByWineName } from './reviewSorting';
 
 // Thunks
 export const fetchReviews = createAsyncThunk('reviews/fetchReviews', async () => api.getReviews());
@@ -17,7 +19,20 @@ const initialState: ReviewState = {
 const reviewSlice = createSlice({
   name: 'reviews',
   initialState,
-  reducers: {},
+  reducers: {
+    sortAsc: (state, { payload }: PayloadAction<ReviewProps>) => {
+      state.reviews = sortAscending(state.reviews, payload);
+    },
+    sortDesc: (state, { payload }: PayloadAction<ReviewProps>) => {
+      state.reviews = sortDescending(state.reviews, payload);
+    },
+    sortWineAsc: (state) => {
+      state.reviews = sortByWineName(state.reviews, 'ASC');
+    },
+    sortWineDesc: (state) => {
+      state.reviews = sortByWineName(state.reviews, 'DESC');
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchReviews.pending, (state) => {
@@ -33,4 +48,8 @@ const reviewSlice = createSlice({
   },
 });
 
-export default reviewSlice.reducer;
+const { actions, reducer } = reviewSlice;
+export const {
+  sortAsc, sortDesc, sortWineAsc, sortWineDesc,
+} = actions;
+export default reducer;

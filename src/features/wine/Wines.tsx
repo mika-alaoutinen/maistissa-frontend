@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { selectWines } from '../../app/selectors';
-import { WineProps } from './wineSorting';
+import { WineProps } from './wineAPI';
 import { sortAsc } from './wineSlice';
 
 type Headers = {
@@ -15,44 +15,42 @@ type Headers = {
 const wineHeaders: Headers[] = [
   {
     key: 'name',
-    text: 'Nimi',
+    text: 'Name',
   },
   {
     key: 'type',
-    text: 'Tyyppi',
+    text: 'Type',
   },
   {
     key: 'country',
-    text: 'Maa',
+    text: 'Country',
   },
   {
     key: 'volume',
-    text: 'Määrä (l)',
+    text: 'Volume (l)',
   },
   {
     key: 'price',
-    text: 'Hinta (€)',
+    text: 'Price (€)',
   },
 ];
 
 const WineList: React.FC = () => {
-  const wines = useAppSelector(selectWines);
   const dispatch = useAppDispatch();
-
-  const renderHeader = ({ key, text }: Headers): JSX.Element => (
-    <Th
-      key={key}
-      onClick={() => dispatch(sortAsc(key))}
-      style={{ cursor: 'pointer' }}
-    >
-      {text}
-    </Th>
-  );
+  const wines = useAppSelector(selectWines);
 
   const renderTableHead = (): JSX.Element => (
     <Thead>
       <Tr>
-        {wineHeaders.map(renderHeader)}
+        {wineHeaders.map(({ key, text }) => (
+          <Th
+            key={key}
+            onClick={() => dispatch(sortAsc(key))}
+            style={{ cursor: 'pointer' }}
+          >
+            {text}
+          </Th>
+        ))}
       </Tr>
     </Thead>
   );

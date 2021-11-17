@@ -25,7 +25,9 @@ describe('Header has navigation links', () => {
 
   it('displays link texts correctly', () => {
     renderWithRouter(<Header />);
-    ['Reviews', 'Wines'].forEach((navText) => expect(screen.getByText(navText)).toBeInTheDocument());
+    ['Reviews', 'Wines']
+      .map((navText) => screen.getByText(navText))
+      .forEach((htmlElement) => expect(htmlElement).toBeInTheDocument());
   });
 
   it('links point to correct hrefs', () => {
