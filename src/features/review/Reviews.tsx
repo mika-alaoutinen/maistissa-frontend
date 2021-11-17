@@ -5,13 +5,15 @@ import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectReviews } from '../../app/selectors';
 import { ReviewProps } from './reviewAPI';
-import { sortAsc } from './reviewSlice';
+import { sortAsc, sortWineAsc } from './reviewSlice';
 
 type Header = {
   key: ReviewProps,
   text: string
 };
 
+// Headers excluding wine, because sorting by wine name
+// has to be handled differently from sorting by other fields.
 const reviewHeaders: Header[] = [
   {
     key: 'date',
@@ -28,10 +30,6 @@ const reviewHeaders: Header[] = [
   {
     key: 'rating',
     text: 'Rating',
-  },
-  {
-    key: 'wine',
-    text: 'Wine',
   },
 ];
 
@@ -51,6 +49,13 @@ const Reviews: React.FC = () => {
             {text}
           </Th>
         ))}
+        <Th
+          key="wine"
+          onClick={() => dispatch(sortWineAsc())}
+          style={{ cursor: 'pointer' }}
+        >
+          Wine
+        </Th>
       </Tr>
     </Thead>
   );
