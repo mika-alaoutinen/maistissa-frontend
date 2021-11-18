@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { selectWines, selectWinesSorted } from '../../app/selectors';
-import { useSortingFn } from './hooks/wineSorting';
+import { useSorting } from './hooks/wineSorting';
 import { WineProps } from './wineAPI';
 
 type Headers = {
@@ -38,7 +38,7 @@ const wineHeaders: Headers[] = [
 const WineList: React.FC = () => {
   const wines = useAppSelector(selectWines);
   const winesSorted = useAppSelector(selectWinesSorted);
-  const sortingFn = useSortingFn();
+  const sortingFn = useSorting();
 
   const showSortedDirection = (key: WineProps): 'a' | 'd' | '' => {
     if (winesSorted.direction === 'unsorted' || winesSorted.key !== key) {

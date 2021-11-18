@@ -4,8 +4,11 @@ import { wines } from '../../../tests/testdata';
 describe('Wine reducer', () => {
   it('should handle initial state', () => {
     const initialState: WineState = {
-      wines: [],
+      sorted: {
+        direction: 'unsorted',
+      },
       status: 'idle',
+      wines: [],
     };
     expect(reducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });
@@ -13,8 +16,11 @@ describe('Wine reducer', () => {
 
 describe('Sorting wines', () => {
   const previousState: WineState = {
-    wines,
+    sorted: {
+      direction: 'unsorted',
+    },
     status: 'idle',
+    wines,
   };
 
   it('sortAsc sorts wines in ascending order', () => {
