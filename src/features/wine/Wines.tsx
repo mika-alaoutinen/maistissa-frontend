@@ -2,10 +2,10 @@ import {
   Table, Tbody, Th, Thead, Tr,
 } from '@chakra-ui/react';
 import React from 'react';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { selectWines, selectWinesSorted } from '../../app/selectors';
+import { useSortingFn } from './hooks/wineSorting';
 import { WineProps } from './wineAPI';
-import { sortAsc, sortDesc } from './wineSlice';
 
 type Headers = {
   key: WineProps,
@@ -36,22 +36,15 @@ const wineHeaders: Headers[] = [
 ];
 
 const WineList: React.FC = () => {
-  const dispatch = useAppDispatch();
   const wines = useAppSelector(selectWines);
   const winesSorted = useAppSelector(selectWinesSorted);
+  const sortingFn = useSortingFn();
 
   const showSortedDirection = (key: WineProps): 'a' | 'd' | '' => {
-    if (winesSorted === 'unsorted' || winesSorted.key !== key) {
+    if (winesSorted.direction === 'unsorted' || winesSorted.key !== key) {
       return '';
     }
-    return winesSorted.direction === 'ASC' ? 'a' : 'd';
-  };
-
-  const sortingFn = (key: WineProps) => {
-    if (winesSorted === 'unsorted') {
-      return dispatch(sortAsc(key));
-    }
-    return winesSorted.direction === 'ASC' ? dispatch(sortDesc(key)) : dispatch(sortAsc(key));
+    return winesSorted.direction === 'asc' ? 'a' : 'd';
   };
 
   const renderTableHead = (): JSX.Element => (
