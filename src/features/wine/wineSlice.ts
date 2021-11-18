@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { sortAscending, sortDescending } from '../../utils/sorting';
+import { sortAscending, sortDescending, Sorted } from '../../utils/sorting';
 import api, { NewWine, Wine, WineProps } from './wineAPI';
 
 // Thunks
@@ -8,13 +8,15 @@ export const addWine = createAsyncThunk('wines/addWine', async (wine: NewWine) =
 export const fetchWines = createAsyncThunk('wines/fetchWines', async () => api.getWines());
 
 export interface WineState {
-  wines: Wine[];
+  sorted: Sorted | 'unsorted';
   status: 'idle' | 'loading' | 'failed';
+  wines: Wine[];
 }
 
 const initialState: WineState = {
-  wines: [],
+  sorted: 'unsorted',
   status: 'idle',
+  wines: [],
 };
 
 const wineSlice = createSlice({
@@ -22,9 +24,17 @@ const wineSlice = createSlice({
   initialState,
   reducers: {
     sortAsc: (state, { payload }: PayloadAction<WineProps>) => {
+      state.sorted = {
+        direction: 'ASC',
+        key: payload,
+      };
       state.wines = sortAscending(state.wines, payload);
     },
     sortDesc: (state, { payload }: PayloadAction<WineProps>) => {
+      state.sorted = {
+        direction: 'DESC',
+        key: payload,
+      };
       state.wines = sortDescending(state.wines, payload);
     },
   },
