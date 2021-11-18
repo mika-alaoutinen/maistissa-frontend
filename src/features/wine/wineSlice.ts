@@ -8,13 +8,20 @@ export const addWine = createAsyncThunk('wines/addWine', async (wine: NewWine) =
 export const fetchWines = createAsyncThunk('wines/fetchWines', async () => api.getWines());
 
 export interface WineState {
-  sorted: Sorted | 'unsorted';
+  sorted: WinesSorted;
   status: 'idle' | 'loading' | 'failed';
   wines: Wine[];
 }
 
+export interface WinesSorted {
+  direction: Sorted,
+  key?: WineProps,
+}
+
 const initialState: WineState = {
-  sorted: 'unsorted',
+  sorted: {
+    direction: 'unsorted',
+  },
   status: 'idle',
   wines: [],
 };
@@ -25,14 +32,14 @@ const wineSlice = createSlice({
   reducers: {
     sortAsc: (state, { payload }: PayloadAction<WineProps>) => {
       state.sorted = {
-        direction: 'ASC',
+        direction: 'asc',
         key: payload,
       };
       state.wines = sortAscending(state.wines, payload);
     },
     sortDesc: (state, { payload }: PayloadAction<WineProps>) => {
       state.sorted = {
-        direction: 'DESC',
+        direction: 'desc',
         key: payload,
       };
       state.wines = sortDescending(state.wines, payload);

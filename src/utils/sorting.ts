@@ -31,9 +31,6 @@ const sortArray = <T>(
 export const sortAscending = <T>(data: T[], key: keyof T): T[] => sortArray(data, key, 'ASC');
 export const sortDescending = <T>(data: T[], key: keyof T): T[] => sortArray(data, key, 'DESC');
 
-export interface Sorted {
-  direction: 'ASC' | 'DESC';
-  key: string;
-}
+export type Sorted = 'asc' | 'desc' | 'unsorted';
 
 export default { sortAscending, sortDescending };
