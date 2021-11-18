@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { sortAscending, sortDescending, Sorted } from '../../utils/sorting';
+import { sortAscending, sortDescending, WinesSorted } from '../../utils/sorting';
 import api, { NewWine, Wine, WineProps } from './wineAPI';
 
 // Thunks
@@ -11,11 +11,6 @@ export interface WineState {
   sorted: WinesSorted;
   status: 'idle' | 'loading' | 'failed';
   wines: Wine[];
-}
-
-export interface WinesSorted {
-  direction: Sorted,
-  key?: WineProps,
 }
 
 const initialState: WineState = {

@@ -9,11 +9,9 @@ export const useSortingFn = (): SortingFn => {
   const dispatch = useAppDispatch();
   const { direction } = useAppSelector(selectWinesSorted);
 
-  if (direction === 'asc') {
-    return (key: WineProps) => dispatch(sortDesc(key));
-  }
-
-  return (key: WineProps) => dispatch(sortAsc(key));
+  return direction === 'asc'
+    ? (key: WineProps) => dispatch(sortDesc(key))
+    : (key: WineProps) => dispatch(sortAsc(key));
 };
 
 export default { useSortingFn };
