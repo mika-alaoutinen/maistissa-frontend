@@ -40,11 +40,19 @@ const WineList: React.FC = () => {
   const winesSorted = useAppSelector(selectWinesSorted);
   const sortingFn = useSorting();
 
-  const showSortedDirection = (key: WineProps): 'a' | 'd' | '' => {
+  const renderSortDirectionArrow = (direction: 'asc' | 'desc'): JSX.Element => (
+    <>
+      <span id="sort-direction-arrow" style={{ paddingLeft: '1em' }}>
+        {direction === 'asc' ? 'a' : 'd'}
+      </span>
+    </>
+  );
+
+  const showSortedDirection = (key: WineProps): JSX.Element | undefined => {
     if (winesSorted.direction === 'unsorted' || winesSorted.key !== key) {
-      return '';
+      return undefined;
     }
-    return winesSorted.direction === 'asc' ? 'a' : 'd';
+    return renderSortDirectionArrow(winesSorted.direction);
   };
 
   const renderTableHead = (): JSX.Element => (
@@ -57,7 +65,6 @@ const WineList: React.FC = () => {
             style={{ cursor: 'pointer' }}
           >
             {text}
-            {' '}
             {showSortedDirection(key)}
           </Th>
         ))}

@@ -68,4 +68,22 @@ describe('Clicking on headers sorts wines', () => {
 
     expect(initialWineName).not.toEqual(wineNameAfterSorting);
   });
+
+  it('ascending sort is indicated in the header by an up arrow', async () => {
+    const { container } = renderWithStore(<Wines />);
+    fireEvent.click(screen.getByText(/Price/));
+
+    const arrow = container.querySelector('#sort-direction-arrow');
+    expect(arrow?.textContent).toBe('a');
+  });
+
+  it('descending sort is indicated in the header by a down arrow', async () => {
+    const { container } = renderWithStore(<Wines />);
+    const header = screen.getByText(/Price/);
+    fireEvent.click(header);
+    fireEvent.click(header);
+
+    const arrow = container.querySelector('#sort-direction-arrow');
+    expect(arrow?.textContent).toBe('d');
+  });
 });

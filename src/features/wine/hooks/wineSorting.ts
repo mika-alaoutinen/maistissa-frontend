@@ -5,7 +5,7 @@ import { WinesSorted } from '../../../utils/sorting';
 import { WineProps } from '../wineAPI';
 import { sortAsc, sortDesc } from '../wineSlice';
 
-type SortingFn = (key: WineProps) => void;
+type SortingFn = (key: WineProps) => PayloadAction<WineProps>;
 
 /**
  * Selects a sorting function for an ascending or a descending sort.
