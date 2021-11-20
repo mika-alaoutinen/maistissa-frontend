@@ -9,8 +9,7 @@ interface Named {
   name: string
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const DataTableBody = <T extends Named>({ data }: Props<T>) => {
+const DataTableBody = <T extends Named>({ data }: Props<T>): JSX.Element => {
   const renderRow = (obj: T): JSX.Element[] => Object
     .values(obj)
     .map((value) => <Th>{value}</Th>);

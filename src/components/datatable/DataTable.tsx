@@ -13,15 +13,18 @@ interface Props<T> {
   sortingFn: (key: T) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const DataTable = <T extends unknown>({
+const DataTable = <T extends string>({
   data,
   headers,
   selector,
   sortingFn,
-}: Props<T>) => (
+}: Props<T>): JSX.Element => (
   <Table variant="striped">
-    <DataTableHead headers={headers} selector={selector} sortingFn={sortingFn} />
+    <DataTableHead
+      headers={headers}
+      selector={selector}
+      sortingFn={sortingFn}
+    />
     <DataTableBody data={data} />
   </Table>
   );

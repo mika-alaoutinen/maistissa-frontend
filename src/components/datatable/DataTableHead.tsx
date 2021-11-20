@@ -25,12 +25,11 @@ interface Props<T> {
   sortingFn: (key: T) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const DataTableHead = <T extends unknown>({
+const DataTableHead = <T extends string>({
   headers,
   selector,
   sortingFn,
-}: Props<T>) => {
+}: Props<T>): JSX.Element => {
   const dataSorted = useAppSelector(selector);
 
   const renderSortDirectionArrow = (sortDirection: 'asc' | 'desc'): JSX.Element => (
@@ -54,6 +53,7 @@ const DataTableHead = <T extends unknown>({
       <Tr>
         {headers.map(({ key, text }) => (
           <Th
+            key={key}
             onClick={() => sortingFn(key)}
             style={{ cursor: 'pointer' }}
           >
