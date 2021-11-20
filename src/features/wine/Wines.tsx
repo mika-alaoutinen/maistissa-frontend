@@ -1,3 +1,4 @@
+import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import {
   Table, Tbody, Th, Thead, Tr,
 } from '@chakra-ui/react';
@@ -41,8 +42,10 @@ const WineList: React.FC = () => {
   const sortDirectionFn = useSortDirection();
 
   const renderSortDirectionArrow = (direction: 'asc' | 'desc'): JSX.Element => (
-    <span id="sort-direction-arrow" style={{ paddingLeft: '1em' }}>
-      {direction === 'asc' ? 'a' : 'd'}
+    <span className="sort-direction-arrow" style={{ paddingLeft: '1em' }}>
+      {direction === 'asc'
+        ? <ArrowUpIcon id="wine-sort-up-arrow" />
+        : <ArrowDownIcon id="wine-sort-down-arrow" />}
     </span>
   );
 

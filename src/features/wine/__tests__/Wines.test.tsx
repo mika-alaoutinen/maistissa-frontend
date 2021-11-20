@@ -72,9 +72,7 @@ describe('Clicking on headers sorts wines', () => {
   it('ascending sort is indicated in the header by an up arrow', async () => {
     const { container } = renderWithStore(<Wines />);
     fireEvent.click(screen.getByText(/Price/));
-
-    const arrow = container.querySelector('#sort-direction-arrow');
-    expect(arrow?.textContent).toBe('a');
+    expect(container.querySelector('#wine-sort-up-arrow')).toBeInTheDocument();
   });
 
   it('descending sort is indicated in the header by a down arrow', async () => {
@@ -82,8 +80,6 @@ describe('Clicking on headers sorts wines', () => {
     const header = screen.getByText(/Price/);
     fireEvent.click(header);
     fireEvent.click(header);
-
-    const arrow = container.querySelector('#sort-direction-arrow');
-    expect(arrow?.textContent).toBe('d');
+    expect(container.querySelector('#wine-sort-down-arrow')).toBeInTheDocument();
   });
 });
