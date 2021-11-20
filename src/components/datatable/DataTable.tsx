@@ -4,10 +4,10 @@ import { WineData } from '../../features/wine/wineAPI';
 import DataTableBody from './DataTableBody';
 import DataTableHead, { Header, Selector } from './DataTableHead';
 
-type Data = WineData[];
+type Data = WineData;
 
 interface Props<T> {
-  data: Data;
+  data: Data[];
   headers: Header<T>[];
   selector: Selector;
   sortingFn: (key: T) => void;
