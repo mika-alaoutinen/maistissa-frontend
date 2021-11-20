@@ -1,15 +1,10 @@
 import { Table } from '@chakra-ui/react';
 import React from 'react';
-import { Wine } from '../../features/wine/wineAPI';
+import { WineData } from '../../features/wine/wineAPI';
 import DataTableBody from './DataTableBody';
-import DataTableHead, { Selector } from './DataTableHead';
+import DataTableHead, { Header, Selector } from './DataTableHead';
 
-type Data = Wine[];
-
-export interface Header<T> {
-  key: T;
-  text: string
-}
+type Data = WineData[];
 
 interface Props<T> {
   data: Data;

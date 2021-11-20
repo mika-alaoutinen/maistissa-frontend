@@ -5,7 +5,7 @@ import { useAppSelector } from '../../app/hooks';
 import { RootState } from '../../app/store';
 import { WinesSorted } from '../../utils/sorting';
 
-interface Header<T> {
+export interface Header<T> {
   key: T;
   text: string
 }
