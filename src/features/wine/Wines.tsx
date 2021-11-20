@@ -3,8 +3,8 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
-import { selectWines, selectWinesSorted } from '../../app/selectors';
-import { useSorting } from './hooks/wineSorting';
+import { selectWines } from '../../app/selectors';
+import { useSortDirection, useSorting } from './hooks/wineSorting';
 import { WineProps } from './wineAPI';
 
 type Headers = {
@@ -37,22 +37,20 @@ const wineHeaders: Headers[] = [
 
 const WineList: React.FC = () => {
   const wines = useAppSelector(selectWines);
-  const winesSorted = useAppSelector(selectWinesSorted);
   const sortingFn = useSorting();
+  const sortDirectionFn = useSortDirection();
 
   const renderSortDirectionArrow = (direction: 'asc' | 'desc'): JSX.Element => (
-    <>
-      <span id="sort-direction-arrow" style={{ paddingLeft: '1em' }}>
-        {direction === 'asc' ? 'a' : 'd'}
-      </span>
-    </>
+    <span id="sort-direction-arrow" style={{ paddingLeft: '1em' }}>
+      {direction === 'asc' ? 'a' : 'd'}
+    </span>
   );
 
-  const showSortedDirection = (key: WineProps): JSX.Element | undefined => {
-    if (winesSorted.direction === 'unsorted' || winesSorted.key !== key) {
-      return undefined;
-    }
-    return renderSortDirectionArrow(winesSorted.direction);
+  const showSortDirection = (key: WineProps): JSX.Element => {
+    const sorted = sortDirectionFn(key);
+    return sorted === 'unsorted'
+      ? <></>
+      : renderSortDirectionArrow(sorted);
   };
 
   const renderTableHead = (): JSX.Element => (
@@ -65,7 +63,7 @@ const WineList: React.FC = () => {
             style={{ cursor: 'pointer' }}
           >
             {text}
-            {showSortedDirection(key)}
+            {showSortDirection(key)}
           </Th>
         ))}
       </Tr>

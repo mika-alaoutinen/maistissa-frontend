@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectWinesSorted } from '../../../app/selectors';
-import { WinesSorted } from '../../../utils/sorting';
+import { Sorted, WinesSorted } from '../../../utils/sorting';
 import { WineProps } from '../wineAPI';
 import { sortAsc, sortDesc } from '../wineSlice';
 
@@ -27,6 +27,17 @@ export const useSorting = (): SortingFn => {
   const dispatch = useAppDispatch();
   const sorted = useAppSelector(selectWinesSorted);
   return (property: WineProps) => dispatch(selectSortingFn(property, sorted));
+};
+
+type SortDirectionFn = (key: WineProps) => Sorted;
+
+/**
+ * A hook for finding out the correct sort direction for a Wine key.
+ * @returns function that takes a WineProps key as an argument and returns a Sorted type.
+ */
+export const useSortDirection = (): SortDirectionFn => {
+  const { direction, key } = useAppSelector(selectWinesSorted);
+  return (property: WineProps) => (key === property ? direction : 'unsorted');
 };
 
 export default { useSorting };
