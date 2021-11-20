@@ -15,13 +15,9 @@ type SortingFn = (key: WineProps) => void;
  */
 const selectSortingFn = (
   property: WineProps, { key, direction }: WinesSorted,
-): PayloadAction<WineProps> => {
-  if (property === key) {
-    return direction === 'asc' ? sortDesc(key) : sortAsc(key);
-  }
-  // Use ascending sort by default
-  return sortAsc(property);
-};
+): PayloadAction<WineProps> => (property === key && direction === 'asc'
+  ? sortDesc(property)
+  : sortAsc(property));
 
 /**
  * A hook for dispatching a sorting action to the Redux store.
