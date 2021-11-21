@@ -2,7 +2,7 @@ import { Table } from '@chakra-ui/react';
 import React from 'react';
 import DataTableBody from './DataTableBody';
 import DataTableHead from './DataTableHead';
-import { Column, SortedByKey } from './types';
+import { Column, Identifiable, SortedByKey } from './types';
 
 interface Props<T, K extends keyof T> {
   columns: Column<T, K>[];
@@ -11,7 +11,7 @@ interface Props<T, K extends keyof T> {
   sortingFn?: (key: K) => void;
 }
 
-const DataTable = <T, K extends keyof T>({
+const DataTable = <T extends Identifiable, K extends keyof T>({
   columns,
   data,
   sorted = { direction: 'unsorted' },

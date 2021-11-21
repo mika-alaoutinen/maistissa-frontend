@@ -1,13 +1,13 @@
 import { Tbody, Th, Tr } from '@chakra-ui/react';
 import React from 'react';
-import { Column } from './types';
+import { Column, Identifiable } from './types';
 
 interface Props<T, K extends keyof T> {
   columns: Column<T, K>[];
   data: T[];
 }
 
-const DataTableBody = <T, K extends keyof T>({
+const DataTableBody = <T extends Identifiable, K extends keyof T>({
   data,
   columns,
 }: Props<T, K>): JSX.Element => {
@@ -19,9 +19,8 @@ const DataTableBody = <T, K extends keyof T>({
 
   return (
     <Tbody>
-      {data.map((row, i) => (
-        /* eslint-disable react/no-array-index-key */
-        <Tr key={`row-${i}`}>
+      {data.map((row) => (
+        <Tr key={`row-${row.id}`}>
           {renderColumns(row)}
         </Tr>
       ))}
