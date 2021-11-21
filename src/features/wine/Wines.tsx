@@ -1,82 +1,47 @@
-import {
-  Table, Tbody, Th, Thead, Tr,
-} from '@chakra-ui/react';
 import React from 'react';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { selectWines } from '../../app/selectors';
-import { WineProps } from './wineAPI';
-import { sortAsc } from './wineSlice';
+import { useAppSelector } from '../../app/hooks';
+import { selectWines, selectWinesSorted } from '../../app/selectors';
+import DataTable from '../../components/datatable/DataTable';
+import { Column } from '../../components/datatable/types';
+import { useSorting } from './hooks';
+import { Wine } from './wineAPI';
 
-type Headers = {
-  key: WineProps,
-  text: string
-};
-
-const wineHeaders: Headers[] = [
-  {
-    key: 'name',
-    text: 'Name',
-  },
-  {
-    key: 'type',
-    text: 'Type',
-  },
-  {
-    key: 'country',
-    text: 'Country',
-  },
-  {
-    key: 'volume',
-    text: 'Volume (l)',
-  },
-  {
-    key: 'price',
-    text: 'Price (€)',
-  },
-];
-
-const WineList: React.FC = () => {
-  const dispatch = useAppDispatch();
+const Wines: React.FC = () => {
   const wines = useAppSelector(selectWines);
+  const sorted = useAppSelector(selectWinesSorted);
+  const sortingFn = useSorting();
 
-  const renderTableHead = (): JSX.Element => (
-    <Thead>
-      <Tr>
-        {wineHeaders.map(({ key, text }) => (
-          <Th
-            key={key}
-            onClick={() => dispatch(sortAsc(key))}
-            style={{ cursor: 'pointer' }}
-          >
-            {text}
-          </Th>
-        ))}
-      </Tr>
-    </Thead>
-  );
-
-  const renderTablebody = (): JSX.Element => (
-    <Tbody>
-      {wines.map(({
-        id, name, type, country, volume, price,
-      }) => (
-        <Tr key={id}>
-          <Th>{name}</Th>
-          <Th>{type}</Th>
-          <Th>{country}</Th>
-          <Th>{volume}</Th>
-          <Th>{price}</Th>
-        </Tr>
-      ))}
-    </Tbody>
-  );
+  const columns: Column<Wine, keyof Wine>[] = [
+    {
+      key: 'name',
+      header: 'Name',
+    },
+    {
+      key: 'type',
+      header: 'Type',
+    },
+    {
+      key: 'country',
+      header: 'Country',
+    },
+    {
+      key: 'volume',
+      header: 'Volume (l)',
+    },
+    {
+      key: 'price',
+      header: 'Price (€)',
+    },
+  ];
 
   return (
-    <Table variant="striped">
-      {renderTableHead()}
-      {renderTablebody()}
-    </Table>
+    <DataTable
+      columns={columns}
+      data={wines}
+      sorted={sorted}
+      sortingFn={sortingFn}
+    />
   );
 };
 
-export default WineList;
+export default Wines;

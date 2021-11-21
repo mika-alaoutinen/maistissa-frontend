@@ -15,8 +15,11 @@ export const initRootState = (): RootState => {
   };
 
   const wineState: WineState = {
-    wines,
+    sorted: {
+      direction: 'unsorted',
+    },
     status: 'idle',
+    wines,
   };
 
   return {

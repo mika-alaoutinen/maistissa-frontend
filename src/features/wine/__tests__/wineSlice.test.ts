@@ -1,11 +1,14 @@
 import reducer, { sortAsc, sortDesc, WineState } from '../wineSlice';
-import { wines } from '../../../tests/testdata';
+import { wines as testdata } from '../../../tests/testdata';
 
 describe('Wine reducer', () => {
   it('should handle initial state', () => {
     const initialState: WineState = {
-      wines: [],
+      sorted: {
+        direction: 'unsorted',
+      },
       status: 'idle',
+      wines: [],
     };
     expect(reducer(undefined, { type: 'unknown' })).toEqual(initialState);
   });
@@ -13,19 +16,30 @@ describe('Wine reducer', () => {
 
 describe('Sorting wines', () => {
   const previousState: WineState = {
-    wines,
+    sorted: {
+      direction: 'unsorted',
+    },
     status: 'idle',
+    wines: testdata,
   };
 
   it('sortAsc sorts wines in ascending order', () => {
-    const state = reducer(previousState, sortAsc('country'));
-    const countries = state.wines.map((wine) => wine.country);
+    const { sorted, wines } = reducer(previousState, sortAsc('country'));
+    const countries = wines.map((wine) => wine.country);
     expect(countries).toEqual(['Italy', 'Spain']);
+    expect(sorted).toEqual({
+      direction: 'asc',
+      key: 'country',
+    });
   });
 
   it('sortDesc sorts wines in descending order', () => {
-    const state = reducer(previousState, sortDesc('volume'));
-    const volumes = state.wines.map((wine) => wine.volume);
+    const { sorted, wines } = reducer(previousState, sortDesc('volume'));
+    const volumes = wines.map((wine) => wine.volume);
     expect(volumes).toEqual([3, 0.75]);
+    expect(sorted).toEqual({
+      direction: 'desc',
+      key: 'volume',
+    });
   });
 });

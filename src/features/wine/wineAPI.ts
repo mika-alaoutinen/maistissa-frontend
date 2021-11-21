@@ -8,6 +8,5 @@ const getWines = async (): Promise<Wine[]> => WinesCrudService.getWines();
 
 export const WineType = NewWine.type;
 
-export type WineProps = 'name' | 'type' | 'country' | 'volume' | 'price';
 export type { NewWine, Wine };
 export default { addWine, getWines };
