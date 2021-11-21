@@ -8,6 +8,8 @@ export const addWine = createAsyncThunk('wines/addWine', async (wine: NewWine) =
 
 export const fetchWines = createAsyncThunk('wines/fetchWines', async () => api.getWines());
 
+export type Payload = PayloadAction<keyof Wine>;
+
 export interface WineState {
   sorted: SortedByKey<Wine, keyof Wine>;
   status: 'idle' | 'loading' | 'failed';
@@ -21,8 +23,6 @@ const initialState: WineState = {
   status: 'idle',
   wines: [],
 };
-
-type Payload = PayloadAction<keyof Wine>;
 
 const wineSlice = createSlice({
   name: 'wines',
