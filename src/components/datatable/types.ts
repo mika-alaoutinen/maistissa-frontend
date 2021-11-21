@@ -1,15 +1,11 @@
-import { WineData } from '../../features/wine/wineAPI';
 import { Sorted } from '../../utils/sorting';
 
-export type Data = WineData;
-export type Key = keyof Data;
+export type Column<T, K extends keyof T> = {
+  key: K;
+  header: string;
+};
 
-export interface SortedByKey {
+export interface SortedByKey<T, K extends keyof T> {
   direction: Sorted,
-  key?: Key
-}
-
-export interface Header {
-  key: Key;
-  text: string
+  key?: K
 }

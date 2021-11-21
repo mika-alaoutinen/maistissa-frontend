@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectWinesSorted } from '../../../app/selectors';
 import { SortedByKey } from '../../../components/datatable/types';
 import { Sorted } from '../../../utils/sorting';
-import { WineProps } from '../wineAPI';
+import { Wine, WineProps } from '../wineAPI';
 import { sortAsc, sortDesc } from '../wineSlice';
 
 type SortingFn = (key: WineProps) => PayloadAction<WineProps>;
@@ -15,7 +15,7 @@ type SortingFn = (key: WineProps) => PayloadAction<WineProps>;
  * @returns a sorting function.
  */
 const selectSortingFn = (
-  property: WineProps, { key, direction }: SortedByKey,
+  property: WineProps, { key, direction }: SortedByKey<Wine, keyof Wine>,
 ): PayloadAction<WineProps> => (property === key && direction === 'asc'
   ? sortDesc(property)
   : sortAsc(property));

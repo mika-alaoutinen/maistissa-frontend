@@ -9,7 +9,7 @@ export const addWine = createAsyncThunk('wines/addWine', async (wine: NewWine) =
 export const fetchWines = createAsyncThunk('wines/fetchWines', async () => api.getWines());
 
 export interface WineState {
-  sorted: SortedByKey;
+  sorted: SortedByKey<Wine, keyof Wine>;
   status: 'idle' | 'loading' | 'failed';
   wines: Wine[];
 }

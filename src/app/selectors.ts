@@ -5,6 +5,6 @@ import { RootState } from './store';
 
 const selectReviews = (state: RootState): Review[] => state.reviews.reviews;
 const selectWines = (state: RootState): Wine[] => state.wines.wines;
-const selectWinesSorted = (state: RootState): SortedByKey => state.wines.sorted;
+const selectWinesSorted = (state: RootState): SortedByKey<Wine, keyof Wine> => state.wines.sorted;
 
 export { selectReviews, selectWines, selectWinesSorted };

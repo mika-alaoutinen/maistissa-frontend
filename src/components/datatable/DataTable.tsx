@@ -2,31 +2,25 @@ import { Table } from '@chakra-ui/react';
 import React from 'react';
 import DataTableBody from './DataTableBody';
 import DataTableHead from './DataTableHead';
-import {
-  Data, Header, Key, SortedByKey,
-} from './types';
+import { Column, SortedByKey } from './types';
 
-interface Props {
-  data: Data[];
-  headers: Header[];
-  sorted: SortedByKey;
-  sortingFn: (key: Key) => void;
+interface Props<T, K extends keyof T> {
+  columns: Column<T, K>[];
+  data: T[];
+  sorted: SortedByKey<T, K>;
+  sortingFn: (key: K) => void;
 }
 
-const DataTable: React.FC<Props> = ({
+const DataTable = <T, K extends keyof T>({
+  columns,
   data,
-  headers,
   sorted,
   sortingFn,
-}) => (
+}: Props<T, K>): JSX.Element => (
   <Table variant="striped">
-    <DataTableHead
-      headers={headers}
-      sorted={sorted}
-      sortingFn={sortingFn}
-    />
-    <DataTableBody data={data} />
+    <DataTableHead columns={columns} sorted={sorted} sortingFn={sortingFn} />
+    <DataTableBody columns={columns} data={data} />
   </Table>
-);
+  );
 
 export default DataTable;
