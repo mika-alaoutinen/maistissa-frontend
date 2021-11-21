@@ -2,34 +2,15 @@ import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import { Th, Thead, Tr } from '@chakra-ui/react';
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
-import { RootState } from '../../app/store';
-import { WinesSorted } from '../../utils/sorting';
+import { Header, Key, Selector } from './types';
 
-export interface Header<T> {
-  key: T;
-  text: string
-}
-
-// interface DataSorted<T> {
-//   direction: Sorted,
-//   key?: T,
-// }
-
-// export type Selector = <T>(state: RootState) => DataSorted<T>;
-
-export type Selector = (state: RootState) => WinesSorted;
-
-interface Props<T> {
-  headers: Header<T>[];
+interface Props {
+  headers: Header[];
   selector: Selector;
-  sortingFn: (key: T) => void;
+  sortingFn: (key: Key) => void;
 }
 
-const DataTableHead = <T extends string>({
-  headers,
-  selector,
-  sortingFn,
-}: Props<T>): JSX.Element => {
+const DataTableHead: React.FC<Props> = ({ headers, selector, sortingFn }) => {
   const dataSorted = useAppSelector(selector);
 
   const renderSortDirectionArrow = (sortDirection: 'asc' | 'desc'): JSX.Element => (
@@ -40,7 +21,7 @@ const DataTableHead = <T extends string>({
     </span>
   );
 
-  const showSortDirection = (property: T): JSX.Element => {
+  const showSortDirection = (property: Key): JSX.Element => {
     const { direction, key } = dataSorted;
     const sorted = property === key ? direction : 'unsorted';
     return (sorted === 'unsorted'

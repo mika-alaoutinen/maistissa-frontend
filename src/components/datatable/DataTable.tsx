@@ -1,24 +1,24 @@
 import { Table } from '@chakra-ui/react';
 import React from 'react';
-import { WineData } from '../../features/wine/wineAPI';
 import DataTableBody from './DataTableBody';
-import DataTableHead, { Header, Selector } from './DataTableHead';
+import DataTableHead from './DataTableHead';
+import {
+  Data, Header, Key, Selector,
+} from './types';
 
-type Data = WineData;
-
-interface Props<T> {
+interface Props {
   data: Data[];
-  headers: Header<T>[];
+  headers: Header[];
   selector: Selector;
-  sortingFn: (key: T) => void;
+  sortingFn: (key: Key) => void;
 }
 
-const DataTable = <T extends string>({
+const DataTable: React.FC<Props> = ({
   data,
   headers,
   selector,
   sortingFn,
-}: Props<T>): JSX.Element => (
+}) => (
   <Table variant="striped">
     <DataTableHead
       headers={headers}
@@ -27,6 +27,6 @@ const DataTable = <T extends string>({
     />
     <DataTableBody data={data} />
   </Table>
-  );
+);
 
 export default DataTable;

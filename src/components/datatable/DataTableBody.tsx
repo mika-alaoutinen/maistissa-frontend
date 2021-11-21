@@ -1,18 +1,15 @@
 import { Tbody, Th, Tr } from '@chakra-ui/react';
 import React from 'react';
+import { Data } from './types';
 
-interface Props<T> {
-  data: T[]
+interface Props {
+  data: Data[]
 }
 
-interface Named {
-  name: string
-}
-
-const DataTableBody = <T extends Named>({ data }: Props<T>): JSX.Element => {
-  const renderRow = (obj: T): JSX.Element[] => Object
+const DataTableBody: React.FC<Props> = ({ data }) => {
+  const renderRow = (obj: Data): JSX.Element[] => Object
     .values(obj)
-    .map((value) => <Th>{value}</Th>);
+    .map((value) => <Th key={value}>{value}</Th>);
 
   return (
     <Tbody>
