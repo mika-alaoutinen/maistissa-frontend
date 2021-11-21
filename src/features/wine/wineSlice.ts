@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SortedByKey } from '../../components/datatable/types';
 import { sortAscending, sortDescending } from '../../utils/sorting';
-import api, { NewWine, Wine, WineProps } from './wineAPI';
+import api, { NewWine, Wine } from './wineAPI';
 
 // Thunks
 export const addWine = createAsyncThunk('wines/addWine', async (wine: NewWine) => api.addWine(wine));
@@ -22,18 +22,20 @@ const initialState: WineState = {
   wines: [],
 };
 
+type Payload = PayloadAction<keyof Wine>;
+
 const wineSlice = createSlice({
   name: 'wines',
   initialState,
   reducers: {
-    sortAsc: (state, { payload }: PayloadAction<WineProps>) => {
+    sortAsc: (state, { payload }: Payload) => {
       state.sorted = {
         direction: 'asc',
         key: payload,
       };
       state.wines = sortAscending(state.wines, payload);
     },
-    sortDesc: (state, { payload }: PayloadAction<WineProps>) => {
+    sortDesc: (state, { payload }: Payload) => {
       state.sorted = {
         direction: 'desc',
         key: payload,

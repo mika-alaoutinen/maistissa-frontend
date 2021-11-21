@@ -3,10 +3,11 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectWinesSorted } from '../../../app/selectors';
 import { SortedByKey } from '../../../components/datatable/types';
 import { Sorted } from '../../../utils/sorting';
-import { Wine, WineProps } from '../wineAPI';
+import { Wine } from '../wineAPI';
 import { sortAsc, sortDesc } from '../wineSlice';
 
-type SortingFn = (key: WineProps) => PayloadAction<WineProps>;
+type Key = keyof Wine;
+type SortingFn = (key: Key) => PayloadAction<Key>;
 
 /**
  * Selects a sorting function for an ascending or a descending sort.
@@ -15,30 +16,31 @@ type SortingFn = (key: WineProps) => PayloadAction<WineProps>;
  * @returns a sorting function.
  */
 const selectSortingFn = (
-  property: WineProps, { key, direction }: SortedByKey<Wine, keyof Wine>,
-): PayloadAction<WineProps> => (property === key && direction === 'asc'
+  property: Key,
+  { key, direction }: SortedByKey<Wine, Key>,
+): PayloadAction<Key> => (property === key && direction === 'asc'
   ? sortDesc(property)
   : sortAsc(property));
 
 /**
  * A hook for dispatching a sorting action to the Redux store.
- * @returns a sorting function that takes a WineProps key as an argument.
+ * @returns a sorting function that takes a Key key as an argument.
  */
 export const useSorting = (): SortingFn => {
   const dispatch = useAppDispatch();
   const sorted = useAppSelector(selectWinesSorted);
-  return (property: WineProps) => dispatch(selectSortingFn(property, sorted));
+  return (property: Key) => dispatch(selectSortingFn(property, sorted));
 };
 
-type SortDirectionFn = (key: WineProps) => Sorted;
+type SortDirectionFn = (key: Key) => Sorted;
 
 /**
  * A hook for finding out the correct sort direction for a Wine key.
- * @returns function that takes a WineProps key as an argument and returns a Sorted type.
+ * @returns function that takes a Key key as an argument and returns a Sorted type.
  */
 export const useSortDirection = (): SortDirectionFn => {
   const { direction, key } = useAppSelector(selectWinesSorted);
-  return (property: WineProps) => (key === property ? direction : 'unsorted');
+  return (property: Key) => (key === property ? direction : 'unsorted');
 };
 
 export default { useSorting };

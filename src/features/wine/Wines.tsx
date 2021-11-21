@@ -6,10 +6,10 @@ import React from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { selectWines } from '../../app/selectors';
 import { useSortDirection, useSorting } from './hooks/wineSorting';
-import { WineProps } from './wineAPI';
+import { Wine } from './wineAPI';
 
 type Headers = {
-  key: WineProps,
+  key: keyof Wine,
   text: string
 };
 
@@ -49,7 +49,7 @@ const WineList: React.FC = () => {
     </span>
   );
 
-  const showSortDirection = (key: WineProps): JSX.Element => {
+  const showSortDirection = (key: keyof Wine): JSX.Element => {
     const sorted = sortDirectionFn(key);
     return sorted === 'unsorted'
       ? <></>
