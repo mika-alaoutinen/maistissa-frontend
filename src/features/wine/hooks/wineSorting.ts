@@ -1,7 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectWinesSorted } from '../../../app/selectors';
-import { Sorted, WinesSorted } from '../../../utils/sorting';
+import { SortedByKey } from '../../../components/datatable/types';
+import { Sorted } from '../../../utils/sorting';
 import { WineProps } from '../wineAPI';
 import { sortAsc, sortDesc } from '../wineSlice';
 
@@ -14,7 +15,7 @@ type SortingFn = (key: WineProps) => PayloadAction<WineProps>;
  * @returns a sorting function.
  */
 const selectSortingFn = (
-  property: WineProps, { key, direction }: WinesSorted,
+  property: WineProps, { key, direction }: SortedByKey,
 ): PayloadAction<WineProps> => (property === key && direction === 'asc'
   ? sortDesc(property)
   : sortAsc(property));

@@ -1,5 +1,3 @@
-import { WineProps } from '../features/wine/wineAPI';
-
 /**
  * A generic sorting function for an array of arbitrary objects.
  * @param data array of objects
@@ -34,8 +32,3 @@ export const sortAscending = <T>(data: T[], key: keyof T): T[] => sortArray(data
 export const sortDescending = <T>(data: T[], key: keyof T): T[] => sortArray(data, key, 'DESC');
 
 export type Sorted = 'asc' | 'desc' | 'unsorted';
-
-export interface WinesSorted {
-  direction: Sorted,
-  key?: WineProps,
-}

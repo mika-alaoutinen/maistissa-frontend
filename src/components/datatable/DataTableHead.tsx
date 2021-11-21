@@ -1,18 +1,15 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import { Th, Thead, Tr } from '@chakra-ui/react';
 import React from 'react';
-import { useAppSelector } from '../../app/hooks';
-import { Header, Key, Selector } from './types';
+import { Header, Key, SortedByKey } from './types';
 
 interface Props {
   headers: Header[];
-  selector: Selector;
+  sorted: SortedByKey;
   sortingFn: (key: Key) => void;
 }
 
-const DataTableHead: React.FC<Props> = ({ headers, selector, sortingFn }) => {
-  const dataSorted = useAppSelector(selector);
-
+const DataTableHead: React.FC<Props> = ({ headers, sorted, sortingFn }) => {
   const renderSortDirectionArrow = (sortDirection: 'asc' | 'desc'): JSX.Element => (
     <span className="sort-direction-arrow" style={{ paddingLeft: '1em' }}>
       {sortDirection === 'asc'
@@ -22,11 +19,10 @@ const DataTableHead: React.FC<Props> = ({ headers, selector, sortingFn }) => {
   );
 
   const showSortDirection = (property: Key): JSX.Element => {
-    const { direction, key } = dataSorted;
-    const sorted = property === key ? direction : 'unsorted';
-    return (sorted === 'unsorted'
-      ? <></>
-      : renderSortDirectionArrow(sorted));
+    const { direction, key } = sorted;
+    return property === key && direction !== 'unsorted'
+      ? renderSortDirectionArrow(direction)
+      : <></>;
   };
 
   return (

@@ -40,6 +40,8 @@ const HomePage: React.FC = () => {
     name, type, country, volume, price,
   }));
 
+  const sorted = useAppSelector(selectWinesSorted);
+
   const sortingFn = useSorting();
 
   return (
@@ -48,7 +50,7 @@ const HomePage: React.FC = () => {
       <DataTable
         data={wines}
         headers={wineHeaders}
-        selector={selectWinesSorted}
+        sorted={sorted}
         sortingFn={sortingFn}
       />
     </div>

@@ -3,26 +3,26 @@ import React from 'react';
 import DataTableBody from './DataTableBody';
 import DataTableHead from './DataTableHead';
 import {
-  Data, Header, Key, Selector,
+  Data, Header, Key, SortedByKey,
 } from './types';
 
 interface Props {
   data: Data[];
   headers: Header[];
-  selector: Selector;
+  sorted: SortedByKey;
   sortingFn: (key: Key) => void;
 }
 
 const DataTable: React.FC<Props> = ({
   data,
   headers,
-  selector,
+  sorted,
   sortingFn,
 }) => (
   <Table variant="striped">
     <DataTableHead
       headers={headers}
-      selector={selector}
+      sorted={sorted}
       sortingFn={sortingFn}
     />
     <DataTableBody data={data} />
