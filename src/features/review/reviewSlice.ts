@@ -1,8 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SortedByKey } from '../../components/datatable/types';
-import { sortAscending, sortDescending } from '../../utils/sorting';
+import { sortByWineName, sortAscending, sortDescending } from '../../utils/sorting';
 import api, { Review } from './reviewAPI';
-import { sortByWineName } from './reviewSorting';
 
 // Thunks
 export const fetchReviews = createAsyncThunk('reviews/fetchReviews', async () => api.getReviews());

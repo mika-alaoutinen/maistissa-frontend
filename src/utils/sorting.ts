@@ -1,3 +1,7 @@
+import { Review } from '../features/review/reviewAPI';
+
+export type Sorted = 'asc' | 'desc' | 'unsorted';
+
 /**
  * A generic sorting function for an array of arbitrary objects.
  * @param data array of objects
@@ -31,4 +35,21 @@ const sortArray = <T>(
 export const sortAscending = <T>(data: T[], key: keyof T): T[] => sortArray(data, key, 'ASC');
 export const sortDescending = <T>(data: T[], key: keyof T): T[] => sortArray(data, key, 'DESC');
 
-export type Sorted = 'asc' | 'desc' | 'unsorted';
+export const sortByWineName = (reviews: Review[], direction: 'ASC' | 'DESC'): Review[] => {
+  const compare = (a: Review, b: Review): number => {
+    const valueA = a.wine?.name ?? '';
+    const valueB = b.wine?.name ?? '';
+
+    if (valueA === valueB) {
+      return 0;
+    }
+
+    if (valueA > valueB) {
+      return direction === 'ASC' ? 1 : -1;
+    }
+
+    return direction === 'ASC' ? -1 : 1;
+  };
+
+  return reviews.slice().sort(compare);
+};
