@@ -1,6 +1,6 @@
-import { wines } from '../../tests/testdata';
+import { reviews, wines } from '../../tests/testdata';
 import { WineType } from '../../features/wine/wineAPI';
-import { sortAscending, sortDescending } from '../sorting';
+import { sortByWineName, sortAscending, sortDescending } from '../sorting';
 
 // Tests for sorting Wine objects
 describe('Sort ascending by key', () => {
@@ -64,6 +64,56 @@ describe('Sort descending by key', () => {
     const sorted = sortDescending(wines, 'volume');
     const volumes = sorted.map((wine) => wine.volume);
     expect(volumes).toEqual([3, 0.75]);
+  });
+});
+
+describe('Sorting equal values does not change item order', () => {
+  interface TestItem {
+    id: number,
+    name: string
+  }
+
+  const testItems: TestItem[] = [
+    { id: 1, name: 'item' },
+    { id: 2, name: 'item' },
+  ];
+
+  it('sorting items with the same name in ascending order', () => {
+    const sorted = sortAscending(testItems, 'name');
+    const ids = sorted.map((item) => item.id);
+    expect(ids).toEqual([1, 2]);
+  });
+
+  it('sorting items with the same name in descending order', () => {
+    const sorted = sortDescending(testItems, 'name');
+    const ids = sorted.map((item) => item.id);
+    expect(ids).toEqual([1, 2]);
+  });
+});
+
+describe('Sorting reviews by wine name', () => {
+  it('sorts reviews by wine name from a to z', () => {
+    const sorted = sortByWineName(reviews, 'ASC');
+    const wineNames = sorted.map((review) => review.wine?.name);
+    expect(wineNames).toEqual(['Red wine 1', 'White wine 1']);
+  });
+
+  it('sorts reviews by wine name from a to z, reverse input', () => {
+    const sorted = sortByWineName(reviews.reverse(), 'ASC');
+    const wineNames = sorted.map((review) => review.wine?.name);
+    expect(wineNames).toEqual(['Red wine 1', 'White wine 1']);
+  });
+
+  it('sorts reviews by wine name from z to a', () => {
+    const sorted = sortByWineName(reviews, 'DESC');
+    const wineNames = sorted.map((review) => review.wine?.name);
+    expect(wineNames).toEqual(['White wine 1', 'Red wine 1']);
+  });
+
+  it('sorts reviews by wine name from z to a, reverse input', () => {
+    const sorted = sortByWineName(reviews.reverse(), 'DESC');
+    const wineNames = sorted.map((review) => review.wine?.name);
+    expect(wineNames).toEqual(['White wine 1', 'Red wine 1']);
   });
 });
 

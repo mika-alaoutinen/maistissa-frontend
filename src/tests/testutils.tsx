@@ -10,8 +10,11 @@ import { reviews, wines } from './testdata';
 
 export const initRootState = (): RootState => {
   const reviewState: ReviewState = {
-    reviews,
+    sorted: {
+      direction: 'unsorted',
+    },
     status: 'idle',
+    reviews,
   };
 
   const wineState: WineState = {
