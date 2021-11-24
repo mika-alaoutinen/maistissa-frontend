@@ -2,6 +2,22 @@ import { Review } from '../features/review/reviewAPI';
 
 export type Sorted = 'asc' | 'desc' | 'unsorted';
 
+const compareValues = <T>(
+  a: T[keyof T],
+  b: T[keyof T],
+  direction: 'ASC' | 'DESC',
+): number => {
+  if (a === b) {
+    return 0;
+  }
+
+  if (a > b) {
+    return direction === 'ASC' ? 1 : -1;
+  }
+
+  return direction === 'ASC' ? -1 : 1;
+};
+
 /**
  * A generic sorting function for an array of arbitrary objects.
  * @param data array of objects
@@ -14,21 +30,7 @@ const sortArray = <T>(
   key: keyof T,
   direction: 'ASC' | 'DESC',
 ): T[] => {
-  const compare = (a: T, b: T): number => {
-    const valueA = a[key];
-    const valueB = b[key];
-
-    if (valueA === valueB) {
-      return 0;
-    }
-
-    if (valueA > valueB) {
-      return direction === 'ASC' ? 1 : -1;
-    }
-
-    return direction === 'ASC' ? -1 : 1;
-  };
-
+  const compare = (a: T, b: T): number => compareValues(a[key], b[key], direction);
   return data.slice().sort(compare);
 };
 
@@ -39,16 +41,7 @@ export const sortByWineName = (reviews: Review[], direction: 'ASC' | 'DESC'): Re
   const compare = (a: Review, b: Review): number => {
     const valueA = a.wine?.name ?? '';
     const valueB = b.wine?.name ?? '';
-
-    if (valueA === valueB) {
-      return 0;
-    }
-
-    if (valueA > valueB) {
-      return direction === 'ASC' ? 1 : -1;
-    }
-
-    return direction === 'ASC' ? -1 : 1;
+    return compareValues<Review>(valueA, valueB, direction);
   };
 
   return reviews.slice().sort(compare);
