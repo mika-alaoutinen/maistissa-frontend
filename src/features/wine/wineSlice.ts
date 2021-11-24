@@ -27,6 +27,7 @@ const initialState: WineState = {
 const wineSlice = createSlice({
   name: 'wines',
   initialState,
+
   reducers: {
     sortAsc: (state, { payload }: Payload) => {
       state.sorted = {
@@ -35,6 +36,7 @@ const wineSlice = createSlice({
       };
       state.wines = sortAscending(state.wines, payload);
     },
+
     sortDesc: (state, { payload }: Payload) => {
       state.sorted = {
         direction: 'desc',
@@ -43,6 +45,7 @@ const wineSlice = createSlice({
       state.wines = sortDescending(state.wines, payload);
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(addWine.fulfilled, (state, action) => {

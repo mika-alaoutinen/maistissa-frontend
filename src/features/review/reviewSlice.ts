@@ -25,28 +25,29 @@ const initialState: ReviewState = {
 const reviewSlice = createSlice({
   name: 'reviews',
   initialState,
+
   reducers: {
     sortAsc: (state, { payload }: Payload) => {
       state.reviews = payload === 'wine'
         ? sortByWineName(state.reviews, 'ASC')
         : sortAscending(state.reviews, payload);
-
       state.sorted = {
         direction: 'asc',
         key: payload,
       };
     },
+
     sortDesc: (state, { payload }: Payload) => {
       state.reviews = payload === 'wine'
         ? sortByWineName(state.reviews, 'DESC')
         : sortDescending(state.reviews, payload);
-
       state.sorted = {
         direction: 'desc',
         key: payload,
       };
     },
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(fetchReviews.pending, (state) => {
