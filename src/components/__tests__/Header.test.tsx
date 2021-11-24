@@ -18,9 +18,9 @@ describe('Header displays application name', () => {
 });
 
 describe('Header has navigation links', () => {
-  it('has two navigation links', () => {
+  it('has three navigation links', () => {
     const { container } = renderWithRouter(<Header />);
-    expect(container.querySelectorAll('nav > a').length).toBe(2);
+    expect(container.querySelectorAll('nav > a').length).toBe(3);
   });
 
   it('displays link texts correctly', () => {
@@ -32,7 +32,7 @@ describe('Header has navigation links', () => {
 
   it('links point to correct hrefs', () => {
     const { container } = renderWithRouter(<Header />);
-    const expectedHrefs = ['/reviews', '/wines'];
+    const expectedHrefs = ['/reviews', '/wines', '/add-wine'];
 
     Array
       .from(container.querySelectorAll('nav > a'))
