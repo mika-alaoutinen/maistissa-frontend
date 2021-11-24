@@ -1,12 +1,13 @@
-import reducer, {
-  ReviewState, sortAsc, sortDesc, sortWineAsc, sortWineDesc,
-} from '../reviewSlice';
+import reducer, { ReviewState, sortAsc, sortDesc } from '../reviewSlice';
 import { reviews } from '../../../tests/testdata';
 
 describe('Review reducer', () => {
   it('should handle initial state', () => {
     const initialState: ReviewState = {
       reviews: [],
+      sorted: {
+        direction: 'unsorted',
+      },
       status: 'idle',
     };
     expect(reducer(undefined, { type: 'unknown' })).toEqual(initialState);
@@ -16,6 +17,9 @@ describe('Review reducer', () => {
 describe('Sorting reviews', () => {
   const previousState: ReviewState = {
     reviews,
+    sorted: {
+      direction: 'unsorted',
+    },
     status: 'idle',
   };
 
@@ -31,14 +35,14 @@ describe('Sorting reviews', () => {
     expect(dates).toEqual(['2020-01-02', '2020-01-01']);
   });
 
-  it('sortWineAsc sorts reviews in ascending order by wine name', () => {
-    const state = reducer(previousState, sortWineAsc());
+  it('sortAsc sorts reviews in ascending order by wine name', () => {
+    const state = reducer(previousState, sortAsc('wine'));
     const wineNames = state.reviews.map((review) => review.wine?.name);
     expect(wineNames).toEqual(['Red wine 1', 'White wine 1']);
   });
 
-  it('sortWineDesc sorts reviews in descending order by wine name', () => {
-    const state = reducer(previousState, sortWineDesc());
+  it('sortDesc sorts reviews in descending order by wine name', () => {
+    const state = reducer(previousState, sortDesc('wine'));
     const wineNames = state.reviews.map((review) => review.wine?.name);
     expect(wineNames).toEqual(['White wine 1', 'Red wine 1']);
   });
