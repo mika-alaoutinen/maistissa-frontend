@@ -1,86 +1,54 @@
-import {
-  Table, Tbody, Th, Thead, Tr,
-} from '@chakra-ui/react';
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectReviews } from '../../app/selectors';
-import { ReviewProps } from './reviewAPI';
-import { sortAsc, sortWineAsc } from './reviewSlice';
+import { useAppSelector } from '../../app/hooks';
+import { selectReviews, selectReviewsSorted } from '../../app/selectors';
+import DataTable from '../../components/datatable/DataTable';
+import { Column } from '../../components/datatable/types';
+import { useSorting } from './hooks';
+import { Review } from './reviewAPI';
 
-type Header = {
-  key: ReviewProps,
-  text: string
-};
+// Replace Wine object with just wine name
+type ReviewWithWineName = Omit<Review, 'wine'> & { wine?: string };
 
-// Headers excluding wine, because sorting by wine name
-// has to be handled differently from sorting by other fields.
-const reviewHeaders: Header[] = [
+const columns: Column<ReviewWithWineName, keyof ReviewWithWineName>[] = [
   {
     key: 'date',
-    text: 'Date',
+    header: 'Date',
   },
   {
     key: 'author',
-    text: 'Author',
+    header: 'Author',
   },
   {
     key: 'reviewText',
-    text: 'Review',
+    header: 'Review',
   },
   {
     key: 'rating',
-    text: 'Rating',
+    header: 'Rating',
+  },
+  {
+    key: 'wine',
+    header: 'Wine',
   },
 ];
 
 const Reviews: React.FC = () => {
-  const dispatch = useAppDispatch();
   const reviews = useAppSelector(selectReviews);
+  const sorted = useAppSelector(selectReviewsSorted);
+  const sortingFn = useSorting();
 
-  const renderTableHead = (): JSX.Element => (
-    <Thead>
-      <Tr>
-        {reviewHeaders.map(({ key, text }) => (
-          <Th
-            key={key}
-            onClick={() => dispatch(sortAsc(key))}
-            style={{ cursor: 'pointer' }}
-          >
-            {text}
-          </Th>
-        ))}
-        <Th
-          key="wine"
-          onClick={() => dispatch(sortWineAsc())}
-          style={{ cursor: 'pointer' }}
-        >
-          Wine
-        </Th>
-      </Tr>
-    </Thead>
-  );
-
-  const renderTableBody = (): JSX.Element => (
-    <Tbody>
-      {reviews.map(({
-        id, date, author, reviewText, rating, wine,
-      }) => (
-        <Tr key={id}>
-          <Th>{date}</Th>
-          <Th>{author}</Th>
-          <Th>{reviewText}</Th>
-          <Th>{rating}</Th>
-          <Th>{wine?.name}</Th>
-        </Tr>
-      ))}
-    </Tbody>
-  );
+  const reviewsWithWineNames: ReviewWithWineName[] = reviews.map((review) => ({
+    ...review,
+    wine: review.wine?.name,
+  }));
 
   return (
-    <Table variant="striped">
-      {renderTableHead()}
-      {renderTableBody()}
-    </Table>
+    <DataTable
+      columns={columns}
+      data={reviewsWithWineNames}
+      sorted={sorted}
+      sortingFn={sortingFn}
+    />
   );
 };
 
