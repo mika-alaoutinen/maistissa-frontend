@@ -28,6 +28,8 @@ export const initRootState = (): RootState => {
 
   const wineInfoState: WineInfoState = {
     countries: ['Italy', 'Spain'],
+    descriptions: ['dry', 'aromatic', 'full bodied', 'rich'],
+    foodPairings: ['white meat', 'barbeque'],
   };
 
   return {

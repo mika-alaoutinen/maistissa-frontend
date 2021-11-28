@@ -4,9 +4,15 @@ import { sortAscending, sortDescending } from '../../utils/sorting';
 import api, { NewWine, Wine } from './wineAPI';
 
 // Thunks
-export const addWine = createAsyncThunk('wines/addWine', async (wine: NewWine) => api.addWine(wine));
+export const addWine = createAsyncThunk(
+  'wines/addWine',
+  async (wine: NewWine) => api.addWine(wine),
+);
 
-export const fetchWines = createAsyncThunk('wines/fetchWines', async () => api.getWines());
+export const fetchWines = createAsyncThunk(
+  'wines/fetchWines',
+  async () => api.getWines(),
+);
 
 export type Payload = PayloadAction<keyof Wine>;
 

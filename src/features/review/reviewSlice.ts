@@ -4,7 +4,10 @@ import { sortByWineName, sortAscending, sortDescending } from '../../utils/sorti
 import api, { Review } from './reviewAPI';
 
 // Thunks
-export const fetchReviews = createAsyncThunk('reviews/fetchReviews', async () => api.getReviews());
+export const fetchReviews = createAsyncThunk(
+  'reviews/fetchReviews',
+  async () => api.getReviews(),
+);
 
 export type Payload = PayloadAction<keyof Review>;
 
