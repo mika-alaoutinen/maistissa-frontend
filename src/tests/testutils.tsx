@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { RootState } from '../app/store';
 import reviewReducer, { ReviewState } from '../features/review/reviewSlice';
 import wineReducer, { WineState } from '../features/wine/wineSlice';
+import { WineInfoState } from '../features/wineInfo/wineInfoSlice';
 import { reviews, wines } from './testdata';
 
 export const initRootState = (): RootState => {
@@ -25,9 +26,14 @@ export const initRootState = (): RootState => {
     wines,
   };
 
+  const wineInfoState: WineInfoState = {
+    countries: ['Italy', 'Spain'],
+  };
+
   return {
     reviews: reviewState,
     wines: wineState,
+    wineInfo: wineInfoState,
   };
 };
 
