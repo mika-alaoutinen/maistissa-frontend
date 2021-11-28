@@ -3,6 +3,8 @@ import {
   selectReviews,
   selectReviewsSorted,
   selectWineCountries,
+  selectWineDescriptions,
+  selectWineFoorPairings,
   selectWines,
   selectWinesSorted,
 } from '../selectors';
@@ -45,5 +47,15 @@ describe('Wine info selectors', () => {
   it('should return wine countries', () => {
     const countries = selectWineCountries(state);
     expect(countries).toEqual(['Italy', 'Spain']);
+  });
+
+  it('should return wine descriptions', () => {
+    const descriptions = selectWineDescriptions(state);
+    expect(descriptions).toEqual(['dry', 'aromatic', 'full bodied', 'rich']);
+  });
+
+  it('should return wine food pairings', () => {
+    const foodPairings = selectWineFoorPairings(state);
+    expect(foodPairings).toEqual(['white meat', 'barbeque']);
   });
 });
