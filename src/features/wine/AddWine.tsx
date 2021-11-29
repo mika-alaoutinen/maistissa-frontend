@@ -1,4 +1,16 @@
-import { Button, Input, Select } from '@chakra-ui/react';
+import {
+  Button,
+  Input,
+  NumberInput,
+  NumberInputField,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInputStepper,
+  Radio,
+  RadioGroup,
+  Select,
+  Stack,
+} from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectWineCountries } from '../../app/selectors';
@@ -7,10 +19,10 @@ import { addWine } from './wineSlice';
 
 const initialState: NewWine = {
   name: '',
-  type: WineType.WHITE,
+  type: WineType.OTHER,
   country: '',
-  price: -1,
-  volume: -1,
+  price: 0.00,
+  volume: 0.00,
   description: [],
   foodPairings: [],
   url: '',
@@ -38,6 +50,18 @@ const AddWine: React.FC = () => {
           New wine country:
           {' '}
           {wine.country}
+        </p>
+
+        <p>
+          New wine type:
+          {' '}
+          {wine.type}
+        </p>
+
+        <p>
+          New wine price:
+          {' '}
+          {wine.price}
         </p>
       </div>
 
@@ -67,6 +91,37 @@ const AddWine: React.FC = () => {
             </option>
           ))}
         </Select>
+
+        <RadioGroup
+          onChange={(type: NewWine.type) => setWine({
+            ...wine,
+            type,
+          })}
+          value={wine.type}
+        >
+          <Stack direction="row" spacing={4}>
+            {Object.keys(WineType).map((type) => (
+              <Radio key={type} value={type}>
+                {type.toLowerCase()}
+              </Radio>
+            ))}
+          </Stack>
+        </RadioGroup>
+
+        <NumberInput
+          defaultValue={0}
+          onChange={(value) => setWine({
+            ...wine,
+            price: parseFloat(value),
+          })}
+          precision={2}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
 
         <Button
           colorScheme="red"
