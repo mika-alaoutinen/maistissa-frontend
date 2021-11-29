@@ -1,14 +1,10 @@
 import {
-  Button,
-  Input,
-  Radio,
-  RadioGroup,
-  Select,
-  Stack,
+  Button, Input, Radio, RadioGroup, Stack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectWineCountries, selectWineDescriptions, selectWineFoorPairings } from '../../app/selectors';
+import Combobox from '../../components/input/Combobox';
 import NumberInput from '../../components/input/NumberInput';
 import { NewWine, WineType } from './wineAPI';
 import { addWine } from './wineSlice';
@@ -48,22 +44,15 @@ const AddWine: React.FC = () => {
         variant="flushed"
       />
 
-      {/* Should be combobox */}
-      <Select
+      <Combobox
         onChange={(e) => setWine({
           ...wine,
           country: e.target.value,
         })}
-        placeholder="country"
+        options={countries}
         value={wine.country}
-        variant="flushed"
-      >
-        {countries.map((country) => (
-          <option key={country}>
-            {country}
-          </option>
-        ))}
-      </Select>
+        placeholder="Country"
+      />
 
       <RadioGroup
         onChange={(type: NewWine.type) => setWine({
@@ -97,39 +86,25 @@ const AddWine: React.FC = () => {
         })}
       />
 
-      {/* Should allow multiple inputs */}
-      <Select
+      <Combobox
         onChange={(e) => setWine({
           ...wine,
           description: [e.target.value],
         })}
-        placeholder="Description"
+        options={descriptions}
         value={wine.description[0]}
-        variant="flushed"
-      >
-        {descriptions.map((desc) => (
-          <option key={desc}>
-            {desc}
-          </option>
-        ))}
-      </Select>
+        placeholder="Description"
+      />
 
-      {/* Should allow multiple inputs */}
-      <Select
+      <Combobox
         onChange={(e) => setWine({
           ...wine,
           foodPairings: [e.target.value],
         })}
-        placeholder="Food pairings"
+        options={foodPairings}
         value={wine.foodPairings[0]}
-        variant="flushed"
-      >
-        {foodPairings.map((foodPairing) => (
-          <option key={foodPairing}>
-            {foodPairing}
-          </option>
-        ))}
-      </Select>
+        placeholder="Foor pairings"
+      />
 
       <Input
         onChange={(e) => setWine({
