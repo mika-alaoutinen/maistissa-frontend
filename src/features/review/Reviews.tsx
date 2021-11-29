@@ -7,7 +7,7 @@ import { useSorting } from './hooks';
 import { Review } from './reviewAPI';
 
 // Replace Wine object with just wine name
-type ReviewWithWineName = Omit<Review, 'wine'> & { wine?: string };
+type ReviewWithWineName = Omit<Review, 'wine'> & { wine: string };
 
 const columns: Column<ReviewWithWineName, keyof ReviewWithWineName>[] = [
   {
@@ -39,7 +39,7 @@ const Reviews: React.FC = () => {
 
   const reviewsWithWineNames: ReviewWithWineName[] = reviews.map((review) => ({
     ...review,
-    wine: review.wine?.name,
+    wine: review.wine.name,
   }));
 
   return (

@@ -1,6 +1,5 @@
-import { NewWine } from '../../generated/models/NewWine';
+import { NewWine, WinesCrudService } from '../../generated';
 import { Wine } from '../../generated/models/Wine';
-import { WinesCrudService } from '../../generated/services/WinesCrudService';
 
 const addWine = async (wine: NewWine): Promise<Wine> => WinesCrudService.addWine(wine);
 

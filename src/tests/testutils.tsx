@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { RootState } from '../app/store';
 import reviewReducer, { ReviewState } from '../features/review/reviewSlice';
 import wineReducer, { WineState } from '../features/wine/wineSlice';
+import wineInfoReducer, { WineInfoState } from '../features/wineInfo/wineInfoSlice';
 import { reviews, wines } from './testdata';
 
 export const initRootState = (): RootState => {
@@ -25,9 +26,16 @@ export const initRootState = (): RootState => {
     wines,
   };
 
+  const wineInfoState: WineInfoState = {
+    countries: ['Italy', 'Spain'],
+    descriptions: ['dry', 'aromatic', 'full bodied', 'rich'],
+    foodPairings: ['white meat', 'barbeque'],
+  };
+
   return {
     reviews: reviewState,
     wines: wineState,
+    wineInfo: wineInfoState,
   };
 };
 
@@ -39,6 +47,7 @@ export const initStore = (): EnhancedStore<{ wines: WineState }> => configureSto
   reducer: {
     reviews: reviewReducer,
     wines: wineReducer,
+    wineInfo: wineInfoReducer,
   },
   preloadedState: initRootState(),
 });

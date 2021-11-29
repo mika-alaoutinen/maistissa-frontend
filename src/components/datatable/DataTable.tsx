@@ -23,11 +23,4 @@ const DataTable = <T extends Identifiable, K extends keyof T>({
   </Table>
   );
 
-DataTable.defaultProps = {
-  sorted: {
-    direction: 'unknown',
-  },
-  sortingFn: () => {},
-};
-
 export default DataTable;
