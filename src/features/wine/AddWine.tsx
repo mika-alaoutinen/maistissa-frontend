@@ -1,11 +1,6 @@
 import {
   Button,
   Input,
-  NumberInput,
-  NumberInputField,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInputStepper,
   Radio,
   RadioGroup,
   Select,
@@ -14,6 +9,7 @@ import {
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectWineCountries } from '../../app/selectors';
+import NumberInput from '../../components/input/NumberInput';
 import { NewWine, WineType } from './wineAPI';
 import { addWine } from './wineSlice';
 
@@ -63,6 +59,12 @@ const AddWine: React.FC = () => {
           {' '}
           {wine.price}
         </p>
+
+        <p>
+          New wine volume:
+          {' '}
+          {wine.volume}
+        </p>
       </div>
 
       <form>
@@ -109,19 +111,20 @@ const AddWine: React.FC = () => {
         </RadioGroup>
 
         <NumberInput
-          defaultValue={0}
+          label="Price"
           onChange={(value) => setWine({
             ...wine,
             price: parseFloat(value),
           })}
-          precision={2}
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+        />
+
+        <NumberInput
+          label="Volume (l)"
+          onChange={(value) => setWine({
+            ...wine,
+            volume: parseFloat(value),
+          })}
+        />
 
         <Button
           colorScheme="red"
