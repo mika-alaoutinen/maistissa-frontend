@@ -1,0 +1,13 @@
+table {
+  font-family: monospace;
+}
+
+table th {
+  padding: 1em;
+  text-align: start;
+}
+
+thead {
+  cursor: pointer;
+  font-size: large;
+}

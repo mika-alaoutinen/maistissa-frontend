@@ -1,6 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 import React from 'react';
-import styles from './DataTableHead.module.css';
 import { Column, SortedByKey } from './types';
 
 interface Props<T, K extends keyof T> {
@@ -15,7 +14,7 @@ const DataTableHead = <T, K extends keyof T>({
   sortingFn,
 }: Props<T, K>): JSX.Element => {
   const renderSortDirectionArrow = (sortDirection: 'asc' | 'desc'): JSX.Element => (
-    <span className="sort-direction-arrow" style={{ paddingLeft: '1em' }}>
+    <span>
       {sortDirection === 'asc'
         ? <ArrowUpIcon id="wine-sort-up-arrow" />
         : <ArrowDownIcon id="wine-sort-down-arrow" />}
@@ -35,7 +34,6 @@ const DataTableHead = <T, K extends keyof T>({
         {columns.map(({ key, header }) => (
           <th
             key={header}
-            className={styles.header}
             onClick={() => sortingFn(key)}
           >
             {header}

@@ -2,6 +2,7 @@ import React from 'react';
 import DataTableBody from './DataTableBody';
 import DataTableHead from './DataTableHead';
 import { Column, Identifiable, SortedByKey } from './types';
+import './DataTable.module.css';
 
 interface Props<T, K extends keyof T> {
   columns: Column<T, K>[];

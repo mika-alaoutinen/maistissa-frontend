@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './DataTableBody.module.css';
 import { Column, Identifiable } from './types';
 
 interface Props<T, K extends keyof T> {
@@ -12,10 +11,7 @@ const DataTableBody = <T extends Identifiable, K extends keyof T>({
   columns,
 }: Props<T, K>): JSX.Element => {
   const renderColumns = (row: T): JSX.Element[] => columns.map((column) => (
-    <th
-      key={`cell-${column.header}`}
-      className={styles.column}
-    >
+    <th key={`cell-${column.header}`}>
       {row[column.key]}
     </th>
   ));
