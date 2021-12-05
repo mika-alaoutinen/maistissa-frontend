@@ -1,8 +1,23 @@
 table {
+  border-collapse: collapse;
   font-family: monospace;
+  margin: 0 2em;
 }
 
-table th {
+tbody tr:hover {
+  color: red;
+  /* background-color: red !important; */
+}
+
+tbody tr:nth-child(odd) {
+  background-color: lightskyblue;
+}
+
+tbody tr:nth-child(even) {
+  background-color: azure;
+}
+
+th {
   padding: 1em;
   text-align: start;
 }
