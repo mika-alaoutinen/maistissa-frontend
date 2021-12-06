@@ -11,9 +11,9 @@ const DataTableBody = <T extends Identifiable, K extends keyof T>({
   columns,
 }: Props<T, K>): JSX.Element => {
   const renderColumns = (row: T): JSX.Element[] => columns.map((column) => (
-    <th key={`cell-${column.header}`}>
+    <td key={`cell-${column.header}`}>
       {row[column.key]}
-    </th>
+    </td>
   ));
 
   return (

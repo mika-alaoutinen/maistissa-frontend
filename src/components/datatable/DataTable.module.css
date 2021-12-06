@@ -1,7 +1,16 @@
+.sort_arrow {
+  padding-left: 1em;
+}
+
 table {
   border-collapse: collapse;
   font-family: monospace;
   margin: 0 2em;
+}
+
+thead {
+  cursor: pointer;
+  font-size: large;
 }
 
 tbody tr:hover {
@@ -17,12 +26,16 @@ tbody tr:nth-child(even) {
   background-color: azure;
 }
 
-th {
-  padding: 1em;
+td, th {
   text-align: start;
 }
 
-thead {
-  cursor: pointer;
-  font-size: large;
+td {
+  padding: 1em;
+}
+
+th {
+  padding: 1em 3em 1em 1em;
+  /* force sort direction arrow on same line with header text */
+  white-space: nowrap;
 }
