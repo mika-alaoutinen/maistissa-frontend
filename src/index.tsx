@@ -1,4 +1,3 @@
-import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -10,9 +9,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ChakraProvider>
-          <App />
-        </ChakraProvider>
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,

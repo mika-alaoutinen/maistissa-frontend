@@ -1,0 +1,17 @@
+.app_name {
+  font-style: italic;
+}
+
+.header {
+  background-color: teal;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.navigation a {
+  padding: 0 0.5em;
+}
