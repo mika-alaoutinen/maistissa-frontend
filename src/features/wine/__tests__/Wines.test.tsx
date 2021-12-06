@@ -19,11 +19,11 @@ const verifyWineIsRendered = (wine: WineInfo): void => {
 };
 
 const getFirstRow = (container: HTMLElement): Element => {
-  const th = container.querySelector('tbody > tr > th');
-  if (!th) {
+  const td = container.querySelector('tbody > tr > td');
+  if (!td) {
     throw Error('Could not find a table row');
   }
-  return th;
+  return td;
 };
 
 describe('Wine information is presented as a table', () => {
