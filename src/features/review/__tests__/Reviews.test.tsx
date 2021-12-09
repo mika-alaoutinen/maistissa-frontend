@@ -18,11 +18,11 @@ const verifyReviewIsRendered = (review: ReviewInfo): void => {
 };
 
 const getFirstRow = (container: HTMLElement): Element => {
-  const th = container.querySelector('tbody > tr > th');
-  if (!th) {
+  const td = container.querySelector('tbody > tr > td');
+  if (!td) {
     throw Error('Could not find a table row');
   }
-  return th;
+  return td;
 };
 
 describe('Review information is presented as a table', () => {

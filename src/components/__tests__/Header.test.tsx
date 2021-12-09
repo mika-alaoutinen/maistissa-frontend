@@ -1,5 +1,7 @@
-import { screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
+import { Router } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
 import Header from '../header/Header';
 import { renderWithRouter } from '../../tests/testutils';
 
@@ -12,8 +14,19 @@ describe('Header displays application name', () => {
   });
 
   it('clicking on Maistissa navigates to the home page', () => {
-    renderWithRouter(<Header />);
-    expect(screen.getByText(appName).getAttribute('href')).toBe('/');
+    const history = createMemoryHistory({
+      initialEntries: ['/not-home'],
+    });
+
+    render(
+      <Router location="/not-home" navigator={history}>
+        <Header />
+      </Router>,
+    );
+
+    expect(history.location.pathname).toBe('/not-home');
+    fireEvent.click(screen.getByText(appName));
+    expect(history.location.pathname).toBe('/');
   });
 });
 

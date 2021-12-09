@@ -1,0 +1,43 @@
+.app_name {
+  font-style: italic;
+}
+
+.header {
+  background-color: teal;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.header a {
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+.navigation {
+  align-items: flex-end;
+  display: flex;
+  padding-bottom: 1em;
+}
+
+.navigation a {
+  padding: 0 0.5em;
+}
+
+.login_button_container {
+  align-items: flex-end;
+  display: flex;
+  padding-bottom: 1em;
+}
+
+#login_button {
+  background-color: teal;
+  border-color: whitesmoke;
+  border-radius: 10%;
+  border-width: 1px;
+  color: whitesmoke;
+  padding: 1em;
+}

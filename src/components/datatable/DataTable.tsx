@@ -1,8 +1,8 @@
-import { Table } from '@chakra-ui/react';
 import React from 'react';
 import DataTableBody from './DataTableBody';
 import DataTableHead from './DataTableHead';
 import { Column, Identifiable, SortedByKey } from './types';
+import './DataTable.module.css';
 
 interface Props<T, K extends keyof T> {
   columns: Column<T, K>[];
@@ -17,10 +17,10 @@ const DataTable = <T extends Identifiable, K extends keyof T>({
   sorted = { direction: 'unsorted' },
   sortingFn = () => {},
 }: Props<T, K>): JSX.Element => (
-  <Table variant="striped">
+  <table>
     <DataTableHead columns={columns} sorted={sorted} sortingFn={sortingFn} />
     <DataTableBody columns={columns} data={data} />
-  </Table>
+  </table>
   );
 
 export default DataTable;

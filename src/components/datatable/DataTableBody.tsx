@@ -1,4 +1,3 @@
-import { Tbody, Th, Tr } from '@chakra-ui/react';
 import React from 'react';
 import { Column, Identifiable } from './types';
 
@@ -12,19 +11,19 @@ const DataTableBody = <T extends Identifiable, K extends keyof T>({
   columns,
 }: Props<T, K>): JSX.Element => {
   const renderColumns = (row: T): JSX.Element[] => columns.map((column) => (
-    <Th key={`cell-${column.header}`}>
+    <td key={`cell-${column.header}`}>
       {row[column.key]}
-    </Th>
+    </td>
   ));
 
   return (
-    <Tbody>
+    <tbody>
       {data.map((row) => (
-        <Tr key={`row-${row.id}`}>
+        <tr key={`row-${row.id}`}>
           {renderColumns(row)}
-        </Tr>
+        </tr>
       ))}
-    </Tbody>
+    </tbody>
   );
 };
 
