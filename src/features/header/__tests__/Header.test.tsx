@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import Header from '../header/Header';
-import { renderWithRouter } from '../../tests/testutils';
+import Header from '../Header';
+import { renderWithRouter } from '../../../tests/testutils';
 
 const appName = 'Maistissa';
 
