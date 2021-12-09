@@ -4,8 +4,7 @@ import {
 import React, { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectWineCountries, selectWineDescriptions, selectWineFoorPairings } from '../../app/selectors';
-import Combobox from '../../components/input/Combobox';
-import NumberInput from '../../components/input/NumberInput';
+import { Combobox, NumberInput } from '../../components/index';
 import { NewWine, WineType } from './wineAPI';
 import { addWine } from './wineSlice';
 

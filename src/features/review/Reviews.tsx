@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { selectReviews, selectReviewsSorted } from '../../app/selectors';
-import DataTable from '../../components/datatable/DataTable';
+import { DataTable } from '../../components/index';
 import { Column } from '../../components/datatable/types';
 import { useSorting } from './hooks';
 import { Review } from './reviewAPI';
