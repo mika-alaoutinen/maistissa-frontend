@@ -6,10 +6,20 @@
   background-color: teal;
   display: flex;
   justify-content: space-between;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .header a {
   text-decoration: none;
+}
+
+.navigation {
+  align-items: flex-end;
+  display: flex;
+  padding-bottom: 1em;
 }
 
 .navigation a {
