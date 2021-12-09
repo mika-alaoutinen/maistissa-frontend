@@ -13,6 +13,7 @@
 }
 
 .header a {
+  color: whitesmoke;
   text-decoration: none;
 }
 
@@ -24,4 +25,19 @@
 
 .navigation a {
   padding: 0 0.5em;
+}
+
+.login_button_container {
+  align-items: flex-end;
+  display: flex;
+  padding-bottom: 1em;
+}
+
+#login_button {
+  background-color: teal;
+  border-color: whitesmoke;
+  border-radius: 10%;
+  border-width: 1px;
+  color: whitesmoke;
+  padding: 1em;
 }

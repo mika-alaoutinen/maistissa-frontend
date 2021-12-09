@@ -1,14 +1,16 @@
-import { Button } from '@chakra-ui/react';
 import React from 'react';
+import styles from './Header.module.css';
 
 const LoginButton: React.FC = () => (
-  <Button
-    _hover={{ bg: 'teal.700', borderColor: 'teal.700' }}
-    onClick={() => console.log('Login not implemented')}
-    variant="outline"
-  >
-    Login
-  </Button>
+  <div className={styles.login_button_container}>
+    <button
+      id={styles.login_button}
+      onClick={() => console.log('Login not implemented')}
+      type="button"
+    >
+      Login
+    </button>
+  </div>
 );
 
 export default LoginButton;
