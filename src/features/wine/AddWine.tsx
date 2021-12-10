@@ -69,17 +69,17 @@ const AddWine: React.FC = () => {
 
       <NumberInput
         label="Price"
-        onChange={(value) => setWine({
+        onChange={(e) => setWine({
           ...wine,
-          price: parseFloat(value),
+          price: parseFloat(e.target.value),
         })}
       />
 
       <NumberInput
         label="Volume (l)"
-        onChange={(value) => setWine({
+        onChange={(e) => setWine({
           ...wine,
-          volume: parseFloat(value),
+          volume: parseFloat(e.target.value),
         })}
       />
 
