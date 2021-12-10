@@ -1,12 +1,11 @@
 import {
-  Button, Input, Radio, RadioGroup, Stack,
+  Button, Radio, RadioGroup, Stack,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppSelector } from '../../app/hooks';
 import { selectWineCountries, selectWineDescriptions, selectWineFoorPairings } from '../../app/selectors';
-import { Combobox, NumberInput } from '../../components/index';
+import { Combobox, Input, NumberInput } from '../../components/index';
 import { NewWine, WineType } from './wineAPI';
-import { addWine } from './wineSlice';
 
 const initialState: NewWine = {
   name: '',
@@ -21,14 +20,15 @@ const initialState: NewWine = {
 
 const AddWine: React.FC = () => {
   const [wine, setWine] = useState<NewWine>(initialState);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const countries = useAppSelector(selectWineCountries);
   const descriptions = useAppSelector(selectWineDescriptions);
   const foodPairings = useAppSelector(selectWineFoorPairings);
 
   const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-    void dispatch(addWine(wine));
+    console.log(wine);
+    // void dispatch(addWine(wine));
   };
 
   return (
@@ -39,8 +39,6 @@ const AddWine: React.FC = () => {
           name: e.target.value,
         })}
         placeholder="Name"
-        value={wine.name}
-        variant="flushed"
       />
 
       <Combobox
@@ -111,8 +109,6 @@ const AddWine: React.FC = () => {
           url: e.target.value,
         })}
         placeholder="URL"
-        value={wine.url}
-        variant="flushed"
       />
 
       <Button
