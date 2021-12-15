@@ -35,12 +35,12 @@ const AddWine: React.FC = () => {
   return (
     <form>
       <Input
-        onChange={(e) => setName(e)}
+        onChange={setName}
         placeholder="Name"
       />
 
       <Combobox
-        onChange={(e) => setCountry(e)}
+        onChange={setCountry}
         options={countries}
         value={wine.country}
         placeholder="Country"
@@ -61,30 +61,30 @@ const AddWine: React.FC = () => {
 
       <NumberInput
         label="Price"
-        onChange={(e) => setPrice(e)}
+        onChange={setPrice}
       />
 
       <NumberInput
         label="Volume (l)"
-        onChange={(e) => setVolume(e)}
+        onChange={setVolume}
       />
 
       <Combobox
-        onChange={(e) => setDescription(e)}
+        onChange={setDescription}
         options={descriptions}
         value={wine.description[0]}
         placeholder="Description"
       />
 
       <Combobox
-        onChange={(e) => setFoodPairings(e)}
+        onChange={setFoodPairings}
         options={foodPairings}
         value={wine.foodPairings[0]}
         placeholder="Foor pairings"
       />
 
       <Input
-        onChange={(e) => setUrl(e)}
+        onChange={setUrl}
         placeholder="URL"
       />
 
