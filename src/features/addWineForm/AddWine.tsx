@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { selectWineCountries, selectWineDescriptions, selectWineFoorPairings } from '../../app/selectors';
 import { Combobox, Input, NumberInput } from '../../components/index';
-import { NewWine, WineType } from './wineAPI';
+import { NewWine, WineType } from '../wine/wineAPI';
 
 const initialState: NewWine = {
   name: '',
