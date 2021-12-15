@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectWines } from '../app/selectors';
-import Wines from '../features/wine/Wines';
+import WineTable from '../features/wineTable/WineTable';
 import { fetchWines } from '../features/wine/wineSlice';
 
 const WinePage: React.FC = () => {
@@ -15,7 +15,7 @@ const WinePage: React.FC = () => {
   return (
     <div>
       <h2>{`Wines page (${count} wines)`}</h2>
-      <Wines />
+      <WineTable />
     </div>
   );
 };
