@@ -12,22 +12,26 @@ const initialState: NewWine = {
   url: '',
 };
 
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+type SelectEvent = React.ChangeEvent<HTMLSelectElement>;
+
 type AddNewWine = {
   wine: NewWine,
-  setName: (name: string) => void;
+  setName: (e: ChangeEvent) => void;
   setType: (type: NewWine.type) => void;
-  setCountry: (country: string) => void;
-  setPrice: (price: number) => void;
-  setVolume: (volume: number) => void;
-  setDescription: (description: string[]) => void;
-  setFoodPairings: (foodPairings: string[]) => void;
-  setUrl: (url: string) => void;
+  setCountry: (e: SelectEvent) => void;
+  setPrice: (e: ChangeEvent) => void;
+  setVolume: (e: ChangeEvent) => void;
+  setDescription: (e: SelectEvent) => void;
+  setFoodPairings: (e: SelectEvent) => void;
+  setUrl: (e: ChangeEvent) => void;
 };
 
 export const useAddNewWine = (): AddNewWine => {
   const [wine, setWine] = useState<NewWine>(initialState);
 
-  const setName = (name: string): void => {
+  const setName = (e: ChangeEvent): void => {
+    const name = e.target.value;
     setWine({ ...wine, name });
   };
 
@@ -35,27 +39,33 @@ export const useAddNewWine = (): AddNewWine => {
     setWine({ ...wine, type });
   };
 
-  const setCountry = (country: string): void => {
+  const setCountry = (e: SelectEvent): void => {
+    const country = e.target.value;
     setWine({ ...wine, country });
   };
 
-  const setPrice = (price: number): void => {
+  const setPrice = (e: ChangeEvent): void => {
+    const price = parseFloat(e.target.value);
     setWine({ ...wine, price });
   };
 
-  const setVolume = (volume: number): void => {
+  const setVolume = (e: ChangeEvent): void => {
+    const volume = parseFloat(e.target.value);
     setWine({ ...wine, volume });
   };
 
-  const setDescription = (description: string[]): void => {
+  const setDescription = (e: SelectEvent): void => {
+    const description = [e.target.value];
     setWine({ ...wine, description });
   };
 
-  const setFoodPairings = (foodPairings: string[]): void => {
+  const setFoodPairings = (e: SelectEvent): void => {
+    const foodPairings = [e.target.value];
     setWine({ ...wine, foodPairings });
   };
 
-  const setUrl = (url: string): void => {
+  const setUrl = (e: ChangeEvent): void => {
+    const url = e.target.value;
     setWine({ ...wine, url });
   };
 
