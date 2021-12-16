@@ -1,12 +1,12 @@
-import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { useAddNewWine } from './hooks';
-import { useAppSelector } from '../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectWineCountries, selectWineDescriptions, selectWineFoorPairings } from '../../app/selectors';
 import {
-  Combobox, Input, NumberInput, RadioGroup,
+  Combobox, Input, NumberInput, RadioGroup, SubmitButton,
 } from '../../components/index';
 import { WineType } from '../wine/wineAPI';
+import { addWine } from '../wine/wineSlice';
 
 const AddWine: React.FC = () => {
   const {
@@ -21,15 +21,14 @@ const AddWine: React.FC = () => {
     setUrl,
   } = useAddNewWine();
 
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
   const countries = useAppSelector(selectWineCountries);
   const descriptions = useAppSelector(selectWineDescriptions);
   const foodPairings = useAppSelector(selectWineFoorPairings);
 
   const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();
-    console.log(wine);
-    // void dispatch(addWine(wine));
+    void dispatch(addWine(wine));
   };
 
   return (
@@ -80,13 +79,10 @@ const AddWine: React.FC = () => {
         placeholder="URL"
       />
 
-      <Button
-        colorScheme="red"
+      <SubmitButton
         onClick={handleAddWine}
-        type="submit"
-      >
-        Add wine
-      </Button>
+        text="Add wine"
+      />
     </form>
   );
 };
