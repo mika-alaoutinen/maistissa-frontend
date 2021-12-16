@@ -39,10 +39,9 @@ const AddWine: React.FC = () => {
       />
 
       <Combobox
+        label="Country"
         onChange={setCountry}
         options={countries}
-        value={wine.country}
-        placeholder="Country"
       />
 
       <RadioGroup
@@ -61,17 +60,16 @@ const AddWine: React.FC = () => {
       />
 
       <Combobox
+        label="Description"
         onChange={setDescription}
         options={descriptions}
-        value={wine.description[0]}
-        placeholder="Description"
+
       />
 
       <Combobox
+        label="Foor pairings"
         onChange={setFoodPairings}
         options={foodPairings}
-        value={wine.foodPairings[0]}
-        placeholder="Foor pairings"
       />
 
       <Input
