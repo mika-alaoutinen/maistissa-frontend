@@ -1,44 +1,31 @@
-import {
-  NumberInput as ChakraNumberInput,
-  NumberInputField,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInputStepper,
-  Stack,
-} from '@chakra-ui/react';
 import React from 'react';
+import styles from './NumberInput.module.css';
+
+type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 interface Props {
-  onChange: (value: string) => void;
+  onChange: OnChangeHandler;
+  defaultValue?: number;
   label?: string;
 }
 
-const NumberInput: React.FC<Props> = ({ onChange, label }) => {
-  const numberInputWithLabel = (numberInput: React.ReactNode) => (
-    <Stack direction="row" spacing={8}>
-      <div>{label}</div>
-      {numberInput}
-    </Stack>
-  );
-
+const NumberInput: React.FC<Props> = ({ onChange, defaultValue = 0, label }) => {
   const numberInput = (
-    <ChakraNumberInput
-      defaultValue={0}
+    <input
+      defaultValue={defaultValue}
       onChange={onChange}
-      precision={2}
-      variant="flushed"
-    >
-      <NumberInputField />
-      <NumberInputStepper>
-        <NumberIncrementStepper />
-        <NumberDecrementStepper />
-      </NumberInputStepper>
-    </ChakraNumberInput>
+      type="number"
+    />
   );
 
-  return label
-    ? numberInputWithLabel(numberInput)
-    : numberInput;
+  const numberInputWithLabel = (
+    <div>
+      <span className={styles.number_input_label}>{label}</span>
+      {numberInput}
+    </div>
+  );
+
+  return label ? numberInputWithLabel : numberInput;
 };
 
 export default NumberInput;

@@ -2,10 +2,10 @@ import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 import { renderWithStore } from '../../../tests/testutils';
 import AddWine from '../AddWine';
-import api from '../wineAPI';
+import api from '../../wine/wineAPI';
 
 const mockAPI = api as jest.Mocked<typeof api>;
-jest.mock('../wineAPI');
+jest.mock('../../wine/wineAPI');
 
 afterEach(() => {
   jest.clearAllMocks();

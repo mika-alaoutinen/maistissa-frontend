@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch } from '../app/hooks';
-import AddWine from '../features/wine/AddWine';
+import AddWine from '../features/addWineForm/AddWine';
 import { fetchCountries, fetchDescriptions, fetchFoodPairings } from '../features/wineInfo/wineInfoSlice';
 
 const AddWinePage: React.FC = () => {

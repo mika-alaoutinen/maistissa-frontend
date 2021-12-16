@@ -1,12 +1,12 @@
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { selectWines, selectWinesSorted } from '../../app/selectors';
-import DataTable from '../../components/datatable/DataTable';
+import { DataTable } from '../../components/index';
 import { Column } from '../../components/datatable/types';
-import { useSorting } from './hooks';
-import { Wine } from './wineAPI';
+import { useSorting } from '../wine/hooks';
+import { Wine } from '../wine/wineAPI';
 
-const Wines: React.FC = () => {
+const WineTable: React.FC = () => {
   const wines = useAppSelector(selectWines);
   const sorted = useAppSelector(selectWinesSorted);
   const sortingFn = useSorting();
@@ -44,4 +44,4 @@ const Wines: React.FC = () => {
   );
 };
 
-export default Wines;
+export default WineTable;

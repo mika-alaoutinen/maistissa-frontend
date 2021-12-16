@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 import { renderWithStore } from '../../../tests/testutils';
-import Wines from '../Wines';
+import WineTable from '../WineTable';
 
 type WineInfo = {
   name: string,
@@ -27,7 +27,7 @@ const getFirstRow = (container: HTMLElement): Element => {
 };
 
 describe('Wine information is presented as a table', () => {
-  beforeEach(() => renderWithStore(<Wines />));
+  beforeEach(() => renderWithStore(<WineTable />));
 
   it('renders headers', () => {
     ['Name', 'Type', 'Country', 'Volume (l)', 'Price (€)']
@@ -59,7 +59,7 @@ describe('Wine information is presented as a table', () => {
 
 describe('Clicking on headers sorts wines', () => {
   it('sort wines by name', () => {
-    const { container } = renderWithStore(<Wines />);
+    const { container } = renderWithStore(<WineTable />);
     const initialWineName = getFirstRow(container).firstChild?.textContent;
 
     // Sort wines and check that the first row has different wine
@@ -70,13 +70,13 @@ describe('Clicking on headers sorts wines', () => {
   });
 
   it('ascending sort is indicated in the header by an up arrow', async () => {
-    const { container } = renderWithStore(<Wines />);
+    const { container } = renderWithStore(<WineTable />);
     fireEvent.click(screen.getByText(/Price/));
     expect(container.querySelector('#wine-sort-up-arrow')).toBeInTheDocument();
   });
 
   it('descending sort is indicated in the header by a down arrow', async () => {
-    const { container } = renderWithStore(<Wines />);
+    const { container } = renderWithStore(<WineTable />);
     const header = screen.getByText(/Price/);
     fireEvent.click(header);
     fireEvent.click(header);
