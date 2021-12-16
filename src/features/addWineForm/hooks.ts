@@ -18,13 +18,26 @@ type SelectEvent = React.ChangeEvent<HTMLSelectElement>;
 type AddNewWine = {
   wine: NewWine,
   setName: (e: ChangeEvent) => void;
-  setType: (type: NewWine.type) => void;
+  setType: (e: ChangeEvent) => void;
   setCountry: (e: SelectEvent) => void;
   setPrice: (e: ChangeEvent) => void;
   setVolume: (e: ChangeEvent) => void;
   setDescription: (e: SelectEvent) => void;
   setFoodPairings: (e: SelectEvent) => void;
   setUrl: (e: ChangeEvent) => void;
+};
+
+const parseWineType = (type: string): NewWine.type => {
+  const wineType = Object
+    .values(WineType)
+    .find((t) => t === type);
+
+  if (!wineType) {
+    console.error('Could not parse wine type', type);
+    return WineType.OTHER;
+  }
+
+  return wineType;
 };
 
 export const useAddNewWine = (): AddNewWine => {
@@ -35,7 +48,8 @@ export const useAddNewWine = (): AddNewWine => {
     setWine({ ...wine, name });
   };
 
-  const setType = (type: NewWine.type): void => {
+  const setType = (e: ChangeEvent): void => {
+    const type = parseWineType(e.target.value);
     setWine({ ...wine, type });
   };
 

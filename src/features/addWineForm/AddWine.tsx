@@ -1,12 +1,12 @@
-import {
-  Button, Radio, RadioGroup, Stack,
-} from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 import React from 'react';
 import { useAddNewWine } from './hooks';
 import { useAppSelector } from '../../app/hooks';
 import { selectWineCountries, selectWineDescriptions, selectWineFoorPairings } from '../../app/selectors';
-import { Combobox, Input, NumberInput } from '../../components/index';
-import { NewWine, WineType } from '../wine/wineAPI';
+import {
+  Combobox, Input, NumberInput, RadioGroup,
+} from '../../components/index';
+import { WineType } from '../wine/wineAPI';
 
 const AddWine: React.FC = () => {
   const {
@@ -47,17 +47,9 @@ const AddWine: React.FC = () => {
       />
 
       <RadioGroup
-        onChange={(type: NewWine.type) => setType(type)}
-        value={wine.type}
-      >
-        <Stack direction="row" spacing={4}>
-          {Object.keys(WineType).map((type) => (
-            <Radio key={type} value={type}>
-              {type.toLowerCase()}
-            </Radio>
-          ))}
-        </Stack>
-      </RadioGroup>
+        keys={Object.keys(WineType)}
+        onChange={(e) => setType(e)}
+      />
 
       <NumberInput
         label="Price"
