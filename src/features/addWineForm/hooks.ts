@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { NewWine, WineType } from '../wine/wineAPI';
+import { NewWine, Wine, WineType } from '../wine/wineAPI';
 import { addWine } from '../wine/wineSlice';
 
 const initialState: NewWine = {
@@ -104,10 +104,14 @@ export const useWineForm = (): AddNewWine => {
   };
 };
 
-// Return Promise<Wine>?
-type AddWineHook = (wine: NewWine) => void;
+type AddWineHook = (wine: NewWine) => Promise<Wine>;
 
 export const useAddWine = (): AddWineHook => {
   const dispatch = useAppDispatch();
-  return (wine: NewWine) => dispatch(addWine(wine));
+
+  return async (wine: NewWine) => {
+    const response = dispatch(addWine(wine));
+    // Note that unwrap can throw an error!
+    return response.unwrap();
+  };
 };

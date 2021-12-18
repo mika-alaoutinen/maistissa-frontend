@@ -23,9 +23,10 @@ const AddWine: React.FC = () => {
     resetForm,
   } = useWineForm();
 
-  const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
+  const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-    void addWine(wine);
+    const addedWine = await addWine(wine);
+    console.log('added wine', addedWine);
     resetForm();
   };
 
