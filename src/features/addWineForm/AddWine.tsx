@@ -31,7 +31,7 @@ const AddWine: React.FC = () => {
   };
 
   return (
-    <form>
+    <form id="add-wine-form">
       <Input
         id="new-wine-name"
         label="Name"
