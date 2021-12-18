@@ -1,14 +1,13 @@
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
-import { selectWines, selectWinesSorted } from '../../app/selectors';
+import { selectWines } from '../../app/selectors';
 import { DataTable } from '../../components/index';
 import { Column } from '../../components/datatable/types';
 import { useSorting } from '../wine/hooks';
 import { Wine } from '../wine/wineAPI';
 
 const WineTable: React.FC = () => {
-  const wines = useAppSelector(selectWines);
-  const sorted = useAppSelector(selectWinesSorted);
+  const { sorted, wines } = useAppSelector(selectWines);
   const sortingFn = useSorting();
 
   const columns: Column<Wine, keyof Wine>[] = [

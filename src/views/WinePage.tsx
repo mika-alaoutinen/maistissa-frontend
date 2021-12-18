@@ -6,7 +6,7 @@ import { fetchWines } from '../features/wine/wineSlice';
 
 const WinePage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const count = useAppSelector(selectWines).length;
+  const { wines } = useAppSelector(selectWines);
 
   useEffect(() => {
     void dispatch(fetchWines());
@@ -14,7 +14,7 @@ const WinePage: React.FC = () => {
 
   return (
     <div>
-      <h2>{`Wines page (${count} wines)`}</h2>
+      <h2>{`Wines page (${wines.length} wines)`}</h2>
       <WineTable />
     </div>
   );

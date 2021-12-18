@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectReviewsSorted } from '../../app/selectors';
+import { selectReviews } from '../../app/selectors';
 import { SortedByKey } from '../../components/datatable/types';
 import { Review } from './reviewAPI';
 import { Payload, sortAsc, sortDesc } from './reviewSlice';
@@ -26,7 +26,7 @@ const selectSortingFn = (
  */
 export const useSorting = (): SortingFn => {
   const dispatch = useAppDispatch();
-  const sorted = useAppSelector(selectReviewsSorted);
+  const { sorted } = useAppSelector(selectReviews);
   return (key: Key) => dispatch(selectSortingFn(key, sorted));
 };
 
