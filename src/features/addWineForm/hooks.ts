@@ -27,6 +27,7 @@ type AddNewWine = {
   setDescription: (e: SelectEvent) => void;
   setFoodPairings: (e: SelectEvent) => void;
   setUrl: (e: ChangeEvent) => void;
+  resetForm: () => void;
 };
 
 const parseWineType = (type: string): NewWine.type => {
@@ -85,6 +86,10 @@ export const useWineForm = (): AddNewWine => {
     setWine({ ...wine, url });
   };
 
+  const resetForm = (): void => {
+    setWine(initialState);
+  };
+
   return {
     wine,
     setName,
@@ -95,6 +100,7 @@ export const useWineForm = (): AddNewWine => {
     setDescription,
     setFoodPairings,
     setUrl,
+    resetForm,
   };
 };
 

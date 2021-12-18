@@ -20,7 +20,14 @@ const AddWine: React.FC = () => {
     setDescription,
     setFoodPairings,
     setUrl,
+    resetForm,
   } = useWineForm();
+
+  const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+    void addWine(wine);
+    resetForm();
+  };
 
   return (
     <form>
@@ -76,7 +83,7 @@ const AddWine: React.FC = () => {
       />
 
       <SubmitButton
-        onClick={() => addWine(wine)}
+        onClick={handleAddWine}
         text="Add wine"
       />
     </form>
