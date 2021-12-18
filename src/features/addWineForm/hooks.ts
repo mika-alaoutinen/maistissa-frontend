@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useAppDispatch } from '../../app/hooks';
 import { NewWine, WineType } from '../wine/wineAPI';
+import { addWine } from '../wine/wineSlice';
 
 const initialState: NewWine = {
   name: '',
@@ -40,7 +42,7 @@ const parseWineType = (type: string): NewWine.type => {
   return wineType;
 };
 
-export const useAddNewWine = (): AddNewWine => {
+export const useWineForm = (): AddNewWine => {
   const [wine, setWine] = useState<NewWine>(initialState);
 
   const setName = (e: ChangeEvent): void => {
@@ -96,4 +98,10 @@ export const useAddNewWine = (): AddNewWine => {
   };
 };
 
-export default { useAddNewWine };
+// Return Promise<Wine>?
+type AddWineHook = (wine: NewWine) => void;
+
+export const useAddWine = (): AddWineHook => {
+  const dispatch = useAppDispatch();
+  return (wine: NewWine) => dispatch(addWine(wine));
+};

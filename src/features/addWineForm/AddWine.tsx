@@ -1,14 +1,15 @@
 import React from 'react';
-import { useAddNewWine } from './hooks';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAddWine, useWineForm } from './hooks';
+import { useAppSelector } from '../../app/hooks';
 import { selectWineInfo } from '../../app/selectors';
 import {
   Combobox, Input, NumberInput, RadioGroup, SubmitButton,
 } from '../../components/index';
 import { WineType } from '../wine/wineAPI';
-import { addWine } from '../wine/wineSlice';
 
 const AddWine: React.FC = () => {
+  const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
+  const addWine = useAddWine();
   const {
     wine,
     setName,
@@ -19,15 +20,7 @@ const AddWine: React.FC = () => {
     setDescription,
     setFoodPairings,
     setUrl,
-  } = useAddNewWine();
-
-  const dispatch = useAppDispatch();
-  const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
-
-  const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
-    e.preventDefault();
-    void dispatch(addWine(wine));
-  };
+  } = useWineForm();
 
   return (
     <form>
@@ -83,7 +76,7 @@ const AddWine: React.FC = () => {
       />
 
       <SubmitButton
-        onClick={handleAddWine}
+        onClick={() => addWine(wine)}
         text="Add wine"
       />
     </form>

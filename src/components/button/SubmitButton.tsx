@@ -10,7 +10,7 @@ const SubmitButton: React.FC<Props> = ({ onClick, text }) => (
   <button
     className={styles.submit_button}
     onClick={onClick}
-    type="submit"
+    type="button"
   >
     {text}
   </button>

@@ -16,7 +16,7 @@ const Combobox: React.FC<Props> = ({
   options,
 }) => (
   <div className={styles.combobox}>
-    <label htmlFor={label}>{label}</label>
+    <label htmlFor={id}>{label}</label>
 
     <select id={id} onChange={onChange}>
       <option value="default" hidden>
