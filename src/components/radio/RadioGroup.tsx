@@ -1,5 +1,6 @@
 import React from 'react';
 import RadioButton from './RadioButton';
+import styles from './RadioGroup.module.css';
 
 type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
@@ -9,7 +10,7 @@ interface Props {
 }
 
 const RadioGroup: React.FC<Props> = ({ keys, onChange }) => (
-  <div onChange={onChange}>
+  <div className={styles.radio_group} onChange={onChange}>
     {keys.map((key) => (
       <RadioButton
         key={key}

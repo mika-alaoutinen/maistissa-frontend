@@ -71,7 +71,7 @@ const AddWine: React.FC = () => {
 
       <Combobox
         id="new-wine-food-pairings"
-        label="Foor pairings"
+        label="Food pairings"
         onChange={setFoodPairings}
         options={foodPairings}
       />
