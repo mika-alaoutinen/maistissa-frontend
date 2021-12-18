@@ -32,8 +32,9 @@ const AddWine: React.FC = () => {
   return (
     <form>
       <Input
+        id="new-wine-name"
+        label="Name"
         onChange={setName}
-        placeholder="Name"
       />
 
       <Combobox
@@ -48,11 +49,13 @@ const AddWine: React.FC = () => {
       />
 
       <NumberInput
+        id="new-wine-price"
         label="Price"
         onChange={setPrice}
       />
 
       <NumberInput
+        id="new-wine-volume"
         label="Volume (l)"
         onChange={setVolume}
       />
@@ -71,8 +74,9 @@ const AddWine: React.FC = () => {
       />
 
       <Input
+        id="new-wine-url"
+        label="URL"
         onChange={setUrl}
-        placeholder="URL"
       />
 
       <SubmitButton

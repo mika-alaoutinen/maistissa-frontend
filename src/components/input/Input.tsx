@@ -4,20 +4,20 @@ import styles from './Input.module.css';
 type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 interface Props {
-  onChange: OnChangeHandler;
+  id: string;
   label: string;
-  id?: string;
+  onChange: OnChangeHandler;
 }
 
-const Input: React.FC<Props> = ({ onChange, label, id }) => (
+const Input: React.FC<Props> = ({ id, label, onChange }) => (
   <div className={styles.input}>
     <label htmlFor={id}>
       {label}
     </label>
 
     <input
-      className={styles.input}
       id={id}
+      className={styles.input}
       onChange={onChange}
       placeholder={label}
     />

@@ -4,10 +4,10 @@ import styles from './NumberInput.module.css';
 type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 interface Props {
+  id: string;
+  label: string;
   onChange: OnChangeHandler;
   defaultValue?: number;
-  label: string;
-  id?: string;
 }
 
 const NumberInput: React.FC<Props> = ({
