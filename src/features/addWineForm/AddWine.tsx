@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAddNewWine } from './hooks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectWineCountries, selectWineDescriptions, selectWineFoorPairings } from '../../app/selectors';
+import { selectWineInfo } from '../../app/selectors';
 import {
   Combobox, Input, NumberInput, RadioGroup, SubmitButton,
 } from '../../components/index';
@@ -22,9 +22,7 @@ const AddWine: React.FC = () => {
   } = useAddNewWine();
 
   const dispatch = useAppDispatch();
-  const countries = useAppSelector(selectWineCountries);
-  const descriptions = useAppSelector(selectWineDescriptions);
-  const foodPairings = useAppSelector(selectWineFoorPairings);
+  const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
 
   const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
     e.preventDefault();

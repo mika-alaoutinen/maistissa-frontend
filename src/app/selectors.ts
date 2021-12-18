@@ -1,6 +1,7 @@
 import { SortedByKey } from '../components/datatable/types';
 import { Review } from '../features/review/reviewAPI';
 import { Wine } from '../features/wine/wineAPI';
+import { WineInfoState } from '../features/wineInfo/wineInfoSlice';
 import { RootState } from './store';
 
 // Reviews
@@ -14,16 +15,12 @@ const selectWines = (state: RootState): Wine[] => state.wines.wines;
 const selectWinesSorted = (state: RootState): SortedByKey<Wine, keyof Wine> => state.wines.sorted;
 
 // Wine info
-const selectWineCountries = (state: RootState): string[] => state.wineInfo.countries;
-const selectWineDescriptions = (state: RootState): string[] => state.wineInfo.descriptions;
-const selectWineFoorPairings = (state: RootState): string[] => state.wineInfo.foodPairings;
+const selectWineInfo = (state: RootState): WineInfoState => state.wineInfo;
 
 export {
   selectReviews,
   selectReviewsSorted,
   selectWines,
   selectWinesSorted,
-  selectWineCountries,
-  selectWineDescriptions,
-  selectWineFoorPairings,
+  selectWineInfo,
 };

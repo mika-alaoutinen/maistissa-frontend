@@ -2,11 +2,9 @@ import { initRootState } from '../../tests/testutils';
 import {
   selectReviews,
   selectReviewsSorted,
-  selectWineCountries,
-  selectWineDescriptions,
-  selectWineFoorPairings,
   selectWines,
   selectWinesSorted,
+  selectWineInfo,
 } from '../selectors';
 
 describe('Wine selectors', () => {
@@ -45,17 +43,17 @@ describe('Wine info selectors', () => {
   const state = initRootState();
 
   it('should return wine countries', () => {
-    const countries = selectWineCountries(state);
+    const { countries } = selectWineInfo(state);
     expect(countries).toEqual(['Italy', 'Spain']);
   });
 
   it('should return wine descriptions', () => {
-    const descriptions = selectWineDescriptions(state);
+    const { descriptions } = selectWineInfo(state);
     expect(descriptions).toEqual(['dry', 'aromatic', 'full bodied', 'rich']);
   });
 
   it('should return wine food pairings', () => {
-    const foodPairings = selectWineFoorPairings(state);
+    const { foodPairings } = selectWineInfo(state);
     expect(foodPairings).toEqual(['white meat', 'barbeque']);
   });
 });
