@@ -38,6 +38,7 @@ const AddWine: React.FC = () => {
       />
 
       <Combobox
+        id="new-wine-country"
         label="Country"
         onChange={setCountry}
         options={countries}
@@ -61,6 +62,7 @@ const AddWine: React.FC = () => {
       />
 
       <Combobox
+        id="new-wine-description"
         label="Description"
         onChange={setDescription}
         options={descriptions}
@@ -68,6 +70,7 @@ const AddWine: React.FC = () => {
       />
 
       <Combobox
+        id="new-wine-food-pairings"
         label="Foor pairings"
         onChange={setFoodPairings}
         options={foodPairings}
