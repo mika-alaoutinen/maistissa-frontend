@@ -5,17 +5,23 @@ type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 interface Props {
   onChange: OnChangeHandler;
-  placeholder: string;
+  label: string;
   id?: string;
 }
 
-const Input: React.FC<Props> = ({ onChange, placeholder, id }) => (
-  <input
-    className={styles.input}
-    id={id}
-    onChange={onChange}
-    placeholder={placeholder}
-  />
+const Input: React.FC<Props> = ({ onChange, label, id }) => (
+  <div className={styles.input}>
+    <label htmlFor={id}>
+      {label}
+    </label>
+
+    <input
+      className={styles.input}
+      id={id}
+      onChange={onChange}
+      placeholder={label}
+    />
+  </div>
 );
 
 export default Input;

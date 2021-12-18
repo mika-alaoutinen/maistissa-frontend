@@ -6,26 +6,25 @@ type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 interface Props {
   onChange: OnChangeHandler;
   defaultValue?: number;
-  label?: string;
+  label: string;
+  id?: string;
 }
 
-const NumberInput: React.FC<Props> = ({ onChange, defaultValue = 0, label }) => {
-  const numberInput = (
+const NumberInput: React.FC<Props> = ({
+  onChange, defaultValue = 0, id, label,
+}) => (
+  <div className={styles.number_input}>
+    <label htmlFor={id}>
+      {label}
+    </label>
+
     <input
       defaultValue={defaultValue}
+      id={id}
       onChange={onChange}
       type="number"
     />
-  );
-
-  const numberInputWithLabel = (
-    <div>
-      <span className={styles.number_input_label}>{label}</span>
-      {numberInput}
-    </div>
-  );
-
-  return label ? numberInputWithLabel : numberInput;
-};
+  </div>
+);
 
 export default NumberInput;
