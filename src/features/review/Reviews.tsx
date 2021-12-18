@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '../../app/hooks';
-import { selectReviews, selectReviewsSorted } from '../../app/selectors';
+import { selectReviews } from '../../app/selectors';
 import { DataTable } from '../../components/index';
 import { Column } from '../../components/datatable/types';
 import { useSorting } from './hooks';
@@ -33,8 +33,7 @@ const columns: Column<ReviewWithWineName, keyof ReviewWithWineName>[] = [
 ];
 
 const Reviews: React.FC = () => {
-  const reviews = useAppSelector(selectReviews);
-  const sorted = useAppSelector(selectReviewsSorted);
+  const { reviews, sorted } = useAppSelector(selectReviews);
   const sortingFn = useSorting();
 
   const reviewsWithWineNames: ReviewWithWineName[] = reviews.map((review) => ({

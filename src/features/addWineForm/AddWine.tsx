@@ -1,14 +1,15 @@
 import React from 'react';
-import { useAddNewWine } from './hooks';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectWineCountries, selectWineDescriptions, selectWineFoorPairings } from '../../app/selectors';
+import { useAddWine, useWineForm } from './hooks';
+import { useAppSelector } from '../../app/hooks';
+import { selectWineInfo } from '../../app/selectors';
 import {
   Combobox, Input, NumberInput, RadioGroup, SubmitButton,
 } from '../../components/index';
 import { WineType } from '../wine/wineAPI';
-import { addWine } from '../wine/wineSlice';
 
 const AddWine: React.FC = () => {
+  const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
+  const addWine = useAddWine();
   const {
     wine,
     setName,
@@ -19,26 +20,26 @@ const AddWine: React.FC = () => {
     setDescription,
     setFoodPairings,
     setUrl,
-  } = useAddNewWine();
+    resetForm,
+  } = useWineForm();
 
-  const dispatch = useAppDispatch();
-  const countries = useAppSelector(selectWineCountries);
-  const descriptions = useAppSelector(selectWineDescriptions);
-  const foodPairings = useAppSelector(selectWineFoorPairings);
-
-  const handleAddWine = (e: React.MouseEvent<HTMLElement>): void => {
+  const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-    void dispatch(addWine(wine));
+    const addedWine = await addWine(wine);
+    console.log('added wine', addedWine);
+    resetForm();
   };
 
   return (
-    <form>
+    <form id="add-wine-form">
       <Input
+        id="new-wine-name"
+        label="Name"
         onChange={setName}
-        placeholder="Name"
       />
 
       <Combobox
+        id="new-wine-country"
         label="Country"
         onChange={setCountry}
         options={countries}
@@ -50,16 +51,19 @@ const AddWine: React.FC = () => {
       />
 
       <NumberInput
+        id="new-wine-price"
         label="Price"
         onChange={setPrice}
       />
 
       <NumberInput
+        id="new-wine-volume"
         label="Volume (l)"
         onChange={setVolume}
       />
 
       <Combobox
+        id="new-wine-description"
         label="Description"
         onChange={setDescription}
         options={descriptions}
@@ -67,14 +71,16 @@ const AddWine: React.FC = () => {
       />
 
       <Combobox
-        label="Foor pairings"
+        id="new-wine-food-pairings"
+        label="Food pairings"
         onChange={setFoodPairings}
         options={foodPairings}
       />
 
       <Input
+        id="new-wine-url"
+        label="URL"
         onChange={setUrl}
-        placeholder="URL"
       />
 
       <SubmitButton

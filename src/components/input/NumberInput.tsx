@@ -4,28 +4,27 @@ import styles from './NumberInput.module.css';
 type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
 
 interface Props {
+  id: string;
+  label: string;
   onChange: OnChangeHandler;
   defaultValue?: number;
-  label?: string;
 }
 
-const NumberInput: React.FC<Props> = ({ onChange, defaultValue = 0, label }) => {
-  const numberInput = (
+const NumberInput: React.FC<Props> = ({
+  onChange, defaultValue = 0, id, label,
+}) => (
+  <div className={styles.number_input}>
+    <label htmlFor={id}>
+      {label}
+    </label>
+
     <input
       defaultValue={defaultValue}
+      id={id}
       onChange={onChange}
       type="number"
     />
-  );
-
-  const numberInputWithLabel = (
-    <div>
-      <span className={styles.number_input_label}>{label}</span>
-      {numberInput}
-    </div>
-  );
-
-  return label ? numberInputWithLabel : numberInput;
-};
+  </div>
+);
 
 export default NumberInput;

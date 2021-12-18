@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectWinesSorted } from '../../app/selectors';
+import { selectWines } from '../../app/selectors';
 import { SortedByKey } from '../../components/datatable/types';
 import { Wine } from './wineAPI';
 import { Payload, sortAsc, sortDesc } from './wineSlice';
@@ -26,7 +26,7 @@ const selectSortingFn = (
  */
 export const useSorting = (): SortingFn => {
   const dispatch = useAppDispatch();
-  const sorted = useAppSelector(selectWinesSorted);
+  const { sorted } = useAppSelector(selectWines);
   return (key: Key) => dispatch(selectSortingFn(key, sorted));
 };
 

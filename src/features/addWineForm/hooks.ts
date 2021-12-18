@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { NewWine, WineType } from '../wine/wineAPI';
+import { useAppDispatch } from '../../app/hooks';
+import { NewWine, Wine, WineType } from '../wine/wineAPI';
+import { addWine } from '../wine/wineSlice';
 
 const initialState: NewWine = {
   name: '',
@@ -25,6 +27,7 @@ type AddNewWine = {
   setDescription: (e: SelectEvent) => void;
   setFoodPairings: (e: SelectEvent) => void;
   setUrl: (e: ChangeEvent) => void;
+  resetForm: () => void;
 };
 
 const parseWineType = (type: string): NewWine.type => {
@@ -40,7 +43,7 @@ const parseWineType = (type: string): NewWine.type => {
   return wineType;
 };
 
-export const useAddNewWine = (): AddNewWine => {
+export const useWineForm = (): AddNewWine => {
   const [wine, setWine] = useState<NewWine>(initialState);
 
   const setName = (e: ChangeEvent): void => {
@@ -83,6 +86,10 @@ export const useAddNewWine = (): AddNewWine => {
     setWine({ ...wine, url });
   };
 
+  const resetForm = (): void => {
+    setWine(initialState);
+  };
+
   return {
     wine,
     setName,
@@ -93,7 +100,18 @@ export const useAddNewWine = (): AddNewWine => {
     setDescription,
     setFoodPairings,
     setUrl,
+    resetForm,
   };
 };
 
-export default { useAddNewWine };
+type AddWineHook = (wine: NewWine) => Promise<Wine>;
+
+export const useAddWine = (): AddWineHook => {
+  const dispatch = useAppDispatch();
+
+  return async (wine: NewWine) => {
+    const response = dispatch(addWine(wine));
+    // Note that unwrap can throw an error!
+    return response.unwrap();
+  };
+};

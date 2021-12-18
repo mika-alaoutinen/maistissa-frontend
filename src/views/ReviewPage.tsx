@@ -6,7 +6,7 @@ import { fetchReviews } from '../features/review/reviewSlice';
 
 const ReviewPage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const count = useAppSelector(selectReviews).length;
+  const { reviews } = useAppSelector(selectReviews);
 
   useEffect(() => {
     void dispatch(fetchReviews());
@@ -14,7 +14,7 @@ const ReviewPage: React.FC = () => {
 
   return (
     <div>
-      <h2>{`Reviews page (${count} reviews)`}</h2>
+      <h2>{`Reviews page (${reviews.length} reviews)`}</h2>
       <Reviews />
     </div>
   );
