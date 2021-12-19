@@ -86,6 +86,7 @@ const AddWine: React.FC = () => {
       />
 
       <SubmitButton
+        id="add-wine-form-submit"
         onClick={handleAddWine}
         text="Add wine"
       />
