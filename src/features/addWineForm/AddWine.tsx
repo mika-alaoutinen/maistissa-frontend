@@ -57,12 +57,14 @@ const AddWine: React.FC = () => {
         id="new-wine-price"
         label="Price"
         onChange={setPrice}
+        value={wine.price}
       />
 
       <NumberInput
         id="new-wine-volume"
         label="Volume (l)"
         onChange={setVolume}
+        value={wine.volume}
       />
 
       <Combobox

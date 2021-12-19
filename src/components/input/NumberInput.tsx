@@ -7,11 +7,14 @@ interface Props {
   id: string;
   label: string;
   onChange: OnChangeHandler;
-  defaultValue?: number;
+  value: number;
 }
 
 const NumberInput: React.FC<Props> = ({
-  onChange, defaultValue = 0, id, label,
+  id,
+  label,
+  onChange,
+  value,
 }) => (
   <div className={styles.number_input}>
     <label htmlFor={id}>
@@ -19,10 +22,10 @@ const NumberInput: React.FC<Props> = ({
     </label>
 
     <input
-      defaultValue={defaultValue}
       id={id}
       onChange={onChange}
       type="number"
+      value={value}
     />
   </div>
 );
