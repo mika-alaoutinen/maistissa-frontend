@@ -1,7 +1,9 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { renderWithStore } from '../../../tests/testutils';
 import AddWine from '../AddWine';
+import { initialState } from '../hooks';
 import api from '../../wine/wineAPI';
 
 const mockAPI = api as jest.Mocked<typeof api>;
@@ -48,7 +50,8 @@ describe('Form should have all input fields', () => {
 describe('Adding a new wine', () => {
   it('Clicking add wine button calls wineAPI', () => {
     renderWithStore(<AddWine />);
-    fireEvent.click(screen.getByText(/Add wine/));
+    userEvent.click(screen.getByText(/Add wine/));
     expect(mockAPI.addWine).toHaveBeenCalledTimes(1);
+    expect(mockAPI.addWine).toHaveBeenCalledWith(initialState);
   });
 });
