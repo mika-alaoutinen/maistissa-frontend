@@ -71,7 +71,7 @@ const AddWine: React.FC = () => {
         label="Description"
         onChange={setDescription}
         options={descriptions}
-        value={wine.description[0]}
+        values={wine.description}
       />
 
       <Combobox
@@ -79,7 +79,7 @@ const AddWine: React.FC = () => {
         label="Food pairings"
         onChange={setFoodPairings}
         options={foodPairings}
-        value={wine.foodPairings[0]}
+        values={wine.foodPairings}
       />
 
       <Input
