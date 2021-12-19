@@ -1,3 +1,7 @@
 .radio_group {
   display: flex;
 }
+
+.radio_group_label {
+  padding-right: 1em;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { renderWithStore } from '../../../tests/testutils';
 import Reviews from '../Reviews';
 
@@ -62,7 +63,7 @@ describe('Clicking on headers sorts reviews', () => {
     const initialReviewAuthor = getFirstRow(container).firstChild?.textContent;
 
     // Sort reviews and check that the first row has different review
-    fireEvent.click(screen.getByText(/Author/));
+    userEvent.click(screen.getByText(/Author/));
     const reviewAuthorAfterSorting = getFirstRow(container).firstChild?.textContent;
 
     expect(initialReviewAuthor).not.toEqual(reviewAuthorAfterSorting);

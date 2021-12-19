@@ -46,8 +46,10 @@ const AddWine: React.FC = () => {
       />
 
       <RadioGroup
-        keys={Object.keys(WineType)}
+        id="new-wine-type"
+        label="Wine type"
         onChange={(e) => setType(e)}
+        values={Object.keys(WineType)}
       />
 
       <NumberInput
@@ -84,6 +86,7 @@ const AddWine: React.FC = () => {
       />
 
       <SubmitButton
+        id="add-wine-form-submit"
         onClick={handleAddWine}
         text="Add wine"
       />

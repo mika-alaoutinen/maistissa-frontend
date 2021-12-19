@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../app/hooks';
 import { NewWine, Wine, WineType } from '../wine/wineAPI';
 import { addWine } from '../wine/wineSlice';
 
-const initialState: NewWine = {
+export const initialState: NewWine = {
   name: '',
   type: WineType.OTHER,
   country: '',
