@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAddWine, useWineForm } from './hooks';
+import { useWineForm } from './hooks';
 import { useAppSelector } from '../../app/hooks';
 import { selectWineInfo } from '../../app/selectors';
 import {
@@ -9,7 +9,7 @@ import { WineType } from '../wine/wineAPI';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
-  const addWine = useAddWine();
+  // const addWine = useAddWine();
   const {
     wine,
     setName,
@@ -25,8 +25,8 @@ const AddWine: React.FC = () => {
 
   const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-    const addedWine = await addWine(wine);
-    console.log('added wine', addedWine);
+    // void addWine(wine);
+    console.log(wine);
     resetForm();
   };
 
@@ -36,6 +36,7 @@ const AddWine: React.FC = () => {
         id="new-wine-name"
         label="Name"
         onChange={setName}
+        value={wine.name}
       />
 
       <Combobox
@@ -83,6 +84,7 @@ const AddWine: React.FC = () => {
         id="new-wine-url"
         label="URL"
         onChange={setUrl}
+        value={wine.url}
       />
 
       <SubmitButton
