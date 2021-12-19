@@ -72,12 +72,12 @@ export const useWineForm = (): AddNewWine => {
   };
 
   const setDescription = (e: SelectEvent): void => {
-    const description = [e.target.value];
+    const description = wine.description.concat(e.target.value);
     setWine({ ...wine, description });
   };
 
   const setFoodPairings = (e: SelectEvent): void => {
-    const foodPairings = [e.target.value];
+    const foodPairings = wine.foodPairings.concat(e.target.value);
     setWine({ ...wine, foodPairings });
   };
 

@@ -1,29 +1,28 @@
 import React from 'react';
-import styles from './Combobox.module.css';
+import styles from './Select.module.css';
 
 interface Props {
   id: string;
   label: string
   onChange: (value: React.ChangeEvent<HTMLSelectElement>) => void;
   options: string[];
-  values: string[];
+  value?: string;
 }
 
-// This component should be replaced with a combobox that allows multiple inputs.
-const Combobox: React.FC<Props> = ({
+const Select: React.FC<Props> = ({
   id,
   label,
   onChange,
   options,
-  values,
+  value,
 }) => (
-  <div className={styles.combobox}>
+  <div className={styles.select}>
     <label htmlFor={id}>{label}</label>
 
     <select
       id={id}
       onChange={onChange}
-      value={values[0]}
+      value={value}
     >
       <option value="default" hidden>
         select
@@ -38,4 +37,4 @@ const Combobox: React.FC<Props> = ({
   </div>
 );
 
-export default Combobox;
+export default Select;

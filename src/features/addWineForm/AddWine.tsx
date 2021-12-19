@@ -3,7 +3,7 @@ import { useAddWine, useWineForm } from './hooks';
 import { useAppSelector } from '../../app/hooks';
 import { selectWineInfo } from '../../app/selectors';
 import {
-  Combobox, Input, NumberInput, RadioGroup, SubmitButton,
+  Combobox, Input, NumberInput, RadioGroup, Select, SubmitButton,
 } from '../../components/index';
 import { WineType } from '../wine/wineAPI';
 
@@ -25,8 +25,7 @@ const AddWine: React.FC = () => {
 
   const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-    const addedWine = await addWine(wine);
-    console.log('added wine', addedWine);
+    void addWine(wine);
     resetForm();
   };
 
@@ -36,13 +35,15 @@ const AddWine: React.FC = () => {
         id="new-wine-name"
         label="Name"
         onChange={setName}
+        value={wine.name}
       />
 
-      <Combobox
+      <Select
         id="new-wine-country"
         label="Country"
         onChange={setCountry}
         options={countries}
+        value={wine.country}
       />
 
       <RadioGroup
@@ -56,12 +57,14 @@ const AddWine: React.FC = () => {
         id="new-wine-price"
         label="Price"
         onChange={setPrice}
+        value={wine.price}
       />
 
       <NumberInput
         id="new-wine-volume"
         label="Volume (l)"
         onChange={setVolume}
+        value={wine.volume}
       />
 
       <Combobox
@@ -69,7 +72,7 @@ const AddWine: React.FC = () => {
         label="Description"
         onChange={setDescription}
         options={descriptions}
-
+        values={wine.description}
       />
 
       <Combobox
@@ -77,12 +80,14 @@ const AddWine: React.FC = () => {
         label="Food pairings"
         onChange={setFoodPairings}
         options={foodPairings}
+        values={wine.foodPairings}
       />
 
       <Input
         id="new-wine-url"
         label="URL"
         onChange={setUrl}
+        value={wine.url}
       />
 
       <SubmitButton

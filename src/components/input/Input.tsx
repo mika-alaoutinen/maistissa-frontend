@@ -7,9 +7,15 @@ interface Props {
   id: string;
   label: string;
   onChange: OnChangeHandler;
+  value?: string;
 }
 
-const Input: React.FC<Props> = ({ id, label, onChange }) => (
+const Input: React.FC<Props> = ({
+  id,
+  label,
+  onChange,
+  value,
+}) => (
   <div className={styles.input}>
     <label htmlFor={id}>
       {label}
@@ -20,6 +26,7 @@ const Input: React.FC<Props> = ({ id, label, onChange }) => (
       className={styles.input}
       onChange={onChange}
       placeholder={label}
+      value={value}
     />
   </div>
 );
