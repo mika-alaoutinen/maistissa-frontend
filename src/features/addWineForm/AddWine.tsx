@@ -1,5 +1,5 @@
 import React from 'react';
-import { useWineForm } from './hooks';
+import { useAddWine, useWineForm } from './hooks';
 import { useAppSelector } from '../../app/hooks';
 import { selectWineInfo } from '../../app/selectors';
 import {
@@ -9,7 +9,7 @@ import { WineType } from '../wine/wineAPI';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
-  // const addWine = useAddWine();
+  const addWine = useAddWine();
   const {
     wine,
     setName,
@@ -25,8 +25,7 @@ const AddWine: React.FC = () => {
 
   const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-    // void addWine(wine);
-    console.log(wine);
+    void addWine(wine);
     resetForm();
   };
 

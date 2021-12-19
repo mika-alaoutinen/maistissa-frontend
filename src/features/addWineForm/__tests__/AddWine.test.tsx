@@ -48,10 +48,23 @@ describe('Form should have all input fields', () => {
 });
 
 describe('Adding a new wine', () => {
-  it('Clicking add wine button calls wineAPI', () => {
+  it('clicking add wine button calls wineAPI', () => {
     renderWithStore(<AddWine />);
     userEvent.click(screen.getByText(/Add wine/));
     expect(mockAPI.addWine).toHaveBeenCalledTimes(1);
     expect(mockAPI.addWine).toHaveBeenCalledWith(initialState);
+  });
+
+  it('should clear form after submit', () => {
+    renderWithStore(<AddWine />);
+
+    const wineName = 'Gato Negro';
+    const nameInput = screen.getByLabelText(/Name/);
+
+    userEvent.type(nameInput, wineName);
+    expect(nameInput).toHaveValue(wineName);
+
+    userEvent.click(screen.getByText(/Add wine/));
+    expect(screen.queryByText(wineName)).not.toBeInTheDocument();
   });
 });
