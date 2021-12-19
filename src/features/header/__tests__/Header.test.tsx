@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
@@ -25,7 +26,7 @@ describe('Header displays application name', () => {
     );
 
     expect(history.location.pathname).toBe('/not-home');
-    fireEvent.click(screen.getByText(appName));
+    userEvent.click(screen.getByText(appName));
     expect(history.location.pathname).toBe('/');
   });
 });

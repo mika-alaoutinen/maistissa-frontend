@@ -1,4 +1,5 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { renderWithStore } from '../../../tests/testutils';
 import WineTable from '../WineTable';
@@ -63,7 +64,7 @@ describe('Clicking on headers sorts wines', () => {
     const initialWineName = getFirstRow(container).firstChild?.textContent;
 
     // Sort wines and check that the first row has different wine
-    fireEvent.click(screen.getByText(/Name/));
+    userEvent.click(screen.getByText(/Name/));
     const wineNameAfterSorting = getFirstRow(container).firstChild?.textContent;
 
     expect(initialWineName).not.toEqual(wineNameAfterSorting);
@@ -71,15 +72,15 @@ describe('Clicking on headers sorts wines', () => {
 
   it('ascending sort is indicated in the header by an up arrow', async () => {
     const { container } = renderWithStore(<WineTable />);
-    fireEvent.click(screen.getByText(/Price/));
+    userEvent.click(screen.getByText(/Price/));
     expect(container.querySelector('#wine-sort-up-arrow')).toBeInTheDocument();
   });
 
   it('descending sort is indicated in the header by a down arrow', async () => {
     const { container } = renderWithStore(<WineTable />);
     const header = screen.getByText(/Price/);
-    fireEvent.click(header);
-    fireEvent.click(header);
+    userEvent.click(header);
+    userEvent.click(header);
     expect(container.querySelector('#wine-sort-down-arrow')).toBeInTheDocument();
   });
 });
