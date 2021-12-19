@@ -3,7 +3,7 @@ import { useWineForm } from './hooks';
 import { useAppSelector } from '../../app/hooks';
 import { selectWineInfo } from '../../app/selectors';
 import {
-  Combobox, Input, NumberInput, RadioGroup, SubmitButton,
+  Combobox, Input, NumberInput, RadioGroup, Select, SubmitButton,
 } from '../../components/index';
 import { WineType } from '../wine/wineAPI';
 
@@ -39,11 +39,12 @@ const AddWine: React.FC = () => {
         value={wine.name}
       />
 
-      <Combobox
+      <Select
         id="new-wine-country"
         label="Country"
         onChange={setCountry}
         options={countries}
+        value={wine.country}
       />
 
       <RadioGroup
@@ -70,7 +71,7 @@ const AddWine: React.FC = () => {
         label="Description"
         onChange={setDescription}
         options={descriptions}
-
+        value={wine.description[0]}
       />
 
       <Combobox
@@ -78,6 +79,7 @@ const AddWine: React.FC = () => {
         label="Food pairings"
         onChange={setFoodPairings}
         options={foodPairings}
+        value={wine.foodPairings[0]}
       />
 
       <Input

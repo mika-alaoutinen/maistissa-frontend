@@ -4,6 +4,7 @@ import Combobox from './combobox/Combobox';
 import Input from './input/Input';
 import NumberInput from './input/NumberInput';
 import RadioGroup from './radio/RadioGroup';
+import Select from './select/Select';
 
 export {
   Combobox,
@@ -11,5 +12,6 @@ export {
   Input,
   NumberInput,
   RadioGroup,
+  Select,
   SubmitButton,
 };
