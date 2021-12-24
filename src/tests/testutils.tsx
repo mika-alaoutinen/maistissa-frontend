@@ -4,8 +4,8 @@ import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { RootState } from '../app/store';
-import reviewReducer, { ReviewState } from '../features/review/reviewSlice';
-import wineReducer, { WineState } from '../features/wine/wineSlice';
+import reviewReducer, { ReviewState } from '../app/reviewSlice';
+import wineReducer, { WineState } from '../app/wineSlice';
 import wineInfoReducer, { WineInfoState } from '../features/wineInfo/wineInfoSlice';
 import { reviews, wines } from './testdata';
 

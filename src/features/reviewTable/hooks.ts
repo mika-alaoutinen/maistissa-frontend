@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectWines } from '../../app/selectors';
+import { selectReviews } from '../../app/selectors';
 import { SortedByKey } from '../../components/datatable/types';
-import { Wine } from './wineAPI';
-import { Payload, sortAsc, sortDesc } from './wineSlice';
+import { Review } from '../../api/reviewAPI';
+import { Payload, sortAsc, sortDesc } from '../../app/reviewSlice';
 
-type Key = keyof Wine;
+type Key = keyof Review;
 type SortingFn = (key: Key) => Payload;
 
 /**
@@ -15,7 +15,7 @@ type SortingFn = (key: Key) => Payload;
  */
 const selectSortingFn = (
   property: Key,
-  { key, direction }: SortedByKey<Wine, Key>,
+  { key, direction }: SortedByKey<Review, Key>,
 ): Payload => (property === key && direction === 'asc'
   ? sortDesc(property)
   : sortAsc(property));
@@ -26,7 +26,7 @@ const selectSortingFn = (
  */
 export const useSorting = (): SortingFn => {
   const dispatch = useAppDispatch();
-  const { sorted } = useAppSelector(selectWines);
+  const { sorted } = useAppSelector(selectReviews);
   return (key: Key) => dispatch(selectSortingFn(key, sorted));
 };
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { NewWine, Wine, WineType } from '../wine/wineAPI';
-import { addWine } from '../wine/wineSlice';
+import { NewWine, Wine, WineType } from '../../api/wineAPI';
+import { addWine } from '../../app/wineSlice';
 
 export const initialState: NewWine = {
   name: '',

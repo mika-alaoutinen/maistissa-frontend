@@ -1,5 +1,5 @@
 import api from '../reviewAPI';
-import { ReviewsCrudService } from '../../../generated';
+import { ReviewsCrudService } from '../../generated';
 
 describe('API functions call REST services', () => {
   it('getReviews calls ReviewsCrudService', () => {

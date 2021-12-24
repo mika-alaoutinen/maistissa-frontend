@@ -1,5 +1,5 @@
 import reducer, { ReviewState, sortAsc, sortDesc } from '../reviewSlice';
-import { reviews } from '../../../tests/testdata';
+import { reviews } from '../../tests/testdata';
 
 describe('Review reducer', () => {
   it('should handle initial state', () => {

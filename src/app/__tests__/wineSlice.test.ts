@@ -1,5 +1,5 @@
 import reducer, { sortAsc, sortDesc, WineState } from '../wineSlice';
-import { wines as testdata } from '../../../tests/testdata';
+import { wines as testdata } from '../../tests/testdata';
 
 describe('Wine reducer', () => {
   it('should handle initial state', () => {

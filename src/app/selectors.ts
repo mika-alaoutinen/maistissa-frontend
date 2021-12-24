@@ -1,5 +1,5 @@
-import { ReviewState } from '../features/review/reviewSlice';
-import { WineState } from '../features/wine/wineSlice';
+import { ReviewState } from './reviewSlice';
+import { WineState } from './wineSlice';
 import { WineInfoState } from '../features/wineInfo/wineInfoSlice';
 import { RootState } from './store';
 
