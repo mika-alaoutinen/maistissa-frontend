@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectReviews } from '../app/selectors';
 import ReviewTable from '../features/reviewTable/ReviewTable';
-import { fetchReviews } from '../features/review/reviewSlice';
+import { fetchReviews } from '../app/reviewSlice';
 
 const ReviewPage: React.FC = () => {
   const dispatch = useAppDispatch();

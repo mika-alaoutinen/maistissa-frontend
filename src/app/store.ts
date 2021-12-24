@@ -1,6 +1,6 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import reviewReducer from '../features/review/reviewSlice';
-import wineReducer from '../features/wine/wineSlice';
+import reviewReducer from './reviewSlice';
+import wineReducer from './wineSlice';
 import wineInfoReducer from '../features/wineInfo/wineInfoSlice';
 
 export const store = configureStore({

@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectReviews } from '../../app/selectors';
 import { SortedByKey } from '../../components/datatable/types';
 import { Review } from '../../api/reviewAPI';
-import { Payload, sortAsc, sortDesc } from '../review/reviewSlice';
+import { Payload, sortAsc, sortDesc } from '../../app/reviewSlice';
 
 type Key = keyof Review;
 type SortingFn = (key: Key) => Payload;
