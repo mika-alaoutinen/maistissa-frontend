@@ -4,7 +4,7 @@ import { selectReviews } from '../../app/selectors';
 import { DataTable } from '../../components/index';
 import { Column } from '../../components/datatable/types';
 import { useSorting } from './hooks';
-import { Review } from '../review/reviewAPI';
+import { Review } from '../../api/reviewAPI';
 
 // Replace Wine object with just wine name
 type ReviewWithWineName = Omit<Review, 'wine'> & { wine: string };

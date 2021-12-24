@@ -1,5 +1,5 @@
 import { reviews, wines } from '../../tests/testdata';
-import { WineType } from '../../features/wine/wineAPI';
+import { WineType } from '../../api/wineAPI';
 import { sortByWineName, sortAscending, sortDescending } from '../sorting';
 
 // Tests for sorting Wine objects

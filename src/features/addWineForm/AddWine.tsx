@@ -5,7 +5,7 @@ import { selectWineInfo } from '../../app/selectors';
 import {
   Combobox, Input, NumberInput, RadioGroup, Select, SubmitButton,
 } from '../../components/index';
-import { WineType } from '../wine/wineAPI';
+import { WineType } from '../../api/wineAPI';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);

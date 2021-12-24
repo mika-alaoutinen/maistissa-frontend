@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectReviews } from '../../app/selectors';
 import { SortedByKey } from '../../components/datatable/types';
-import { Review } from '../review/reviewAPI';
+import { Review } from '../../api/reviewAPI';
 import { Payload, sortAsc, sortDesc } from '../review/reviewSlice';
 
 type Key = keyof Review;

@@ -1,5 +1,5 @@
-import { Review } from '../features/review/reviewAPI';
-import { Wine, WineType } from '../features/wine/wineAPI';
+import { Review } from '../api/reviewAPI';
+import { Wine, WineType } from '../api/wineAPI';
 
 const white: Wine = {
   id: 1,

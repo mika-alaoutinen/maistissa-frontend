@@ -4,7 +4,7 @@ import { selectWines } from '../../app/selectors';
 import { DataTable } from '../../components/index';
 import { Column } from '../../components/datatable/types';
 import { useSorting } from './hooks';
-import { Wine } from '../wine/wineAPI';
+import { Wine } from '../../api/wineAPI';
 
 const WineTable: React.FC = () => {
   const { sorted, wines } = useAppSelector(selectWines);

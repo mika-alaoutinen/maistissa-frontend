@@ -4,10 +4,10 @@ import React from 'react';
 import { renderWithStore } from '../../../tests/testutils';
 import AddWine from '../AddWine';
 import { initialState } from '../hooks';
-import api from '../../wine/wineAPI';
+import api from '../../../api/wineAPI';
 
 const mockAPI = api as jest.Mocked<typeof api>;
-jest.mock('../../wine/wineAPI');
+jest.mock('../../../api/wineAPI');
 
 afterEach(() => {
   jest.clearAllMocks();

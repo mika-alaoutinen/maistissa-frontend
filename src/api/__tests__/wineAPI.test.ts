@@ -1,5 +1,5 @@
 import api, { NewWine, WineType } from '../wineAPI';
-import { WinesCrudService } from '../../../generated';
+import { WinesCrudService } from '../../generated';
 
 describe('API functions call REST services', () => {
   it('addWine calls WinesCrudService', () => {

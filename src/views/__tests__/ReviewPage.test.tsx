@@ -1,12 +1,12 @@
 import { screen } from '@testing-library/react';
 import React from 'react';
-import api from '../../features/review/reviewAPI';
+import api from '../../api/reviewAPI';
 import { reviews } from '../../tests/testdata';
 import { renderWithStore } from '../../tests/testutils';
 import ReviewPage from '../ReviewPage';
 
 const mockAPI = api as jest.Mocked<typeof api>;
-jest.mock('../../features/review/reviewAPI');
+jest.mock('../../api/reviewAPI');
 
 afterEach(() => {
   jest.clearAllMocks();

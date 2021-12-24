@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SortedByKey } from '../../components/datatable/types';
 import { sortAscending, sortDescending } from '../../utils/sorting';
-import api, { NewWine, Wine } from './wineAPI';
+import api, { NewWine, Wine } from '../../api/wineAPI';
 
 // Thunks
 export const addWine = createAsyncThunk(

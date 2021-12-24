@@ -1,4 +1,4 @@
-import { Review } from '../features/review/reviewAPI';
+import { Review } from '../api/reviewAPI';
 
 export type Sorted = 'asc' | 'desc' | 'unsorted';
 
