@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectWines } from '../../app/selectors';
 import { SortedByKey } from '../../components/datatable/types';
-import { Wine } from './wineAPI';
-import { Payload, sortAsc, sortDesc } from './wineSlice';
+import { Wine } from '../wine/wineAPI';
+import { Payload, sortAsc, sortDesc } from '../wine/wineSlice';
 
 type Key = keyof Wine;
 type SortingFn = (key: Key) => Payload;

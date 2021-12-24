@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectReviews } from '../app/selectors';
-import Reviews from '../features/review/Reviews';
+import ReviewTable from '../features/reviewTable/ReviewTable';
 import { fetchReviews } from '../features/review/reviewSlice';
 
 const ReviewPage: React.FC = () => {
@@ -15,7 +15,7 @@ const ReviewPage: React.FC = () => {
   return (
     <div>
       <h2>{`Reviews page (${reviews.length} reviews)`}</h2>
-      <Reviews />
+      <ReviewTable />
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithStore } from '../../../tests/testutils';
-import Reviews from '../Reviews';
+import ReviewTable from '../ReviewTable';
 
 type ReviewInfo = {
   author: string,
@@ -27,7 +27,7 @@ const getFirstRow = (container: HTMLElement): Element => {
 };
 
 describe('Review information is presented as a table', () => {
-  beforeEach(() => renderWithStore(<Reviews />));
+  beforeEach(() => renderWithStore(<ReviewTable />));
 
   it('renders headers', () => {
     ['Date', 'Author', 'Review', 'Rating', 'Wine']
@@ -59,7 +59,7 @@ describe('Review information is presented as a table', () => {
 
 describe('Clicking on headers sorts reviews', () => {
   it('sort reviews by author', () => {
-    const { container } = renderWithStore(<Reviews />);
+    const { container } = renderWithStore(<ReviewTable />);
     const initialReviewAuthor = getFirstRow(container).firstChild?.textContent;
 
     // Sort reviews and check that the first row has different review
