@@ -9,7 +9,12 @@ interface Props {
   values: string[];
 }
 
-// This component should be replaced with a combobox that allows multiple inputs.
+// Implement Combobox as two sub-components: FilterInput and Dropdown?
+
+/**
+ * Combobox is like a Select with added text search functionality. The user can
+ * filter available options by typing a search string into an input field.
+ */
 const Combobox: React.FC<Props> = ({
   id,
   label,
