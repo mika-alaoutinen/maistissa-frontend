@@ -23,7 +23,7 @@ const Combobox: React.FC<Props> = ({
     <select
       id={id}
       onChange={onChange}
-      value={values[0]}
+      value={values.length > 0 ? values[0] : ''}
     >
       <option value="default" hidden>
         select
