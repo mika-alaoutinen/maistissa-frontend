@@ -21,11 +21,11 @@ const DataTableHead = <T, K extends keyof T>({
     </span>
   );
 
-  const showSortDirection = (property: K): JSX.Element => {
+  const showSortDirection = (property: K): JSX.Element | undefined => {
     const { direction, key } = sorted;
     return property === key && direction !== 'unsorted'
       ? renderSortDirectionArrow(direction)
-      : <></>;
+      : undefined;
   };
 
   return (
