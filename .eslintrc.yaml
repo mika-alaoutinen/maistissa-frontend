@@ -25,4 +25,13 @@ rules:
   no-console: 'off'
   no-param-reassign: ['error', { props: false }]
   no-void: ['error', { allowAsStatement: true }]
+  # This fixes a problem in airbnb's eslint config.
+  # See https://stackoverflow.com/questions/69928061/struggling-with-typescript-react-eslint-and-simple-arrow-functions-components
+  react/function-component-definition: [
+    2,
+    {
+      namedComponents: "arrow-function",
+      unnamedComponents: "arrow-function"
+    }
+  ]
   react/require-default-props: 'off'
