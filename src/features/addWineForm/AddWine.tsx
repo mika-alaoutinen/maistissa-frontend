@@ -10,18 +10,7 @@ import { WineType } from '../../api/wineAPI';
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
   const addWine = useAddWine();
-  const {
-    wine,
-    setName,
-    setType,
-    setCountry,
-    setPrice,
-    setVolume,
-    setDescription,
-    setFoodPairings,
-    setUrl,
-    resetForm,
-  } = useWineForm();
+  const { wine, setData, resetForm } = useWineForm();
 
   const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
@@ -34,14 +23,14 @@ const AddWine: React.FC = () => {
       <Input
         id="new-wine-name"
         label="Name"
-        onChange={setName}
+        onChange={setData('name')}
         value={wine.name}
       />
 
       <Select
         id="new-wine-country"
         label="Country"
-        onChange={setCountry}
+        onChange={setData('country')}
         options={countries}
         value={wine.country}
       />
@@ -49,28 +38,28 @@ const AddWine: React.FC = () => {
       <RadioGroup
         id="new-wine-type"
         label="Wine type"
-        onChange={(e) => setType(e)}
+        onChange={setData('type')}
         values={Object.keys(WineType)}
       />
 
       <NumberInput
         id="new-wine-price"
         label="Price"
-        onChange={setPrice}
+        onChange={setData('price')}
         value={wine.price}
       />
 
       <NumberInput
         id="new-wine-volume"
         label="Volume (l)"
-        onChange={setVolume}
+        onChange={setData('volume')}
         value={wine.volume}
       />
 
       <Combobox
         id="new-wine-description"
         label="Description"
-        onChange={setDescription}
+        onChange={setData('description')}
         options={descriptions}
         values={wine.description}
       />
@@ -78,7 +67,7 @@ const AddWine: React.FC = () => {
       <Combobox
         id="new-wine-food-pairings"
         label="Food pairings"
-        onChange={setFoodPairings}
+        onChange={setData('foodPairings')}
         options={foodPairings}
         values={wine.foodPairings}
       />
@@ -86,7 +75,7 @@ const AddWine: React.FC = () => {
       <Input
         id="new-wine-url"
         label="URL"
-        onChange={setUrl}
+        onChange={setData('url')}
         value={wine.url}
       />
 
