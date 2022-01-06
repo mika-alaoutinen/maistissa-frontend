@@ -9,85 +9,85 @@ import { WineType } from '../../api/wineAPI';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
-  const addWine = useAddWine();
   const {
-    wine,
-    setName,
-    setType,
-    setCountry,
-    setPrice,
-    setVolume,
-    setDescription,
-    setFoodPairings,
-    setUrl,
-    resetForm,
+    data, errors, onChange, resetForm,
   } = useWineForm();
+  const addWine = useAddWine();
 
   const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-    void addWine(wine);
+    void addWine(data);
     resetForm();
   };
 
   return (
     <form id="add-wine-form">
+
+      {errors.name && (
+        <div className="error_msg">
+          Error on name field:
+          {' '}
+          {errors.name}
+        </div>
+      )}
+
       <Input
         id="new-wine-name"
         label="Name"
-        onChange={setName}
-        value={wine.name}
+        onChange={onChange('name')}
+        value={data.name}
       />
 
       <Select
         id="new-wine-country"
         label="Country"
-        onChange={setCountry}
+        onChange={onChange('country')}
         options={countries}
-        value={wine.country}
+        value={data.country}
       />
 
       <RadioGroup
         id="new-wine-type"
         label="Wine type"
-        onChange={(e) => setType(e)}
+        onChange={onChange('type')}
         values={Object.keys(WineType)}
       />
 
       <NumberInput
         id="new-wine-price"
         label="Price"
-        onChange={setPrice}
-        value={wine.price}
+        onChange={onChange('price')}
+        value={data.price}
       />
 
       <NumberInput
         id="new-wine-volume"
         label="Volume (l)"
-        onChange={setVolume}
-        value={wine.volume}
+        onChange={onChange('volume')}
+        value={data.volume}
       />
 
       <Combobox
         id="new-wine-description"
         label="Description"
-        onChange={setDescription}
+        onChange={onChange('description')}
         options={descriptions}
-        values={wine.description}
+        values={data.description}
       />
 
       <Combobox
         id="new-wine-food-pairings"
         label="Food pairings"
-        onChange={setFoodPairings}
+        onChange={onChange('foodPairings')}
         options={foodPairings}
-        values={wine.foodPairings}
+        values={data.foodPairings}
       />
 
       <Input
         id="new-wine-url"
         label="URL"
-        onChange={setUrl}
-        value={wine.url}
+        onChange={onChange('url')}
+        value={data.url}
       />
 
       <SubmitButton
