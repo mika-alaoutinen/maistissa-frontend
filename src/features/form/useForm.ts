@@ -8,7 +8,7 @@ export interface Form<T> {
   errors: ValidationError<T>;
   onChange: (key: keyof T) => (e: ChangeEvent) => void;
   resetForm: () => void;
-  validate: () => ValidationError<T> | undefined;
+  validate: () => ValidationError<T>;
 }
 
 export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T> => {
@@ -23,9 +23,9 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
     setData(edited);
   };
 
-  const validate = (): ValidationError<T> | undefined => {
+  const validate = (): ValidationError<T> => {
     if (!rules) {
-      return undefined;
+      return {};
     }
 
     const validationErrors = validateFn(data, rules);

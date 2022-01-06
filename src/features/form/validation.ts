@@ -14,23 +14,20 @@ interface Validation<T> {
 export type ValidationError<T> = Partial<Record<keyof T, string>>;
 export type ValidationRules<T> = Partial<Record<keyof T, Validation<T>>>;
 
-export const validate = <T>(
-  data: T,
-  rules: ValidationRules<T>,
-): ValidationError<T> | undefined => {
+export const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => {
   const newErrors: ValidationError<T> = {};
 
   for (const key in rules) {
     const value = data[key];
     const validation = rules[key];
 
-    if (validation?.required?.value && !value) {
-      newErrors[key] = validation?.required?.message;
-    }
-
     const custom = validation?.valid;
     if (custom?.isValid && !custom.isValid(value)) {
       newErrors[key] = custom.message;
+    }
+
+    if (validation?.required?.value && !value) {
+      newErrors[key] = validation?.required?.message;
     }
   }
 
