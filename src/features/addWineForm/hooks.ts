@@ -1,19 +1,13 @@
 import { useAppDispatch } from '../../app/hooks';
-import { NewWine, Wine, WineType } from '../../api/wineAPI';
+import { NewWine, Wine } from '../../api/wineAPI';
 import { addWine } from '../../app/wineSlice';
-import { Validations, useForm } from '../../hooks/useForm';
+import { initialState, validations } from './constants';
+import { Form, useForm } from '../../hooks/useForm';
 
-const initialState: NewWine = {
-  name: '',
-  type: WineType.OTHER,
-  country: '',
-  price: 0.00,
-  volume: 0.00,
-  description: [],
-  foodPairings: [],
-  url: '',
-};
-
+/**
+ * Dispatches a new wine thunk and retunrs the response as a Promise.
+ * @returns Added wine response from backend.
+ */
 export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
   const dispatch = useAppDispatch();
 
@@ -24,28 +18,17 @@ export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
   };
 };
 
-export const useWineForm = () => {
-  const validations: Validations<NewWine> = {
-    name: {
-      required: {
-        value: true,
-        message: 'Name is required',
-      },
-    },
-    price: {
-      valid: {
-        isValid: (price) => Number(price) > 1,
-        message: 'Price should be > 1',
-      },
-    },
-  };
-
+/**
+ * Initializes a generic Form hook with NewWine fields.
+ * @returns Form hook.
+ */
+export const useWineForm = (): Form<NewWine> => {
   const {
     data, setData, resetForm, validate,
   } = useForm<NewWine>(initialState, validations);
 
   return {
-    wine: data,
+    data,
     setData,
     resetForm,
     validate,

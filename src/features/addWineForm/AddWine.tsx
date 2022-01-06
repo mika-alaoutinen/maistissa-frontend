@@ -9,12 +9,12 @@ import { WineType } from '../../api/wineAPI';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
+  const { data, resetForm, setData } = useWineForm();
   const addWine = useAddWine();
-  const { wine, setData, resetForm } = useWineForm();
 
   const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-    void addWine(wine);
+    void addWine(data);
     resetForm();
   };
 
@@ -24,7 +24,7 @@ const AddWine: React.FC = () => {
         id="new-wine-name"
         label="Name"
         onChange={setData('name')}
-        value={wine.name}
+        value={data.name}
       />
 
       <Select
@@ -32,7 +32,7 @@ const AddWine: React.FC = () => {
         label="Country"
         onChange={setData('country')}
         options={countries}
-        value={wine.country}
+        value={data.country}
       />
 
       <RadioGroup
@@ -46,14 +46,14 @@ const AddWine: React.FC = () => {
         id="new-wine-price"
         label="Price"
         onChange={setData('price')}
-        value={wine.price}
+        value={data.price}
       />
 
       <NumberInput
         id="new-wine-volume"
         label="Volume (l)"
         onChange={setData('volume')}
-        value={wine.volume}
+        value={data.volume}
       />
 
       <Combobox
@@ -61,7 +61,7 @@ const AddWine: React.FC = () => {
         label="Description"
         onChange={setData('description')}
         options={descriptions}
-        values={wine.description}
+        values={data.description}
       />
 
       <Combobox
@@ -69,14 +69,14 @@ const AddWine: React.FC = () => {
         label="Food pairings"
         onChange={setData('foodPairings')}
         options={foodPairings}
-        values={wine.foodPairings}
+        values={data.foodPairings}
       />
 
       <Input
         id="new-wine-url"
         label="URL"
         onChange={setData('url')}
-        value={wine.url}
+        value={data.url}
       />
 
       <SubmitButton

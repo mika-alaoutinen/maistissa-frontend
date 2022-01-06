@@ -20,7 +20,7 @@ export type Validations<T> = Partial<Record<keyof T, Validation<T>>>;
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 
 // Form
-interface Form<T> {
+export interface Form<T> {
   data: T;
   setData: (key: keyof T) => (e: ChangeEvent) => void;
   resetForm: () => void;

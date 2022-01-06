@@ -1,10 +1,11 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { renderWithStore } from '../../../tests/testutils';
+
 import AddWine from '../AddWine';
-import { initialState } from '../hooks';
+import { initialState } from '../constants';
 import api from '../../../api/wineAPI';
+import { renderWithStore } from '../../../tests/testutils';
 
 const mockAPI = api as jest.Mocked<typeof api>;
 jest.mock('../../../api/wineAPI');
