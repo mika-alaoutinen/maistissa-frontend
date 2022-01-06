@@ -2,7 +2,6 @@
 /* eslint-disable no-restricted-syntax */
 import { useState } from 'react';
 
-// Form validations
 interface Validation<T> {
   required?: {
     value: boolean;
@@ -19,31 +18,27 @@ export type Validations<T> = Partial<Record<keyof T, Validation<T>>>;
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 
-// Form
 export interface Form<T> {
   data: T;
-  setData: (key: keyof T) => (e: ChangeEvent) => void;
+  errors: ValidationError<T>;
+  onChange: (key: keyof T) => (e: ChangeEvent) => void;
   resetForm: () => void;
   validate: () => ValidationError<T>[];
 }
 
 export const useForm = <T>(initialState: T, validations?: Validations<T>): Form<T> => {
-  const [state, setState] = useState<T>(initialState);
+  const [data, setData] = useState<T>(initialState);
+  const [errors, setErrors] = useState<ValidationError<T>>({});
 
-  const setData = (key: keyof T) => (e: ChangeEvent): void => {
+  const updateField = (key: keyof T, e: ChangeEvent): void => {
     const edited: T = {
-      ...state,
+      ...data,
       [key]: e.target.value,
     };
-    setState(edited);
-  };
-
-  const resetForm = (): void => {
-    setState(initialState);
+    setData(edited);
   };
 
   const validate = (): ValidationError<T>[] => {
-    console.log('validations', validations);
     if (!validations) {
       return [];
     }
@@ -52,16 +47,14 @@ export const useForm = <T>(initialState: T, validations?: Validations<T>): Form<
     const newErrors: ValidationError<T> = {};
 
     for (const key in validations) {
-      const value = state[key];
+      const value = data[key];
       const validation = validations[key];
 
-      // required
       if (validation?.required?.value && !value) {
         valid = false;
         newErrors[key] = validation?.required?.message;
       }
 
-      // valid
       const custom = validation?.valid;
       if (custom?.isValid && !custom.isValid(value)) {
         valid = false;
@@ -70,18 +63,29 @@ export const useForm = <T>(initialState: T, validations?: Validations<T>): Form<
     }
 
     if (!valid) {
-      console.log('not valid', newErrors);
+      setErrors(newErrors);
+    } else {
+      setErrors({});
     }
 
     return [];
   };
 
+  const onChange = (key: keyof T) => (e: ChangeEvent): void => {
+    updateField(key, e);
+    validate(); // Do validations on field somehow
+  };
+
+  const resetForm = (): void => {
+    setErrors({});
+    setData(initialState);
+  };
+
   return {
-    data: state,
-    setData,
+    data,
+    errors,
+    onChange,
     resetForm,
     validate,
   };
 };
-
-export default { useForm };

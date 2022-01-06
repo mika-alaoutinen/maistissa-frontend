@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAddWine, useWineForm } from './hooks';
+import { useWineForm } from './hooks';
 import { useAppSelector } from '../../app/hooks';
 import { selectWineInfo } from '../../app/selectors';
 import {
@@ -9,28 +9,39 @@ import { WineType } from '../../api/wineAPI';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
-  const { data, resetForm, setData } = useWineForm();
-  const addWine = useAddWine();
+  const { data, errors, onChange } = useWineForm();
+  // const addWine = useAddWine();
 
   const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
     e.preventDefault();
-    void addWine(data);
-    resetForm();
+    console.log('errors', errors);
+    console.log(data);
+    // void addWine(data);
+    // resetForm();
   };
 
   return (
     <form id="add-wine-form">
+
+      {errors.name && (
+        <div className="error_msg">
+          Error on name field:
+          {' '}
+          {errors.name}
+        </div>
+      )}
+
       <Input
         id="new-wine-name"
         label="Name"
-        onChange={setData('name')}
+        onChange={onChange('name')}
         value={data.name}
       />
 
       <Select
         id="new-wine-country"
         label="Country"
-        onChange={setData('country')}
+        onChange={onChange('country')}
         options={countries}
         value={data.country}
       />
@@ -38,28 +49,28 @@ const AddWine: React.FC = () => {
       <RadioGroup
         id="new-wine-type"
         label="Wine type"
-        onChange={setData('type')}
+        onChange={onChange('type')}
         values={Object.keys(WineType)}
       />
 
       <NumberInput
         id="new-wine-price"
         label="Price"
-        onChange={setData('price')}
+        onChange={onChange('price')}
         value={data.price}
       />
 
       <NumberInput
         id="new-wine-volume"
         label="Volume (l)"
-        onChange={setData('volume')}
+        onChange={onChange('volume')}
         value={data.volume}
       />
 
       <Combobox
         id="new-wine-description"
         label="Description"
-        onChange={setData('description')}
+        onChange={onChange('description')}
         options={descriptions}
         values={data.description}
       />
@@ -67,7 +78,7 @@ const AddWine: React.FC = () => {
       <Combobox
         id="new-wine-food-pairings"
         label="Food pairings"
-        onChange={setData('foodPairings')}
+        onChange={onChange('foodPairings')}
         options={foodPairings}
         values={data.foodPairings}
       />
@@ -75,7 +86,7 @@ const AddWine: React.FC = () => {
       <Input
         id="new-wine-url"
         label="URL"
-        onChange={setData('url')}
+        onChange={onChange('url')}
         value={data.url}
       />
 
