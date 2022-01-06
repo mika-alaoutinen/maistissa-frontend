@@ -18,8 +18,6 @@ const AddWine: React.FC = () => {
     e.preventDefault();
     void addWine(data);
     resetForm();
-    // console.log('errors', errors);
-    // console.log(data);
   };
 
   return (
