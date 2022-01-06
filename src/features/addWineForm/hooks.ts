@@ -1,8 +1,8 @@
 import { useAppDispatch } from '../../app/hooks';
 import { NewWine, Wine } from '../../api/wineAPI';
 import { addWine } from '../../app/wineSlice';
-import { initialState, validations } from './constants';
-import { Form, useForm } from '../../hooks/useForm';
+import { initialState, validationRules } from './constants';
+import { Form, useForm } from '../form/useForm';
 
 /**
  * Dispatches a new wine thunk and retunrs the response as a Promise.
@@ -25,7 +25,7 @@ export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
 export const useWineForm = (): Form<NewWine> => {
   const {
     data, errors, onChange, resetForm, validate,
-  } = useForm<NewWine>(initialState, validations);
+  } = useForm<NewWine>(initialState, validationRules);
 
   return {
     data,

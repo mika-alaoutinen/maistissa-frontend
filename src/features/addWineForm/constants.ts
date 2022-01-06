@@ -1,5 +1,5 @@
 import { NewWine, WineType } from '../../api/wineAPI';
-import { Validations } from '../../hooks/useForm';
+import { ValidationRules } from '../form/validation';
 
 export const initialState: NewWine = {
   name: '',
@@ -12,7 +12,7 @@ export const initialState: NewWine = {
   url: '',
 };
 
-export const validations: Validations<NewWine> = {
+export const validationRules: ValidationRules<NewWine> = {
   name: {
     required: {
       value: true,
