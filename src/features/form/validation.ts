@@ -1,42 +1,60 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
+import utils from '../../utils/generics';
+
 interface Validation<T> {
   required?: {
     value: boolean;
     message: string;
   };
   valid?: {
-    func: (value: T[Extract<keyof T, string>]) => boolean;
+    func: (value: T[keyof T]) => boolean;
     message: string;
   };
 }
 
-export type ValidationError<T> = Required<Record<keyof T, string[]>>;
-export type ValidationRules<T> = Partial<Record<keyof T, Validation<T>>>;
+export type ValidationError<T> = Record<keyof T, string[]>;
+export type Validations<T> = Record<keyof T, Validation<T>>;
+export interface ValidationRules<T> {
+  mode: 'ON_CHANGE' | 'ON_SUBMIT';
+  validations: Validations<T>;
+}
 
-export const initErrors = <T>(data: T): ValidationError<T> => Object
+const validateRule = <T>(validation: Validation<T>, value: T[keyof T]): string[] => {
+  const errors = [];
+
+  // is field required?
+  if (validation?.required?.value && !value) {
+    errors.push(validation.required.message);
+  }
+
+  // run custom validation function
+  const custom = validation?.valid;
+  if (custom?.func && !custom.func(value)) {
+    errors.push(custom.message);
+  }
+
+  return errors;
+};
+
+const initErrors = <T>(data: T): ValidationError<T> => Object
   .keys(data)
   .reduce((obj, key) => ({
     ...obj,
     [key]: [],
   }), {} as ValidationError<T>);
 
-export const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => {
-  const newErrors = initErrors(data);
+const isValid = <T>(validationError: ValidationError<T>): boolean => utils
+  .keysOf(validationError)
+  .map((key) => validationError[key])
+  .every((errors) => errors.length === 0);
 
-  for (const key in rules) {
-    const value = data[key];
-    const validation = rules[key];
+const validate = <T>(data: T, validations: Validations<T>): ValidationError<T> => utils
+  .keysOf(validations)
+  .reduce((errors, key) => {
+    const errorMessages = validateRule(validations[key], data[key]);
+    return {
+      ...errors,
+      [key]: errorMessages,
+    };
+  }, initErrors(data));
 
-    if (validation?.required?.value && !value) {
-      newErrors[key].push(validation.required.message);
-    }
-
-    const custom = validation?.valid;
-    if (custom?.func && !custom.func(value)) {
-      newErrors[key].push(custom.message);
-    }
-  }
-
-  return newErrors;
-};
+export default { initErrors, isValid, validate };

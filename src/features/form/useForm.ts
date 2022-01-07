@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import {
-  ValidationError, ValidationRules, initErrors, validate as validateFn,
-} from './validation';
+import validation, { ValidationError, ValidationRules } from './validation';
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 
@@ -10,36 +8,35 @@ export interface Form<T> {
   errors: ValidationError<T>;
   onChange: (key: keyof T) => (e: ChangeEvent) => void;
   resetForm: () => void;
-  validate: () => ValidationError<T>;
+  validate: () => boolean;
 }
 
 export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T> => {
-  const emptyErrors = initErrors(initialState);
+  const emptyErrors = validation.initErrors(initialState);
 
   const [data, setData] = useState<T>(initialState);
   const [errors, setErrors] = useState<ValidationError<T>>(emptyErrors);
 
-  const updateField = (key: keyof T, e: ChangeEvent): void => {
+  const validate = (): boolean => {
+    if (!rules) {
+      return true;
+    }
+
+    const validationErrors = validation.validate(data, rules.validations);
+    setErrors(validationErrors);
+    return validation.isValid(validationErrors);
+  };
+
+  const onChange = (key: keyof T) => (e: ChangeEvent): void => {
     const edited: T = {
       ...data,
       [key]: e.target.value,
     };
     setData(edited);
-  };
 
-  const validate = (): ValidationError<T> => {
-    if (!rules) {
-      return emptyErrors;
+    if (rules && rules.mode === 'ON_CHANGE') {
+      setErrors(validation.validate(edited, rules.validations));
     }
-
-    const validationErrors = validateFn(data, rules);
-    setErrors(validationErrors || {});
-    return validationErrors;
-  };
-
-  const onChange = (key: keyof T) => (e: ChangeEvent): void => {
-    updateField(key, e);
-    validate(); // Do validations on field somehow
   };
 
   const resetForm = (): void => {
