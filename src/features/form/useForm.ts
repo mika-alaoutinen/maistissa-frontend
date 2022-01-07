@@ -19,27 +19,18 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
   const [data, setData] = useState<T>(initialState);
   const [errors, setErrors] = useState<ValidationError<T>>(emptyErrors);
 
-  const updateField = (key: keyof T, e: ChangeEvent): void => {
+  const validate = (): ValidationError<T> => {
+    const validationErrors = rules ? validateFn(data, rules) : emptyErrors;
+    setErrors(validationErrors);
+    return validationErrors;
+  };
+
+  const onChange = (key: keyof T) => (e: ChangeEvent): void => {
     const edited: T = {
       ...data,
       [key]: e.target.value,
     };
     setData(edited);
-  };
-
-  const validate = (): ValidationError<T> => {
-    if (!rules) {
-      return emptyErrors;
-    }
-
-    const validationErrors = validateFn(data, rules);
-    setErrors(validationErrors || emptyErrors);
-    return validationErrors;
-  };
-
-  const onChange = (key: keyof T) => (e: ChangeEvent): void => {
-    updateField(key, e);
-    validate(); // Do validations on field somehow
   };
 
   const resetForm = (): void => {
