@@ -1,20 +1,20 @@
 import utils from '../../utils/generics';
 
-interface Validation {
+interface Validation<T> {
   required?: {
     value: boolean;
     message: string;
   };
   valid?: {
-    func: <T>(s: T[keyof T]) => boolean;
+    func: (s: T[keyof T]) => boolean;
     message: string;
   };
 }
 
 export type ValidationError<T> = Record<keyof T, string[]>;
-export type ValidationRules<T> = Record<keyof T, Validation>;
+export type ValidationRules<T> = Record<keyof T, Validation<T>>;
 
-const validateRule = <T>(validation: Validation, value: T[keyof T]): string[] => {
+const validateRule = <T>(validation: Validation<T>, value: T[keyof T]): string[] => {
   const errors = [];
 
   // is field required?
