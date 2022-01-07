@@ -23,18 +23,11 @@ const AddWine: React.FC = () => {
   return (
     <form id="add-wine-form">
 
-      {errors.name && (
-        <div className="error_msg">
-          Error on name field:
-          {' '}
-          {errors.name}
-        </div>
-      )}
-
       <Input
         id="new-wine-name"
         label="Name"
         onChange={onChange('name')}
+        validationErrors={errors.name}
         value={data.name}
       />
 
@@ -43,6 +36,7 @@ const AddWine: React.FC = () => {
         label="Country"
         onChange={onChange('country')}
         options={countries}
+        validationErrors={errors.country}
         value={data.country}
       />
 
@@ -50,6 +44,7 @@ const AddWine: React.FC = () => {
         id="new-wine-type"
         label="Wine type"
         onChange={onChange('type')}
+        validationErrors={errors.type}
         values={Object.keys(WineType)}
       />
 
@@ -57,6 +52,7 @@ const AddWine: React.FC = () => {
         id="new-wine-price"
         label="Price"
         onChange={onChange('price')}
+        validationErrors={errors.price}
         value={data.price}
       />
 
@@ -64,6 +60,7 @@ const AddWine: React.FC = () => {
         id="new-wine-volume"
         label="Volume (l)"
         onChange={onChange('volume')}
+        validationErrors={errors.volume}
         value={data.volume}
       />
 
@@ -72,6 +69,7 @@ const AddWine: React.FC = () => {
         label="Description"
         onChange={onChange('description')}
         options={descriptions}
+        validationErrors={errors.description}
         values={data.description}
       />
 
@@ -80,6 +78,7 @@ const AddWine: React.FC = () => {
         label="Food pairings"
         onChange={onChange('foodPairings')}
         options={foodPairings}
+        validationErrors={errors.foodPairings}
         values={data.foodPairings}
       />
 
@@ -87,6 +86,7 @@ const AddWine: React.FC = () => {
         id="new-wine-url"
         label="URL"
         onChange={onChange('url')}
+        validationErrors={errors.url}
         value={data.url}
       />
 

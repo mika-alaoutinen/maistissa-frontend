@@ -5,16 +5,16 @@ import RadioGroup from '../RadioGroup';
 
 const onChangeMock = jest.fn();
 
-beforeEach(() => render(
-  <RadioGroup
-    id="radiogroup-id"
-    label="radiogroup label"
-    onChange={onChangeMock}
-    values={['a', 'b', 'c']}
-  />,
-));
-
 describe('Component renders correctly', () => {
+  beforeEach(() => render(
+    <RadioGroup
+      id="radiogroup-id"
+      label="radiogroup label"
+      onChange={onChangeMock}
+      values={['a', 'b', 'c']}
+    />,
+  ));
+
   it('component has three radio buttons', () => {
     const radioButtons = within(screen.getByRole('radiogroup')).getAllByRole('radio');
     expect(radioButtons).toHaveLength(3);
@@ -32,6 +32,15 @@ describe('Component renders correctly', () => {
 });
 
 describe('Component interactions', () => {
+  beforeEach(() => render(
+    <RadioGroup
+      id="radiogroup-id"
+      label="radiogroup label"
+      onChange={onChangeMock}
+      values={['a', 'b', 'c']}
+    />,
+  ));
+
   it('clicking on label selects radio button', () => {
     const radioButton = screen.getByLabelText('a');
     expect(radioButton).not.toBeChecked();
@@ -49,5 +58,21 @@ describe('Component interactions', () => {
   it('selecting radiobutton emits onChange function', () => {
     userEvent.click(screen.getByLabelText('c'));
     expect(onChangeMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Validation errors', () => {
+  beforeEach(() => render(
+    <RadioGroup
+      id="radiogroup-id"
+      label="radiogroup label"
+      onChange={onChangeMock}
+      values={['a', 'b', 'c']}
+      validationErrors={['validation error']}
+    />,
+  ));
+
+  it('component displays a validation error', () => {
+    expect(screen.getByText('validation error')).toBeInTheDocument();
   });
 });

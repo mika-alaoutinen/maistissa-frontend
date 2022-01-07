@@ -1,4 +1,5 @@
 import React from 'react';
+import ValidationError from '../validation/ValidationError';
 import styles from './Select.module.css';
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
   label: string
   onChange: (value: React.ChangeEvent<HTMLSelectElement>) => void;
   options: string[];
+  validationErrors?: string[];
   value?: string;
 }
 
@@ -14,9 +16,14 @@ const Select: React.FC<Props> = ({
   label,
   onChange,
   options,
+  validationErrors = [],
   value,
 }) => (
   <div className={styles.select}>
+    <div>
+      <ValidationError errors={validationErrors} />
+    </div>
+
     <label htmlFor={id}>{label}</label>
 
     <select

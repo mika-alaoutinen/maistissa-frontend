@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { ValidationError, ValidationRules, validate as validateFn } from './validation';
+import {
+  ValidationError, ValidationRules, initErrors, validate as validateFn,
+} from './validation';
 
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 
@@ -12,8 +14,10 @@ export interface Form<T> {
 }
 
 export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T> => {
+  const emptyErrors = initErrors(initialState);
+
   const [data, setData] = useState<T>(initialState);
-  const [errors, setErrors] = useState<ValidationError<T>>({});
+  const [errors, setErrors] = useState<ValidationError<T>>(emptyErrors);
 
   const updateField = (key: keyof T, e: ChangeEvent): void => {
     const edited: T = {
@@ -25,7 +29,7 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
 
   const validate = (): ValidationError<T> => {
     if (!rules) {
-      return {};
+      return emptyErrors;
     }
 
     const validationErrors = validateFn(data, rules);
@@ -39,7 +43,7 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
   };
 
   const resetForm = (): void => {
-    setErrors({});
+    setErrors(emptyErrors);
     setData(initialState);
   };
 

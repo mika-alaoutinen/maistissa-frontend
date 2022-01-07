@@ -5,11 +5,11 @@ import Input from '../Input';
 
 const onChangeMock = jest.fn();
 
-beforeEach(() => render(
-  <Input id="input-id" label="input label" onChange={onChangeMock} />,
-));
-
 describe('Component renders correctly', () => {
+  beforeEach(() => render(
+    <Input id="input-id" label="input label" onChange={onChangeMock} />,
+  ));
+
   it('component has an input text field', () => {
     expect(screen.getByRole('textbox', { name: 'input label' })).toBeInTheDocument();
   });
@@ -24,6 +24,10 @@ describe('Component renders correctly', () => {
 });
 
 describe('Component interactions', () => {
+  beforeEach(() => render(
+    <Input id="input-id" label="input label" onChange={onChangeMock} />,
+  ));
+
   it('user can type in the input text field', () => {
     userEvent.type(screen.getByLabelText('input label'), 'test input');
     expect(screen.getByDisplayValue('test input')).toBeInTheDocument();
@@ -32,5 +36,20 @@ describe('Component interactions', () => {
   it('input passes change events via onChange function', () => {
     userEvent.type(screen.getByLabelText('input label'), 'test');
     expect(onChangeMock).toHaveBeenCalledTimes(4);
+  });
+});
+
+describe('Validation errors', () => {
+  beforeEach(() => render(
+    <Input
+      id="input-id"
+      label="input label"
+      onChange={onChangeMock}
+      validationErrors={['validation error']}
+    />,
+  ));
+
+  it('component displays a validation error', () => {
+    expect(screen.getByText('validation error')).toBeInTheDocument();
   });
 });

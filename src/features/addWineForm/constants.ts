@@ -21,7 +21,7 @@ export const validationRules: ValidationRules<NewWine> = {
   },
   price: {
     valid: {
-      isValid: (price) => Number(price) > 1,
+      func: (price) => Number(price) > 1,
       message: 'Price should be > 1',
     },
   },

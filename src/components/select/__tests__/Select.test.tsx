@@ -7,17 +7,17 @@ const onChangeMock = jest.fn();
 
 const getByLabel = (): HTMLElement => screen.getByLabelText('select label');
 
-beforeEach(() => {
-  render(<Select
-    id="select-id"
-    label="select label"
-    onChange={onChangeMock}
-    options={['opt a', 'opt b', 'opt c']}
-    value=""
-  />);
-});
-
 describe('Component renders correctly', () => {
+  beforeEach(() => {
+    render(<Select
+      id="select-id"
+      label="select label"
+      onChange={onChangeMock}
+      options={['opt a', 'opt b', 'opt c']}
+      value=""
+    />);
+  });
+
   it('component has dropdown select menu', () => {
     expect(screen.getByRole('combobox', { name: 'select label' }));
   });
@@ -33,6 +33,15 @@ describe('Component renders correctly', () => {
 });
 
 describe('Component interactions', () => {
+  beforeEach(() => {
+    render(<Select
+      id="select-id"
+      label="select label"
+      onChange={onChangeMock}
+      options={['opt a', 'opt b', 'opt c']}
+    />);
+  });
+
   it('mouse click opens a dropdown with options', () => {
     const select = getByLabel();
     userEvent.click(select);
@@ -45,5 +54,21 @@ describe('Component interactions', () => {
   it('selecting an option emits onClick', () => {
     userEvent.selectOptions(getByLabel(), 'opt a');
     expect(onChangeMock).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Validation errors', () => {
+  beforeEach(() => render(
+    <Select
+      id="select-id"
+      label="select label"
+      onChange={onChangeMock}
+      options={['opt a', 'opt b', 'opt c']}
+      validationErrors={['validation error']}
+    />,
+  ));
+
+  it('component displays a validation error', () => {
+    expect(screen.getByText('validation error')).toBeInTheDocument();
   });
 });
