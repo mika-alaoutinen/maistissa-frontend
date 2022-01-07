@@ -18,7 +18,11 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
   const [errors, setErrors] = useState<ValidationError<T>>(emptyErrors);
 
   const validate = (): boolean => {
-    const validationErrors = rules ? validation.validate(data, rules) : emptyErrors;
+    if (!rules) {
+      return true;
+    }
+
+    const validationErrors = validation.validate(data, rules.validations);
     setErrors(validationErrors);
     return validation.isValid(validationErrors);
   };
@@ -29,6 +33,10 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
       [key]: e.target.value,
     };
     setData(edited);
+
+    if (rules && rules.mode === 'ON_CHANGE') {
+      setErrors(validation.validate(edited, rules.validations));
+    }
   };
 
   const resetForm = (): void => {

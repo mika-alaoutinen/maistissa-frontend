@@ -12,7 +12,11 @@ interface Validation<T> {
 }
 
 export type ValidationError<T> = Record<keyof T, string[]>;
-export type ValidationRules<T> = Record<keyof T, Validation<T>>;
+export type Validations<T> = Record<keyof T, Validation<T>>;
+export interface ValidationRules<T> {
+  mode: 'ON_CHANGE' | 'ON_SUBMIT';
+  validations: Validations<T>;
+}
 
 const validateRule = <T>(validation: Validation<T>, value: T[keyof T]): string[] => {
   const errors = [];
@@ -43,13 +47,13 @@ const isValid = <T>(validationError: ValidationError<T>): boolean => utils
   .map((key) => validationError[key])
   .every((errors) => errors.length === 0);
 
-const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => utils
-  .keysOf(rules)
-  .reduce((errors, rule) => {
-    const errorMessages = validateRule(rules[rule], data[rule]);
+const validate = <T>(data: T, validations: Validations<T>): ValidationError<T> => utils
+  .keysOf(validations)
+  .reduce((errors, key) => {
+    const errorMessages = validateRule(validations[key], data[key]);
     return {
       ...errors,
-      [rule]: errorMessages,
+      [key]: errorMessages,
     };
   }, initErrors(data));
 
