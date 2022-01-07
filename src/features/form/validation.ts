@@ -6,7 +6,7 @@ interface Validation<T> {
     message: string;
   };
   valid?: {
-    func: (s: T[keyof T]) => boolean;
+    func: (value: T[keyof T]) => boolean;
     message: string;
   };
 }
@@ -38,14 +38,12 @@ export const initErrors = <T>(data: T): ValidationError<T> => Object
     [key]: [],
   }), {} as ValidationError<T>);
 
-export const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => {
-  const newErrors = initErrors(data);
-
-  utils.keysOf(rules).forEach((rule) => {
-    const value = data[rule];
-    const validation = rules[rule];
-    newErrors[rule] = validateRule(validation, value);
-  });
-
-  return newErrors;
-};
+export const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => utils
+  .keysOf(rules)
+  .reduce((errors, rule) => {
+    const errorMessages = validateRule(rules[rule], data[rule]);
+    return {
+      ...errors,
+      [rule]: errorMessages,
+    };
+  }, initErrors(data));
