@@ -1,4 +1,5 @@
 import React from 'react';
+import ValidationError from '../validation/ValidationError';
 import styles from './Combobox.module.css';
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
   onChange: (value: React.ChangeEvent<HTMLSelectElement>) => void;
   options: string[];
   values: string[];
+  validationErrors?: string[];
 }
 
 // Implement Combobox as two sub-components: FilterInput and Dropdown?
@@ -21,8 +23,13 @@ const Combobox: React.FC<Props> = ({
   onChange,
   options,
   values,
+  validationErrors = [],
 }) => (
   <div className={styles.combobox}>
+    <div>
+      <ValidationError errors={validationErrors} />
+    </div>
+
     <label htmlFor={id}>{label}</label>
 
     <select
