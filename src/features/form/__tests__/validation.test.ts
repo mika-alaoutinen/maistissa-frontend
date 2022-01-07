@@ -51,7 +51,7 @@ describe('Validation should handle custom validation rule', () => {
   const customRules: ValidationRules<Data> = {
     value: {
       valid: {
-        func: (s: string | undefined) => (s ? s.length > 3 : false),
+        func: (value) => value && String(value).length > 3,
         message: CUSTOM_ERROR_MESSAGE,
       },
     },
@@ -81,7 +81,7 @@ describe('Should return both required and custom errors', () => {
         message: REQUIRED_ERROR_MESSAGE,
       },
       valid: {
-        func: (s: string | undefined) => (s ? s.length > 3 : false),
+        func: (value) => value && String(value).length > 3,
         message: CUSTOM_ERROR_MESSAGE,
       },
     },

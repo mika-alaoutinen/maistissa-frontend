@@ -1,3 +1,5 @@
+import utils from '../../utils/generics';
+
 interface Validation {
   required?: {
     value: boolean;
@@ -9,8 +11,25 @@ interface Validation {
   };
 }
 
-export type ValidationError<T> = Required<Record<keyof T, string[]>>;
-export type ValidationRules<T> = Partial<Record<keyof T, Validation>>;
+export type ValidationError<T> = Record<keyof T, string[]>;
+export type ValidationRules<T> = Record<keyof T, Validation>;
+
+const validateRule = <T>(validation: Validation, value: T[keyof T]): string[] => {
+  const errors = [];
+
+  // is field required?
+  if (validation?.required?.value && !value) {
+    errors.push(validation.required.message);
+  }
+
+  // run custom validation function
+  const custom = validation?.valid;
+  if (custom?.func && !custom.func(value)) {
+    errors.push(custom.message);
+  }
+
+  return errors;
+};
 
 export const initErrors = <T>(data: T): ValidationError<T> => Object
   .keys(data)
@@ -22,25 +41,11 @@ export const initErrors = <T>(data: T): ValidationError<T> => Object
 export const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => {
   const newErrors = initErrors(data);
 
-  Object
-    .keys(rules)
-    .forEach((key) => {
-      // Don't know how to get the types working correctly
-      const rule = key as keyof T;
-      const value = data[rule];
-      const validation = rules[rule];
-
-      // is field required?
-      if (validation?.required?.value && !value) {
-        newErrors[rule].push(validation.required.message);
-      }
-
-      // run custom validation function
-      const custom = validation?.valid;
-      if (custom?.func && !custom.func(value)) {
-        newErrors[rule].push(custom.message);
-      }
-    });
+  utils.keysOf(rules).forEach((rule) => {
+    const value = data[rule];
+    const validation = rules[rule];
+    newErrors[rule] = validateRule(validation, value);
+  });
 
   return newErrors;
 };
