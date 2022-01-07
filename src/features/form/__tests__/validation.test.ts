@@ -1,6 +1,6 @@
-import validation, { ValidationRules } from '../validation';
+import validation, { ValidationError, ValidationRules } from '../validation';
 
-const { initErrors, validate } = validation;
+const { initErrors, isValid, validate } = validation;
 
 interface Data {
   value?: string;
@@ -104,5 +104,21 @@ describe('Should initialize an empty error object with correct keys and empty ar
 
   it('should have empty array as value', () => {
     expect(emptyErrors.value).toEqual([]);
+  });
+});
+
+describe('Should parse ValidationError object for error messages', () => {
+  it('should return true when there is at least one error message on any field', () => {
+    const error: ValidationError<Data> = {
+      value: ['error 1'],
+    };
+    expect(isValid(error)).toBe(false);
+  });
+
+  it('should return false when there are no error messages on any fields', () => {
+    const error: ValidationError<Data> = {
+      value: [],
+    };
+    expect(isValid(error)).toBe(true);
   });
 });
