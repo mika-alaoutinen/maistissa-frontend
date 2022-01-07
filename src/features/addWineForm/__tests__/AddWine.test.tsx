@@ -10,13 +10,13 @@ import { renderWithStore } from '../../../tests/testutils';
 const mockAPI = api as jest.Mocked<typeof api>;
 jest.mock('../../../api/wineAPI');
 
+beforeEach(() => renderWithStore(<AddWine />));
+
 afterEach(() => {
   jest.clearAllMocks();
 });
 
 describe('Form should have all input fields', () => {
-  beforeEach(() => renderWithStore(<AddWine />));
-
   it('should have text input with label for name', () => {
     expect(screen.getByLabelText(/Name/)).toBeInTheDocument();
   });
@@ -50,15 +50,12 @@ describe('Form should have all input fields', () => {
 
 describe('Adding a new wine', () => {
   it('clicking add wine button calls wineAPI', () => {
-    renderWithStore(<AddWine />);
     userEvent.click(screen.getByText(/Add wine/));
     expect(mockAPI.addWine).toHaveBeenCalledTimes(1);
     expect(mockAPI.addWine).toHaveBeenCalledWith(initialState);
   });
 
   it('should clear form after submit', () => {
-    renderWithStore(<AddWine />);
-
     const wineName = 'Gato Negro';
     const nameInput = screen.getByLabelText(/Name/);
 
