@@ -33,7 +33,7 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
     }
 
     const validationErrors = validateFn(data, rules);
-    setErrors(validationErrors || {});
+    setErrors(validationErrors || emptyErrors);
     return validationErrors;
   };
 

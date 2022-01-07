@@ -1,18 +1,16 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
-interface Validation<T> {
+interface Validation {
   required?: {
     value: boolean;
     message: string;
   };
   valid?: {
-    func: (value: T[Extract<keyof T, string>]) => boolean;
+    func: <T>(s: T[keyof T]) => boolean;
     message: string;
   };
 }
 
 export type ValidationError<T> = Required<Record<keyof T, string[]>>;
-export type ValidationRules<T> = Partial<Record<keyof T, Validation<T>>>;
+export type ValidationRules<T> = Partial<Record<keyof T, Validation>>;
 
 export const initErrors = <T>(data: T): ValidationError<T> => Object
   .keys(data)
@@ -24,19 +22,25 @@ export const initErrors = <T>(data: T): ValidationError<T> => Object
 export const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => {
   const newErrors = initErrors(data);
 
-  for (const key in rules) {
-    const value = data[key];
-    const validation = rules[key];
+  Object
+    .keys(rules)
+    .forEach((key) => {
+      // Don't know how to get the types working correctly
+      const rule = key as keyof T;
+      const value = data[rule];
+      const validation = rules[rule];
 
-    if (validation?.required?.value && !value) {
-      newErrors[key].push(validation.required.message);
-    }
+      // is field required?
+      if (validation?.required?.value && !value) {
+        newErrors[rule].push(validation.required.message);
+      }
 
-    const custom = validation?.valid;
-    if (custom?.func && !custom.func(value)) {
-      newErrors[key].push(custom.message);
-    }
-  }
+      // run custom validation function
+      const custom = validation?.valid;
+      if (custom?.func && !custom.func(value)) {
+        newErrors[rule].push(custom.message);
+      }
+    });
 
   return newErrors;
 };
