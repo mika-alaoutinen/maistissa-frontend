@@ -8,9 +8,9 @@ interface Props {
 const ValidationError: React.FC<Props> = ({ errors }) => (
   <>
     {errors.map((e) => (
-      <span key={e} className={styles.error_msg}>
+      <div key={e} className={styles.error_msg}>
         {e}
-      </span>
+      </div>
     ))}
   </>
 );
