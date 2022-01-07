@@ -5,16 +5,16 @@ import NumberInput from '../NumberInput';
 
 const onChangeMock = jest.fn();
 
-beforeEach(() => render(
-  <NumberInput
-    id="input-id"
-    label="input label"
-    onChange={onChangeMock}
-    value={10}
-  />,
-));
-
 describe('Component renders correctly', () => {
+  beforeEach(() => render(
+    <NumberInput
+      id="input-id"
+      label="input label"
+      onChange={onChangeMock}
+      value={10}
+    />,
+  ));
+
   it('component has a number input field', () => {
     expect(screen.getByRole('spinbutton', { name: 'input label' })).toBeInTheDocument();
   });
@@ -25,8 +25,27 @@ describe('Component renders correctly', () => {
 });
 
 describe('Component interactions', () => {
+  beforeEach(() => render(
+    <NumberInput id="input-id" label="input label" onChange={onChangeMock} />,
+  ));
+
   it('input passes change events via onChange function', () => {
     userEvent.type(screen.getByLabelText('input label'), '20');
     expect(onChangeMock).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe('Validation errors', () => {
+  beforeEach(() => render(
+    <NumberInput
+      id="input-id"
+      label="input label"
+      onChange={onChangeMock}
+      validationErrors={['validation error']}
+    />,
+  ));
+
+  it('component displays a validation error', () => {
+    expect(screen.getByText('validation error')).toBeInTheDocument();
   });
 });
