@@ -1,4 +1,6 @@
-import { ValidationRules, initErrors, validate } from '../validation';
+import validation, { ValidationRules } from '../validation';
+
+const { initErrors, validate } = validation;
 
 interface Data {
   value?: string;

@@ -31,14 +31,19 @@ const validateRule = <T>(validation: Validation<T>, value: T[keyof T]): string[]
   return errors;
 };
 
-export const initErrors = <T>(data: T): ValidationError<T> => Object
+const initErrors = <T>(data: T): ValidationError<T> => Object
   .keys(data)
   .reduce((obj, key) => ({
     ...obj,
     [key]: [],
   }), {} as ValidationError<T>);
 
-export const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => utils
+const isValid = <T>(validationError: ValidationError<T>): boolean => utils
+  .keysOf(validationError)
+  .map((key) => validationError[key])
+  .every((errors) => errors.length === 0);
+
+const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError<T> => utils
   .keysOf(rules)
   .reduce((errors, rule) => {
     const errorMessages = validateRule(rules[rule], data[rule]);
@@ -47,3 +52,5 @@ export const validate = <T>(data: T, rules: ValidationRules<T>): ValidationError
       [rule]: errorMessages,
     };
   }, initErrors(data));
+
+export default { initErrors, isValid, validate };
