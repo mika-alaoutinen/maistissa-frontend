@@ -2,17 +2,23 @@ import { useAppDispatch } from '../../app/hooks';
 import { NewWine, Wine } from '../../api/wineAPI';
 import { addWine } from '../../app/wineSlice';
 import { initialState, validationRules } from './constants';
-import { Form, useForm } from '../form/useForm';
+import {
+  Form, SubmitEvent, SubmitResponse, useForm,
+} from '../form/useForm';
 
-/**
- * Dispatches a new wine thunk and retunrs the response as a Promise.
- * @returns Added wine response from backend.
- */
-export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
+type WineResponse = SubmitResponse<NewWine, Wine>;
+type PartialForm = Omit<Form<NewWine>, 'onSubmit' | 'resetForm'>;
+
+// "Override" the onSubmit type from Form
+interface WineForm extends PartialForm {
+  onSubmit: (e: SubmitEvent) => WineResponse;
+}
+
+const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
   const dispatch = useAppDispatch();
 
-  return async (wine: NewWine) => {
-    const response = dispatch(addWine(wine));
+  return async (newWine: NewWine) => {
+    const response = dispatch(addWine(newWine));
     // Note that unwrap can throw an error!
     return response.unwrap();
   };
@@ -22,16 +28,26 @@ export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
  * Initializes a generic Form hook with NewWine fields.
  * @returns Form hook.
  */
-export const useWineForm = (): Form<NewWine> => {
+export const useWineForm = (): WineForm => {
   const {
-    data, errors, onChange, resetForm, validate,
+    data, errors, onChange, onSubmit, resetForm,
   } = useForm<NewWine>(initialState, validationRules);
+
+  const addWineAction = useAddWine();
+
+  const handleSubmit = (newWine: NewWine): Promise<Wine> => {
+    resetForm();
+    return addWineAction(newWine);
+  };
+
+  const onSubmitHandler = (e: SubmitEvent): WineResponse => onSubmit(e, handleSubmit);
 
   return {
     data,
     errors,
     onChange,
-    resetForm,
-    validate,
+    onSubmit: onSubmitHandler,
   };
 };
+
+export default { useAddWine };
