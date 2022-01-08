@@ -24,7 +24,7 @@ export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
  */
 export const useWineForm = (): Form<NewWine> => {
   const {
-    data, errors, onChange, onSubmit, resetForm, validate,
+    data, errors, onChange, onSubmit, resetForm,
   } = useForm<NewWine>(initialState, validationRules);
 
   return {
@@ -33,6 +33,5 @@ export const useWineForm = (): Form<NewWine> => {
     onChange,
     onSubmit,
     resetForm,
-    validate,
   };
 };
