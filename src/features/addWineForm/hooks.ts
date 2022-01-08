@@ -11,8 +11,8 @@ import { Form, useForm } from '../form/useForm';
 export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
   const dispatch = useAppDispatch();
 
-  return async (wine: NewWine) => {
-    const response = dispatch(addWine(wine));
+  return async (newWine: NewWine) => {
+    const response = dispatch(addWine(newWine));
     // Note that unwrap can throw an error!
     return response.unwrap();
   };
@@ -24,13 +24,14 @@ export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
  */
 export const useWineForm = (): Form<NewWine> => {
   const {
-    data, errors, onChange, resetForm, validate,
+    data, errors, onChange, onSubmit, resetForm, validate,
   } = useForm<NewWine>(initialState, validationRules);
 
   return {
     data,
     errors,
     onChange,
+    onSubmit,
     resetForm,
     validate,
   };

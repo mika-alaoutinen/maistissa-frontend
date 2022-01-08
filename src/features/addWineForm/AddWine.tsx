@@ -10,15 +10,9 @@ import { WineType } from '../../api/wineAPI';
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
   const {
-    data, errors, onChange, resetForm,
+    data, errors, onChange, onSubmit,
   } = useWineForm();
   const addWine = useAddWine();
-
-  const handleAddWine = async (e: React.MouseEvent<HTMLElement>): Promise<void> => {
-    e.preventDefault();
-    void addWine(data);
-    resetForm();
-  };
 
   return (
     <form id="add-wine-form">
@@ -92,7 +86,7 @@ const AddWine: React.FC = () => {
 
       <SubmitButton
         id="add-wine-form-submit"
-        onClick={handleAddWine}
+        onClick={(e) => onSubmit(e, addWine)}
         text="Add wine"
       />
     </form>
