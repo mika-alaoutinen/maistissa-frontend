@@ -4,13 +4,13 @@ import validation, { ValidationError, ValidationRules } from './validation';
 type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 type SubmitEvent = React.MouseEvent<HTMLElement>;
 type SubmitHandler<T, R> = (data: T) => Promise<R>;
-type FormSubmitResponse<T, R> = Promise<R | ValidationError<T>>;
+type SubmitResponse<T, R> = Promise<R | ValidationError<T>>;
 
 export interface Form<T> {
   data: T;
   errors: ValidationError<T>;
   onChange: (key: keyof T) => (e: ChangeEvent) => void;
-  onSubmit: <R>(e: SubmitEvent, handler: SubmitHandler<T, R>) => FormSubmitResponse<T, R>;
+  onSubmit: <R>(e: SubmitEvent, handler: SubmitHandler<T, R>) => SubmitResponse<T, R>;
   resetForm: () => void;
 }
 
@@ -43,17 +43,11 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
   };
 
   const onSubmit = async <R>(
-    e: SubmitEvent, submitHandler: (data: T) => Promise<R>,
-  ): Promise<R | ValidationError<T>> => {
+    e: SubmitEvent,
+    submitHandler: SubmitHandler<T, R>,
+  ): SubmitResponse<T, R> => {
     e.preventDefault();
-    if (validate(data)) {
-      console.log('form is valid');
-      const response = await submitHandler(data);
-      console.log('response', response);
-      return response;
-    }
-    console.log('returning validation errors');
-    return Promise.resolve(errors);
+    return validate(data) ? submitHandler(data) : Promise.resolve(errors);
   };
 
   const resetForm = (): void => {
