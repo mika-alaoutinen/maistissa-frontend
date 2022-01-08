@@ -44,7 +44,7 @@ const AddWine: React.FC = () => {
       <NumberInput
         id="new-wine-price"
         label="Price"
-        onChange={onChange('price')}
+        onChange={onChange('price', Number)}
         validationErrors={errors.price}
         value={data.price}
       />
@@ -52,7 +52,7 @@ const AddWine: React.FC = () => {
       <NumberInput
         id="new-wine-volume"
         label="Volume (l)"
-        onChange={onChange('volume')}
+        onChange={onChange('volume', Number)}
         validationErrors={errors.volume}
         value={data.volume}
       />

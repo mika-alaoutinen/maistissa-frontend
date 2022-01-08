@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import AddWine from '../AddWine';
-import api, { WineType } from '../../../api/wineAPI';
+import api, { NewWine, WineType } from '../../../api/wineAPI';
 import { renderWithStore } from '../../../tests/testutils';
 
 const mockAPI = api as jest.Mocked<typeof api>;
@@ -48,29 +48,28 @@ describe('Form should have all input fields', () => {
 });
 
 describe('Adding a new wine', () => {
-  const clearInputAndType = (labelText: string, value: string): void => {
+  const clearInputAndType = (labelText: string, value: number): void => {
     const input = screen.getByLabelText(labelText);
     userEvent.clear(input);
-    userEvent.type(input, value);
+    userEvent.type(input, value.toString());
   };
 
   it('clicking add wine button calls wineAPI', () => {
-    // Price and volume are strings because of useForm's onChange function
-    const newWine = {
+    const newWine: NewWine = {
       name: 'Gato Negro',
       country: 'Spain',
       type: WineType.WHITE,
-      price: '10',
-      volume: '0.75',
+      price: 10,
+      volume: 0.75,
       description: [],
       foodPairings: [],
       url: '',
     };
 
     // Fill out the form
+    userEvent.type(screen.getByLabelText(/Name/), newWine.name);
     userEvent.selectOptions(screen.getByLabelText(/Country/), newWine.country);
     userEvent.click(screen.getByLabelText(/white/));
-    clearInputAndType('Name', newWine.name);
     clearInputAndType('Price', newWine.price);
     clearInputAndType('Volume (l)', newWine.volume);
 

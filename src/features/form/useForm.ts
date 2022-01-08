@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import validation, { ValidationError, ValidationRules } from './validation';
 
+type SanitizeFn<R> = (value: string) => R;
 export type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 export type SubmitEvent = React.MouseEvent<HTMLElement>;
 export type SubmitHandler<T, R> = (data: T) => Promise<R>;
@@ -9,7 +10,7 @@ export type SubmitResponse<T, R> = Promise<R | ValidationError<T>>;
 export interface Form<T> {
   data: T;
   errors: ValidationError<T>;
-  onChange: (key: keyof T) => (e: ChangeEvent) => void;
+  onChange: <R>(key: keyof T, sanitizeFn?: SanitizeFn<R>) => (e: ChangeEvent) => void;
   onSubmit: <R>(e: SubmitEvent, handler: SubmitHandler<T, R>) => SubmitResponse<T, R>;
   resetForm: () => void;
 }
@@ -30,11 +31,11 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
     return validation.isValid(validationErrors);
   };
 
-  // This sets all fields to strings, e.g. wine's price and volume. Fix by adding type information?
-  const onChange = (key: keyof T) => (e: ChangeEvent): void => {
+  const onChange = <R>(key: keyof T, sanitizeFn?: SanitizeFn<R>) => (e: ChangeEvent): void => {
+    const { value } = e.target;
     const edited: T = {
       ...data,
-      [key]: e.target.value,
+      [key]: sanitizeFn ? sanitizeFn(value) : value,
     };
     setData(edited);
 
