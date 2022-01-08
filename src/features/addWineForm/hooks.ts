@@ -2,13 +2,10 @@ import { useAppDispatch } from '../../app/hooks';
 import { NewWine, Wine } from '../../api/wineAPI';
 import { addWine } from '../../app/wineSlice';
 import { initialState, validationRules } from './constants';
-import { Form, useForm } from '../form/useForm';
+import { useForm } from '../form/useForm';
+import { ValidationError } from '../form/validation';
 
-/**
- * Dispatches a new wine thunk and retunrs the response as a Promise.
- * @returns Added wine response from backend.
- */
-export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
+const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
   const dispatch = useAppDispatch();
 
   return async (newWine: NewWine) => {
@@ -18,20 +15,34 @@ export const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
   };
 };
 
+// type WineFormType = Omit<Form<NewWine>, 'onSubmit' | 'resetForm'>;
+type SubmitEvent = React.MouseEvent<HTMLElement, MouseEvent>;
+type Response = Promise<Wine | ValidationError<NewWine>>;
+
 /**
  * Initializes a generic Form hook with NewWine fields.
  * @returns Form hook.
  */
-export const useWineForm = (): Form<NewWine> => {
+export const useWineForm = () => {
   const {
     data, errors, onChange, onSubmit, resetForm,
   } = useForm<NewWine>(initialState, validationRules);
+
+  const addWineAction = useAddWine();
+
+  const handleSubmit = (newWine: NewWine): Promise<Wine> => {
+    resetForm();
+    return addWineAction(newWine);
+  };
+
+  const onSubmitHandler = (e: SubmitEvent): Response => onSubmit(e, handleSubmit);
 
   return {
     data,
     errors,
     onChange,
-    onSubmit,
-    resetForm,
+    onSubmit: onSubmitHandler,
   };
 };
+
+export default { useAddWine };

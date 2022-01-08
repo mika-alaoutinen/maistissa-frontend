@@ -1,23 +1,17 @@
 import React from 'react';
-import { useAddWine, useWineForm } from './hooks';
+import { useWineForm } from './hooks';
 import { useAppSelector } from '../../app/hooks';
 import { selectWineInfo } from '../../app/selectors';
 import {
   Combobox, Input, NumberInput, RadioGroup, Select, SubmitButton,
 } from '../../components/index';
-import { NewWine, Wine, WineType } from '../../api/wineAPI';
+import { WineType } from '../../api/wineAPI';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
   const {
-    data, errors, onChange, onSubmit, resetForm,
+    data, errors, onChange, onSubmit,
   } = useWineForm();
-  const addWine = useAddWine();
-
-  const handleSubmit = async (newWine: NewWine): Promise<Wine> => {
-    resetForm();
-    return addWine(newWine);
-  };
 
   return (
     <form id="add-wine-form">
@@ -91,7 +85,7 @@ const AddWine: React.FC = () => {
 
       <SubmitButton
         id="add-wine-form-submit"
-        onClick={(e) => onSubmit(e, handleSubmit)}
+        onClick={onSubmit}
         text="Add wine"
       />
     </form>
