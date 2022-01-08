@@ -20,12 +20,12 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
   const [data, setData] = useState<T>(initialState);
   const [errors, setErrors] = useState<ValidationError<T>>(emptyErrors);
 
-  const validate = (): boolean => {
+  const validate = (formData: T): boolean => {
     if (!rules) {
       return true;
     }
 
-    const validationErrors = validation.validate(data, rules.validations);
+    const validationErrors = validation.validate(formData, rules.validations);
     setErrors(validationErrors);
     return validation.isValid(validationErrors);
   };
@@ -38,7 +38,7 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
     setData(edited);
 
     if (rules && rules.mode === 'ON_CHANGE') {
-      setErrors(validation.validate(edited, rules.validations));
+      validate(edited);
     }
   };
 
@@ -46,7 +46,7 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
     e: SubmitEvent, submitHandler: (data: T) => Promise<R>,
   ): Promise<R | ValidationError<T>> => {
     e.preventDefault();
-    if (validate()) {
+    if (validate(data)) {
       console.log('form is valid');
       const response = await submitHandler(data);
       console.log('response', response);
