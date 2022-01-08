@@ -3,8 +3,7 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 
 import AddWine from '../AddWine';
-import { initialState } from '../constants';
-import api from '../../../api/wineAPI';
+import api, { WineType } from '../../../api/wineAPI';
 import { renderWithStore } from '../../../tests/testutils';
 
 const mockAPI = api as jest.Mocked<typeof api>;
@@ -49,10 +48,42 @@ describe('Form should have all input fields', () => {
 });
 
 describe('Adding a new wine', () => {
+  const clearInputAndType = (labelText: string, value: string): void => {
+    const input = screen.getByLabelText(labelText);
+    userEvent.clear(input);
+    userEvent.type(input, value);
+  };
+
   it('clicking add wine button calls wineAPI', () => {
+    // Price and volume are strings because of useForm's onChange function
+    const newWine = {
+      name: 'Gato Negro',
+      country: 'Spain',
+      type: WineType.WHITE,
+      price: '10',
+      volume: '0.75',
+      description: [],
+      foodPairings: [],
+      url: '',
+    };
+
+    // Fill out the form
+    userEvent.selectOptions(screen.getByLabelText(/Country/), newWine.country);
+    userEvent.click(screen.getByLabelText(/white/));
+    clearInputAndType('Name', newWine.name);
+    clearInputAndType('Price', newWine.price);
+    clearInputAndType('Volume (l)', newWine.volume);
+
+    // Submit form
     userEvent.click(screen.getByText(/Add wine/));
     expect(mockAPI.addWine).toHaveBeenCalledTimes(1);
-    expect(mockAPI.addWine).toHaveBeenCalledWith(initialState);
+    expect(mockAPI.addWine).toHaveBeenCalledWith(newWine);
+  });
+
+  it('trying to submit an invalid form displays error messages and does not submit form', () => {
+    userEvent.click(screen.getByText(/Add wine/));
+    expect(screen.getByText('Name is required')).toBeInTheDocument();
+    expect(mockAPI.addWine).not.toBeCalled();
   });
 
   it('should clear form after submit', () => {

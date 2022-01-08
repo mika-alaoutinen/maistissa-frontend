@@ -30,6 +30,7 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
     return validation.isValid(validationErrors);
   };
 
+  // This sets all fields to strings, e.g. wine's price and volume. Fix by adding type information?
   const onChange = (key: keyof T) => (e: ChangeEvent): void => {
     const edited: T = {
       ...data,
