@@ -2,8 +2,17 @@ import { useAppDispatch } from '../../app/hooks';
 import { NewWine, Wine } from '../../api/wineAPI';
 import { addWine } from '../../app/wineSlice';
 import { initialState, validationRules } from './constants';
-import { useForm } from '../form/useForm';
-import { ValidationError } from '../form/validation';
+import {
+  Form, SubmitEvent, SubmitResponse, useForm,
+} from '../form/useForm';
+
+type WineResponse = SubmitResponse<NewWine, Wine>;
+type PartialForm = Omit<Form<NewWine>, 'onSubmit' | 'resetForm'>;
+
+// "Override" the onSubmit type from Form
+interface WineForm extends PartialForm {
+  onSubmit: (e: SubmitEvent) => WineResponse;
+}
 
 const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
   const dispatch = useAppDispatch();
@@ -15,15 +24,11 @@ const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
   };
 };
 
-// type WineFormType = Omit<Form<NewWine>, 'onSubmit' | 'resetForm'>;
-type SubmitEvent = React.MouseEvent<HTMLElement, MouseEvent>;
-type Response = Promise<Wine | ValidationError<NewWine>>;
-
 /**
  * Initializes a generic Form hook with NewWine fields.
  * @returns Form hook.
  */
-export const useWineForm = () => {
+export const useWineForm = (): WineForm => {
   const {
     data, errors, onChange, onSubmit, resetForm,
   } = useForm<NewWine>(initialState, validationRules);
@@ -35,7 +40,7 @@ export const useWineForm = () => {
     return addWineAction(newWine);
   };
 
-  const onSubmitHandler = (e: SubmitEvent): Response => onSubmit(e, handleSubmit);
+  const onSubmitHandler = (e: SubmitEvent): WineResponse => onSubmit(e, handleSubmit);
 
   return {
     data,

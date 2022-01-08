@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import validation, { ValidationError, ValidationRules } from './validation';
 
-type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
-type SubmitEvent = React.MouseEvent<HTMLElement>;
-type SubmitHandler<T, R> = (data: T) => Promise<R>;
-type SubmitResponse<T, R> = Promise<R | ValidationError<T>>;
+export type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
+export type SubmitEvent = React.MouseEvent<HTMLElement>;
+export type SubmitHandler<T, R> = (data: T) => Promise<R>;
+export type SubmitResponse<T, R> = Promise<R | ValidationError<T>>;
 
 export interface Form<T> {
   data: T;
