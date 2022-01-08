@@ -5,7 +5,7 @@ import { selectWineInfo } from '../../app/selectors';
 import {
   Combobox, Input, NumberInput, RadioGroup, Select, SubmitButton,
 } from '../../components/index';
-import { WineType } from '../../api/wineAPI';
+import { NewWine, WineType } from '../../api/wineAPI';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
@@ -19,7 +19,7 @@ const AddWine: React.FC = () => {
       <Input
         id="new-wine-name"
         label="Name"
-        onChange={onChange('name')}
+        onChange={onChange<NewWine>('name')}
         validationErrors={errors.name}
         value={data.name}
       />
@@ -27,7 +27,7 @@ const AddWine: React.FC = () => {
       <Select
         id="new-wine-country"
         label="Country"
-        onChange={onChange('country')}
+        onChange={onChange<NewWine>('country')}
         options={countries}
         validationErrors={errors.country}
         value={data.country}
@@ -36,7 +36,7 @@ const AddWine: React.FC = () => {
       <RadioGroup
         id="new-wine-type"
         label="Wine type"
-        onChange={onChange('type')}
+        onChange={onChange<NewWine>('type')}
         validationErrors={errors.type}
         values={Object.keys(WineType)}
       />
@@ -44,7 +44,7 @@ const AddWine: React.FC = () => {
       <NumberInput
         id="new-wine-price"
         label="Price"
-        onChange={onChange('price', Number)}
+        onChange={onChange<number>('price', Number)}
         validationErrors={errors.price}
         value={data.price}
       />
@@ -52,7 +52,7 @@ const AddWine: React.FC = () => {
       <NumberInput
         id="new-wine-volume"
         label="Volume (l)"
-        onChange={onChange('volume', Number)}
+        onChange={onChange<number>('volume', Number)}
         validationErrors={errors.volume}
         value={data.volume}
       />
@@ -60,7 +60,7 @@ const AddWine: React.FC = () => {
       <Combobox
         id="new-wine-description"
         label="Description"
-        onChange={onChange('description')}
+        onChange={onChange<NewWine>('description')}
         options={descriptions}
         validationErrors={errors.description}
         values={data.description}
@@ -69,7 +69,7 @@ const AddWine: React.FC = () => {
       <Combobox
         id="new-wine-food-pairings"
         label="Food pairings"
-        onChange={onChange('foodPairings')}
+        onChange={onChange<NewWine>('foodPairings')}
         options={foodPairings}
         validationErrors={errors.foodPairings}
         values={data.foodPairings}
@@ -78,7 +78,7 @@ const AddWine: React.FC = () => {
       <Input
         id="new-wine-url"
         label="URL"
-        onChange={onChange('url')}
+        onChange={onChange<NewWine>('url')}
         validationErrors={errors.url}
         value={data.url}
       />
