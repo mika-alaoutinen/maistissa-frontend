@@ -1,33 +1,18 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen } from '@testing-library/react';
 import React from 'react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
 import Header from '../Header';
 import { renderWithRouter } from '../../../tests/testutils';
-
-const appName = 'Maistissa';
 
 describe('Header displays application name', () => {
   it('header has text Maistissa', () => {
     renderWithRouter(<Header />);
-    expect(screen.getByText(appName)).toBeInTheDocument();
+    expect(screen.getByText('Maistissa')).toBeInTheDocument();
   });
 
-  it('clicking on Maistissa navigates to the home page', () => {
-    const history = createMemoryHistory({
-      initialEntries: ['/not-home'],
-    });
-
-    render(
-      <Router location="/not-home" navigator={history}>
-        <Header />
-      </Router>,
-    );
-
-    expect(history.location.pathname).toBe('/not-home');
-    userEvent.click(screen.getByText(appName));
-    expect(history.location.pathname).toBe('/');
+  it('Maistissa header has link to home page', () => {
+    const { container } = renderWithRouter(<Header />);
+    const href = container.querySelector('#home-link')?.getAttribute('href');
+    expect(href).toBe('/');
   });
 });
 

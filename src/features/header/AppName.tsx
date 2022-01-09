@@ -8,7 +8,7 @@ interface Props {
 }
 
 const AppName: React.FC<Props> = ({ home }) => (
-  <Link to={home.to}>
+  <Link id="home-link" to={home.to}>
     <h1 className={styles.app_name}>
       Maistissa
     </h1>
