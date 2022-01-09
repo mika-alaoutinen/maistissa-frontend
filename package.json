@@ -50,5 +50,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "node_modules",
+      "<rootDir>/src/index.tsx",
+      "<rootDir>/src/features/form/tests"
+    ]
   }
 }

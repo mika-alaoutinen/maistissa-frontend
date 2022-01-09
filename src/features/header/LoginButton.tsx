@@ -1,11 +1,15 @@
 import React from 'react';
 import styles from './Header.module.css';
 
-const LoginButton: React.FC = () => (
+interface Props {
+  handleLogin?: () => void;
+}
+
+const LoginButton: React.FC<Props> = ({ handleLogin }) => (
   <div className={styles.login_button_container}>
     <button
       id={styles.login_button}
-      onClick={() => console.log('Login not implemented')}
+      onClick={handleLogin}
       type="button"
     >
       Login
