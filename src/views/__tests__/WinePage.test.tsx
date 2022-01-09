@@ -8,10 +8,6 @@ import WinePage from '../WinePage';
 const mockAPI = api as jest.Mocked<typeof api>;
 jest.mock('../../api/wineAPI');
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 describe('Fetches all wines on component load', () => {
   it('should dispatch a fetchWines thunk', async () => {
     mockAPI.getWines.mockResolvedValue(Promise.resolve(wines));

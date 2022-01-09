@@ -11,10 +11,6 @@ jest.mock('../../../api/wineAPI');
 
 beforeEach(() => renderWithStore(<AddWine />));
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 describe('Form should have all input fields', () => {
   it('should have text input with label for name', () => {
     expect(screen.getByLabelText(/Name/)).toBeInTheDocument();
