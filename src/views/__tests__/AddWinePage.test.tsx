@@ -7,10 +7,6 @@ import AddWinePage from '../AddWinePage';
 const mockAPI = api as jest.Mocked<typeof api>;
 jest.mock('../../features/wineInfo/wineInfoAPI');
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 describe('Fetches wine info on component load', () => {
   it('should dispatch three thunks', async () => {
     mockAPI.getCountries.mockResolvedValue(Promise.resolve(['Italy', 'Spain']));

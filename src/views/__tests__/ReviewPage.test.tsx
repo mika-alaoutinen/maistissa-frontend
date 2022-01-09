@@ -8,10 +8,6 @@ import ReviewPage from '../ReviewPage';
 const mockAPI = api as jest.Mocked<typeof api>;
 jest.mock('../../api/reviewAPI');
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 describe('Fetches all reviews on component load', () => {
   it('should dispatch a fetchReviews thunk', async () => {
     mockAPI.getReviews.mockResolvedValue(Promise.resolve(reviews));
