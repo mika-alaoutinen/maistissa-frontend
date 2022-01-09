@@ -10,6 +10,7 @@ export type SubmitResponse<T, R> = Promise<R | ValidationError<T>>;
 export interface Form<T> {
   data: T;
   errors: ValidationError<T>;
+  isValid: () => boolean;
   onChange: <R>(key: keyof T, sanitizeFn?: SanitizeFn<R>) => (e: ChangeEvent) => void;
   onSubmit: <R>(e: SubmitEvent, handler: SubmitHandler<T, R>) => SubmitResponse<T, R>;
   resetForm: () => void;
@@ -30,6 +31,8 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
     setErrors(validationErrors);
     return validation.isValid(validationErrors);
   };
+
+  const isValid = (): boolean => validate(data);
 
   const onChange = <R>(key: keyof T, sanitizeFn?: SanitizeFn<R>) => (e: ChangeEvent): void => {
     const { value } = e.target;
@@ -60,6 +63,7 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
   return {
     data,
     errors,
+    isValid,
     onChange,
     onSubmit,
     resetForm,

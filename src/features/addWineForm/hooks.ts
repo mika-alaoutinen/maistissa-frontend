@@ -7,7 +7,7 @@ import {
 } from '../form/useForm';
 
 type WineResponse = SubmitResponse<NewWine, Wine>;
-type PartialForm = Omit<Form<NewWine>, 'onSubmit' | 'resetForm'>;
+type PartialForm = Omit<Form<NewWine>, 'isValid' | 'onSubmit' | 'resetForm'>;
 
 // "Override" the onSubmit type from Form
 interface WineForm extends PartialForm {
