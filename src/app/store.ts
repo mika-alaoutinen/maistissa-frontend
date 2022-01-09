@@ -3,7 +3,7 @@ import reviewReducer from './reviewSlice';
 import wineReducer from './wineSlice';
 import wineInfoReducer from '../features/wineInfo/wineInfoSlice';
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     reviews: reviewReducer,
     wines: wineReducer,
@@ -19,3 +19,5 @@ RootState,
 unknown,
 Action<string>
 >;
+
+export default store;
