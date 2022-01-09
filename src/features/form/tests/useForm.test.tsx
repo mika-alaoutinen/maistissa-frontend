@@ -5,6 +5,18 @@ import userEvent from '@testing-library/user-event';
 import TestComponent, { Data } from './TestComponent';
 import { ValidationRules } from '../validation';
 
+const validationRequired: ValidationRules<Data> = {
+  mode: 'ON_CHANGE',
+  validations: {
+    value: {
+      required: {
+        value: true,
+        message: 'value is required',
+      },
+    },
+  },
+};
+
 const typeIntoInput = (text: string): void => {
   userEvent.type(screen.getByTestId('test-input'), text);
 };
@@ -18,19 +30,7 @@ describe('Data is displayed', () => {
 
 describe('Errors are displayed based on given validation rules', () => {
   it('error is displayed when required field is empty', () => {
-    const rules: ValidationRules<Data> = {
-      mode: 'ON_CHANGE',
-      validations: {
-        value: {
-          required: {
-            value: true,
-            message: 'value is required',
-          },
-        },
-      },
-    };
-
-    render(<TestComponent initialData={{ value: '' }} rules={rules} />);
+    render(<TestComponent initialData={{ value: 'initial' }} rules={validationRequired} />);
     expect(screen.queryByText(/required/)).not.toBeInTheDocument();
 
     typeIntoInput('foo');
@@ -69,18 +69,32 @@ describe('OnChange updates the hooks internal state', () => {
     typeIntoInput('foo');
     expect(screen.getByText(/foo/)).toBeInTheDocument();
   });
+
+  // it('onChange can be given a sanitization function to give data correct types', () => {
+
+  // });
 });
 
 describe('OnSubmit is used to validate and submit the form', () => {
+  const submitHandler = jest.fn();
+
   const clickSubmit = (): void => {
     userEvent.click(screen.getByText('Submit'));
   };
 
   it('onSubmit calls submit handler function that is given as parameter', () => {
-    const onSubmit = jest.fn();
-    render(<TestComponent initialData={{ value: '' }} onSubmit={onSubmit} />);
-
+    render(<TestComponent initialData={{ value: '' }} submitHandler={submitHandler} />);
     clickSubmit();
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    expect(submitHandler).toHaveBeenCalledTimes(1);
+  });
+
+  it('onSubmit validates form before submitting if there are validation rules', () => {
+    render(<TestComponent
+      initialData={{ value: '' }}
+      rules={validationRequired}
+      submitHandler={submitHandler}
+    />);
+    clickSubmit();
+    expect(submitHandler).not.toHaveBeenCalled();
   });
 });

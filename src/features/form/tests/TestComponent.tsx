@@ -5,7 +5,7 @@ import { ValidationRules } from '../validation';
 interface Props {
   initialData: Data;
   rules?: ValidationRules<Data>;
-  onSubmit?: () => void;
+  submitHandler?: (data: Data) => Promise<Data>;
 }
 
 export interface Data {
@@ -16,8 +16,14 @@ export interface Data {
  * A component for testing the useForm hook.
  * @returns component that uses the useForm hook.
  */
-const TestComponent: React.FC<Props> = ({ initialData, rules, onSubmit }) => {
-  const { data, errors, onChange } = useForm<Data>(initialData, rules);
+const TestComponent: React.FC<Props> = ({
+  initialData,
+  rules,
+  submitHandler = () => Promise.resolve(initialData),
+}) => {
+  const {
+    data, errors, onChange, onSubmit,
+  } = useForm<Data>(initialData, rules);
 
   const errorMessages: JSX.Element = (
     <div>
@@ -42,7 +48,10 @@ const TestComponent: React.FC<Props> = ({ initialData, rules, onSubmit }) => {
         {`value: ${data.value}`}
       </label>
 
-      <button onClick={onSubmit} type="submit">
+      <button
+        onClick={(e) => onSubmit(e, submitHandler)}
+        type="submit"
+      >
         Submit
       </button>
     </div>
