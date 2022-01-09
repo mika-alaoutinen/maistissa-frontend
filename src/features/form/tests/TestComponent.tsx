@@ -24,7 +24,7 @@ const TestComponent: React.FC<Props> = ({
   submitHandler = () => Promise.resolve(initialData),
 }) => {
   const {
-    data, errors, onChange, onSubmit,
+    data, errors, isValid, onChange, onSubmit, resetForm,
   } = useForm<Data>(initialData, rules);
 
   const errorMessages: JSX.Element = (
@@ -50,11 +50,16 @@ const TestComponent: React.FC<Props> = ({
         {`value: ${data.value}`}
       </label>
 
-      <button
-        onClick={(e) => onSubmit(e, submitHandler)}
-        type="submit"
-      >
+      <button onClick={isValid} type="button">
+        Validate
+      </button>
+
+      <button onClick={(e) => onSubmit(e, submitHandler)} type="submit">
         Submit
+      </button>
+
+      <button onClick={resetForm} type="button">
+        Reset
       </button>
     </div>
   );

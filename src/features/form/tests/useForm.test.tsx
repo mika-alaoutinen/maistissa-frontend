@@ -21,6 +21,10 @@ const typeIntoInput = (text: string): void => {
   userEvent.type(screen.getByTestId('test-input'), text);
 };
 
+const clearInput = (): void => {
+  userEvent.clear(screen.getByTestId('test-input'));
+};
+
 describe('Data is displayed', () => {
   it('data is displayed', () => {
     render(<TestComponent initialData={{ value: 'initial' }} />);
@@ -34,7 +38,7 @@ describe('Errors are displayed based on given validation rules', () => {
     expect(screen.queryByText(/required/)).not.toBeInTheDocument();
 
     typeIntoInput('foo');
-    userEvent.clear(screen.getByTestId('test-input'));
+    clearInput();
     expect(screen.getByText(/required/)).toBeInTheDocument();
   });
 
@@ -58,6 +62,14 @@ describe('Errors are displayed based on given validation rules', () => {
 
     typeIntoInput('o');
     expect(screen.getByText(/failed/)).toBeInTheDocument();
+  });
+});
+
+describe('IsValid can be used to manually validate the form', () => {
+  it('isValid validates the form', () => {
+    render(<TestComponent initialData={{ value: '' }} rules={validationRequired} />);
+    userEvent.click(screen.getByText('Validate'));
+    expect(screen.getByText(/required/)).toBeInTheDocument();
   });
 });
 
@@ -103,5 +115,18 @@ describe('OnSubmit is used to validate and submit the form', () => {
     />);
     clickSubmit();
     expect(submitHandler).not.toHaveBeenCalled();
+  });
+});
+
+describe('ResetForm resets form to its initial state', () => {
+  it('value field is reset', () => {
+    render(<TestComponent initialData={{ value: 'initial' }} />);
+
+    clearInput();
+    typeIntoInput('foo');
+    expect(screen.getByText(/foo/)).toBeInTheDocument();
+
+    userEvent.click(screen.getByText('Reset'));
+    expect(screen.getByText(/initial/)).toBeInTheDocument();
   });
 });
