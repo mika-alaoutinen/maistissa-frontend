@@ -63,3 +63,11 @@ export const renderWithRouter = (component: JSX.Element): RenderResult => render
     {component}
   </Router>,
 );
+
+export const renderWithProviders = (component: JSX.Element): RenderResult => render(
+  <Provider store={initStore()}>
+    <Router>
+      {component}
+    </Router>
+  </Provider>,
+);
