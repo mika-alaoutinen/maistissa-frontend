@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ValidationError from '../validation/ValidationError';
 import styles from './Combobox.module.css';
+import Dropdown from './Dropdown';
 
 interface Props {
   id: string;
@@ -11,12 +12,6 @@ interface Props {
   validationErrors?: string[];
 }
 
-// Implement Combobox as two sub-components: FilterInput and Dropdown?
-
-/**
- * Combobox is like a Select with added text search functionality. The user can
- * filter available options by typing a search string into an input field.
- */
 const Combobox: React.FC<Props> = ({
   id,
   label,
@@ -24,30 +19,29 @@ const Combobox: React.FC<Props> = ({
   options,
   values,
   validationErrors = [],
-}) => (
-  <div className={styles.combobox}>
-    <div>
-      <ValidationError errors={validationErrors} />
+}) => {
+  const [input, setInput] = useState<string>('');
+  const [selected, setSelected] = useState<string[]>([]);
+  console.log('selected', selected);
+
+  return (
+    <div className={styles.combobox}>
+      <div>
+        <ValidationError errors={validationErrors} />
+      </div>
+
+      <label htmlFor={id}>{label}</label>
+
+      <input
+        onChange={(e) => setInput(e.target.value)}
+        value={input}
+      />
+
+      <Dropdown
+        onClick={(value: string) => setSelected(selected.concat(value))}
+        options={options.filter((opt) => opt.includes(input))}
+      />
     </div>
-
-    <label htmlFor={id}>{label}</label>
-
-    <select
-      id={id}
-      onChange={onChange}
-      value={values.length > 0 ? values[0] : ''}
-    >
-      <option value="default" hidden>
-        select
-      </option>
-
-      {options.map((opt) => (
-        <option key={opt} value={opt}>
-          {opt}
-        </option>
-      ))}
-    </select>
-  </div>
-);
-
+  );
+};
 export default Combobox;
