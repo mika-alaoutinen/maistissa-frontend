@@ -35,7 +35,7 @@ export const useWineForm = (): WineForm => {
 
   const addWineAction = useAddWine();
 
-  const handleSubmit = (newWine: NewWine): Promise<Wine> => {
+  const handleSubmit = async (newWine: NewWine): Promise<Wine> => {
     resetForm();
     return addWineAction(newWine);
   };

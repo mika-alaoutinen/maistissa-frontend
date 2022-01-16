@@ -5,7 +5,7 @@ import styles from './Select.module.css';
 interface Props {
   id: string;
   label: string
-  onChange: (value: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (value: string) => void;
   options: string[];
   validationErrors?: string[];
   value?: string;
@@ -28,7 +28,7 @@ const Select: React.FC<Props> = ({
 
     <select
       id={id}
-      onChange={onChange}
+      onChange={(e) => onChange(e.target.value)}
       value={value}
     >
       <option value="default" hidden>

@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import validation, { ValidationError, ValidationRules } from './validation';
 
-type SanitizeFn<R> = (value: string) => R;
-export type ChangeEvent = React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
 export type SubmitEvent = React.MouseEvent<HTMLElement>;
 export type SubmitHandler<T, R> = (data: T) => Promise<R>;
 export type SubmitResponse<T, R> = Promise<R | ValidationError<T>>;
+type Value<T> = T[keyof T];
 
 export interface Form<T> {
   data: T;
   errors: ValidationError<T>;
   isValid: () => boolean;
-  onChange: <R>(key: keyof T, sanitizeFn?: SanitizeFn<R>) => (e: ChangeEvent) => void;
+  onChange: (key: keyof T) => (value: Value<T>) => void;
   onSubmit: <R>(e: SubmitEvent, handler: SubmitHandler<T, R>) => SubmitResponse<T, R>;
   resetForm: () => void;
 }
@@ -32,13 +31,10 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
     return validation.isValid(validationErrors);
   };
 
-  const isValid = (): boolean => validate(data);
-
-  const onChange = <R>(key: keyof T, sanitizeFn?: SanitizeFn<R>) => (e: ChangeEvent): void => {
-    const { value } = e.target;
+  const onChange = (key: keyof T) => (value: Value<T>): void => {
     const edited: T = {
       ...data,
-      [key]: sanitizeFn ? sanitizeFn(value) : value,
+      [key]: value,
     };
     setData(edited);
 
@@ -63,7 +59,7 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
   return {
     data,
     errors,
-    isValid,
+    isValid: () => validate(data),
     onChange,
     onSubmit,
     resetForm,

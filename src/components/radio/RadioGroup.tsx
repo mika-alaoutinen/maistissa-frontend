@@ -3,13 +3,13 @@ import RadioButton from './RadioButton';
 import ValidationError from '../validation/ValidationError';
 import styles from './RadioGroup.module.css';
 
-type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 interface Props {
   id: string;
   label: string;
   values: string[];
-  onChange: OnChangeHandler;
+  onChange: (value: string) => void;
   validationErrors?: string[];
 }
 
@@ -23,7 +23,7 @@ const RadioGroup: React.FC<Props> = ({
   <div
     className={styles.radio_group}
     id={id}
-    onChange={onChange}
+    onChange={(e: ChangeEvent) => onChange(e.target.value)}
     role="radiogroup"
   >
     <div>

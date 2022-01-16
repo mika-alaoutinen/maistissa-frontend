@@ -5,7 +5,6 @@ import { ValidationRules } from '../validation';
 interface Props {
   initialData: Data;
   rules?: ValidationRules<Data>;
-  sanitizeFn?: (value: string) => string;
   submitHandler?: (data: Data) => Promise<Data>;
 }
 
@@ -20,7 +19,6 @@ export interface Data {
 const TestComponent: React.FC<Props> = ({
   initialData,
   rules,
-  sanitizeFn,
   submitHandler = () => Promise.resolve(initialData),
 }) => {
   const {
@@ -39,7 +37,7 @@ const TestComponent: React.FC<Props> = ({
 
       <input
         data-testid="test-input"
-        onChange={(e) => onChange('value', sanitizeFn)(e)}
+        onChange={(e) => onChange('value')(e.target.value)}
         value={data.value}
       />
 

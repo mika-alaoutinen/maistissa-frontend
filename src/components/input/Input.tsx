@@ -2,12 +2,10 @@ import React from 'react';
 import ValidationError from '../validation/ValidationError';
 import styles from './Input.module.css';
 
-type OnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => void;
-
 interface Props {
   id: string;
   label: string;
-  onChange: OnChangeHandler;
+  onChange: (value: string) => void;
   validationErrors?: string[];
   value?: string;
 }
@@ -31,7 +29,7 @@ const Input: React.FC<Props> = ({
     <input
       id={id}
       className={styles.input}
-      onChange={onChange}
+      onChange={(e) => onChange(e.target.value)}
       placeholder={label}
       value={value}
     />
