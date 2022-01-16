@@ -7,7 +7,7 @@ import Selected from './Selected';
 interface Props {
   id: string;
   label: string
-  onChange: (value: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (value: string[]) => void;
   options: string[];
   values: string[];
   validationErrors?: string[];
@@ -24,12 +24,17 @@ const Combobox: React.FC<Props> = ({
   const [input, setInput] = useState<string>('');
   const [selected, setSelected] = useState<string[]>([]);
 
+  const updateSelected = (newSelected: string[]): void => {
+    setSelected(newSelected);
+    onChange(newSelected);
+  };
+
   const addSelected = (item: string): void => {
-    setSelected(selected.concat(item));
+    updateSelected(selected.concat(item));
   };
 
   const removeSelected = (item: string): void => {
-    setSelected(selected.filter((s) => s !== item));
+    updateSelected(selected.filter((s) => s !== item));
   };
 
   const filteredOptions = options.filter((opt) => opt.includes(input));
@@ -43,9 +48,10 @@ const Combobox: React.FC<Props> = ({
       <label htmlFor={id}>{label}</label>
 
       <span className={styles.filter_input}>
-        <Selected remove={removeSelected} selected={selected} />
+        <Selected remove={removeSelected} selected={values} />
 
         <input
+          id={id}
           onChange={(e) => setInput(e.target.value)}
           value={input}
         />

@@ -14,7 +14,7 @@ interface WineForm extends PartialForm {
   onSubmit: (e: SubmitEvent) => WineResponse;
 }
 
-const useAddWine = (): (wine: NewWine) => Promise<Wine> => {
+const useAddWine = (): (newWine: NewWine) => Promise<Wine> => {
   const dispatch = useAppDispatch();
 
   return async (newWine: NewWine) => {
