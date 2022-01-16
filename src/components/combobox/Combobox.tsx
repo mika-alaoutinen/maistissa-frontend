@@ -40,14 +40,16 @@ const Combobox: React.FC<Props> = ({
         <ValidationError errors={validationErrors} />
       </div>
 
-      <Selected remove={removeSelected} selected={selected} />
-
       <label htmlFor={id}>{label}</label>
 
-      <input
-        onChange={(e) => setInput(e.target.value)}
-        value={input}
-      />
+      <span className={styles.filter_input}>
+        <Selected remove={removeSelected} selected={selected} />
+
+        <input
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+        />
+      </span>
 
       <Dropdown
         onClick={addSelected}
