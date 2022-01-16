@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ValidationError from '../validation/ValidationError';
 import styles from './Combobox.module.css';
 import Dropdown from './Dropdown';
+import SelectedItem from './SelectedItem';
 
 interface Props {
   id: string;
@@ -39,16 +40,11 @@ const Combobox: React.FC<Props> = ({
 
       <div>
         {selected.map((item) => (
-          <span key={item} className={styles.selected_pill}>
-            {item}
-
-            <button
-              onClick={() => removeSelected(item)}
-              type="button"
-            >
-              X
-            </button>
-          </span>
+          <SelectedItem
+            key={item}
+            item={item}
+            removeSelected={removeSelected}
+          />
         ))}
       </div>
 
