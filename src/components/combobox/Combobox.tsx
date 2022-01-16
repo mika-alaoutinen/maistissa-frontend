@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ValidationError from '../validation/ValidationError';
 import styles from './Combobox.module.css';
 import Dropdown from './Dropdown';
-import SelectedItem from './SelectedItem';
+import Selected from './Selected';
 
 interface Props {
   id: string;
@@ -32,21 +32,15 @@ const Combobox: React.FC<Props> = ({
     setSelected(selected.filter((s) => s !== item));
   };
 
+  const filteredOptions = options.filter((opt) => opt.includes(input));
+
   return (
     <div className={styles.combobox}>
       <div>
         <ValidationError errors={validationErrors} />
       </div>
 
-      <div>
-        {selected.map((item) => (
-          <SelectedItem
-            key={item}
-            item={item}
-            removeSelected={removeSelected}
-          />
-        ))}
-      </div>
+      <Selected remove={removeSelected} selected={selected} />
 
       <label htmlFor={id}>{label}</label>
 
@@ -57,7 +51,7 @@ const Combobox: React.FC<Props> = ({
 
       <Dropdown
         onClick={addSelected}
-        options={options.filter((opt) => opt.includes(input))}
+        options={filteredOptions}
       />
     </div>
   );
