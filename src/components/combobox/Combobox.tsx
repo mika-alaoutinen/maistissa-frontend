@@ -22,12 +22,34 @@ const Combobox: React.FC<Props> = ({
 }) => {
   const [input, setInput] = useState<string>('');
   const [selected, setSelected] = useState<string[]>([]);
-  console.log('selected', selected);
+
+  const addSelected = (item: string): void => {
+    setSelected(selected.concat(item));
+  };
+
+  const removeSelected = (item: string): void => {
+    setSelected(selected.filter((s) => s !== item));
+  };
 
   return (
     <div className={styles.combobox}>
       <div>
         <ValidationError errors={validationErrors} />
+      </div>
+
+      <div>
+        {selected.map((item) => (
+          <span key={item} className={styles.selected_pill}>
+            {item}
+
+            <button
+              onClick={() => removeSelected(item)}
+              type="button"
+            >
+              X
+            </button>
+          </span>
+        ))}
       </div>
 
       <label htmlFor={id}>{label}</label>
@@ -38,7 +60,7 @@ const Combobox: React.FC<Props> = ({
       />
 
       <Dropdown
-        onClick={(value: string) => setSelected(selected.concat(value))}
+        onClick={addSelected}
         options={options.filter((opt) => opt.includes(input))}
       />
     </div>
