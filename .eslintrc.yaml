@@ -21,8 +21,9 @@ plugins:
   - '@typescript-eslint'
 
 rules:
+  '@typescript-eslint/no-unused-vars' : 'warn'
   linebreak-style: ['warn', 'unix']
-  no-console: 'off'
+  no-console: 'warn'
   no-param-reassign: ['error', { props: false }]
   no-void: ['error', { allowAsStatement: true }]
   # This fixes a problem in airbnb's eslint config.
@@ -30,8 +31,8 @@ rules:
   react/function-component-definition: [
     2,
     {
-      namedComponents: "arrow-function",
-      unnamedComponents: "arrow-function"
+      namedComponents: 'arrow-function',
+      unnamedComponents: 'arrow-function'
     }
   ]
   react/require-default-props: 'off'
