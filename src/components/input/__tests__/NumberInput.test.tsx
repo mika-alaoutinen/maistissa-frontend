@@ -33,6 +33,12 @@ describe('Component interactions', () => {
     userEvent.type(screen.getByLabelText('input label'), '20');
     expect(onChangeMock).toHaveBeenCalledTimes(2);
   });
+
+  it('resets value to 0 if empty value is given', () => {
+    const input = screen.getByLabelText('input label');
+    userEvent.clear(input);
+    expect(input).toHaveValue(0);
+  });
 });
 
 describe('Validation errors', () => {
