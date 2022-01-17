@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Combobox from '../Combobox';
 
@@ -14,15 +14,15 @@ const addFilter = (filter: string): void => {
 };
 
 describe('Should render component', () => {
-  it('should display input and button on component render', () => {
-    render(<Combobox
-      id="input-id"
-      label="input-label"
-      onChange={onChangeMock}
-      options={['opt a', 'opt b', 'opt c']}
-      values={[]}
-    />);
+  render(<Combobox
+    id="input-id"
+    label="input-label"
+    onChange={onChangeMock}
+    options={['opt a', 'opt b', 'opt c']}
+    values={[]}
+  />);
 
+  it('should display input and button on component render', () => {
     expect(screen.getByLabelText('input-label')).toBeInTheDocument();
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
@@ -75,7 +75,20 @@ describe('Input filters available options', () => {
 });
 
 describe('Options in dropdown can be selected and unselected', () => {
-  beforeEach(() => {
+  it('selected options are shown as pills', () => {
+    render(<Combobox
+      id="input-id"
+      label="input-label"
+      onChange={onChangeMock}
+      options={['opt a', 'opt b', 'opt c']}
+      values={['opt a']}
+    />);
+
+    const selectedItem = within(screen.getByTestId('selected_items')).getByText('opt a');
+    expect(selectedItem).toBeInTheDocument();
+  });
+
+  it('clicking on an option in dropdown triggers onChange', () => {
     render(<Combobox
       id="input-id"
       label="input-label"
@@ -83,11 +96,25 @@ describe('Options in dropdown can be selected and unselected', () => {
       options={['opt a', 'opt b', 'opt c']}
       values={[]}
     />);
-  });
 
-  it('clicking on option triggers onChange', () => {
     clickDropdown();
     userEvent.click(screen.getByText('opt a'));
     expect(onChangeMock).toHaveBeenCalledTimes(1);
+    expect(onChangeMock).toHaveBeenCalledWith(['opt a']);
+  });
+
+  it('clicking on selected option triggers onChange', () => {
+    render(<Combobox
+      id="input-id"
+      label="input-label"
+      onChange={onChangeMock}
+      options={['opt a', 'opt b', 'opt c']}
+      values={['opt a']}
+    />);
+
+    const removeSelectedButton = within(screen.getByTestId('selected_items')).getByRole('button');
+    userEvent.click(removeSelectedButton);
+    expect(onChangeMock).toHaveBeenCalledTimes(1);
+    expect(onChangeMock).toHaveBeenCalledWith([]);
   });
 });
