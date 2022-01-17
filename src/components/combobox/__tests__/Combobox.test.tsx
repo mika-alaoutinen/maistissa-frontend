@@ -53,6 +53,12 @@ describe('Dropdown should open and close', () => {
     addFilter('a');
     expect(screen.getByText('opt a')).toBeInTheDocument();
   });
+
+  it('dropdown stays open if filter is cleared', () => {
+    addFilter('a');
+    userEvent.clear(screen.getByLabelText('input-label'));
+    expect(screen.getByText('opt a')).toBeInTheDocument();
+  });
 });
 
 describe('Input filters available options', () => {
