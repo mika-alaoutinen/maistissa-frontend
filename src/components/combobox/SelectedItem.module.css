@@ -1,0 +1,9 @@
+.selected_pill {
+  border: none;
+  color: blue;
+  padding-right: .5em;
+}
+
+.selected_pill button {
+  border: none;
+}

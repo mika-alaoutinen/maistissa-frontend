@@ -81,17 +81,6 @@ describe('OnChange updates the hooks internal state', () => {
     typeIntoInput('foo');
     expect(screen.getByText(/foo/)).toBeInTheDocument();
   });
-
-  it('onChange can be given a sanitize function to give data correct types', () => {
-    render(<TestComponent
-      initialData={{ value: 'fooba' }}
-      sanitizeFn={(s) => s.toUpperCase()}
-    />);
-    expect(screen.getByText(/fooba/)).toBeInTheDocument();
-
-    typeIntoInput('r');
-    expect(screen.getByText(/FOOBAR/)).toBeInTheDocument();
-  });
 });
 
 describe('OnSubmit is used to validate and submit the form', () => {

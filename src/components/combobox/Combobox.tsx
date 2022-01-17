@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ValidationError from '../validation/ValidationError';
 import styles from './Combobox.module.css';
+import Dropdown from './Dropdown';
+import Selected from './Selected';
+
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 interface Props {
   id: string;
   label: string
-  onChange: (value: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (value: string[]) => void;
   options: string[];
   values: string[];
   validationErrors?: string[];
 }
 
-// Implement Combobox as two sub-components: FilterInput and Dropdown?
-
-/**
- * Combobox is like a Select with added text search functionality. The user can
- * filter available options by typing a search string into an input field.
- */
 const Combobox: React.FC<Props> = ({
   id,
   label,
@@ -24,30 +22,53 @@ const Combobox: React.FC<Props> = ({
   options,
   values,
   validationErrors = [],
-}) => (
-  <div className={styles.combobox}>
-    <div>
-      <ValidationError errors={validationErrors} />
+}) => {
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [input, setInput] = useState<string>('');
+
+  const onFilterChange = (e: ChangeEvent): void => {
+    const { value } = e.target;
+    setInput(value);
+    if (value.length > 0) {
+      setDropdownOpen(true);
+    }
+  };
+
+  const addSelected = (item: string): void => {
+    onChange(values.concat(item));
+  };
+
+  const removeSelected = (item: string): void => {
+    onChange(values.filter((s) => s !== item));
+  };
+
+  const filteredOptions = options.filter((opt) => opt.includes(input));
+
+  return (
+    <div className={styles.combobox}>
+      <div>
+        <ValidationError errors={validationErrors} />
+      </div>
+
+      <label htmlFor={id}>{label}</label>
+
+      <span className={styles.filter_input}>
+        <Selected remove={removeSelected} selected={values} />
+
+        <input
+          id={id}
+          onChange={onFilterChange}
+          value={input}
+        />
+      </span>
+
+      <Dropdown
+        isOpen={dropdownOpen}
+        onClick={addSelected}
+        options={filteredOptions}
+        toggleOpen={() => setDropdownOpen(!dropdownOpen)}
+      />
     </div>
-
-    <label htmlFor={id}>{label}</label>
-
-    <select
-      id={id}
-      onChange={onChange}
-      value={values.length > 0 ? values[0] : ''}
-    >
-      <option value="default" hidden>
-        select
-      </option>
-
-      {options.map((opt) => (
-        <option key={opt} value={opt}>
-          {opt}
-        </option>
-      ))}
-    </select>
-  </div>
-);
-
+  );
+};
 export default Combobox;
