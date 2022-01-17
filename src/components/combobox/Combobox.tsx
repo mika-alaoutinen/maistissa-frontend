@@ -4,6 +4,8 @@ import styles from './Combobox.module.css';
 import Dropdown from './Dropdown';
 import Selected from './Selected';
 
+type ChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
 interface Props {
   id: string;
   label: string
@@ -21,12 +23,21 @@ const Combobox: React.FC<Props> = ({
   values,
   validationErrors = [],
 }) => {
+  const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
   const [selected, setSelected] = useState<string[]>([]);
 
   const updateSelected = (newSelected: string[]): void => {
     setSelected(newSelected);
     onChange(newSelected);
+  };
+
+  const onFilterChange = (e: ChangeEvent): void => {
+    const { value } = e.target;
+    setInput(value);
+    if (value.length > 0) {
+      setDropdownOpen(true);
+    }
   };
 
   const addSelected = (item: string): void => {
@@ -52,14 +63,16 @@ const Combobox: React.FC<Props> = ({
 
         <input
           id={id}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={onFilterChange}
           value={input}
         />
       </span>
 
       <Dropdown
+        isOpen={dropdownOpen}
         onClick={addSelected}
         options={filteredOptions}
+        toggleOpen={() => setDropdownOpen(!dropdownOpen)}
       />
     </div>
   );

@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Dropdown.module.css';
 
 interface Props {
+  isOpen: boolean;
   onClick: (selected: string) => void;
   options: string[]
+  toggleOpen: () => void;
 }
 
-const Dropdown: React.FC<Props> = ({ onClick, options }) => {
-  const [isOpen, setOpen] = useState<boolean>(false);
-
+const Dropdown: React.FC<Props> = ({
+  isOpen,
+  onClick,
+  options,
+  toggleOpen,
+}) => {
   const renderOption = (option: string): JSX.Element => (
     <li key={option} className={styles.dropdown_option}>
       <button
@@ -29,7 +34,8 @@ const Dropdown: React.FC<Props> = ({ onClick, options }) => {
   return (
     <>
       <button
-        onClick={() => setOpen(!isOpen)}
+        data-testid="dropdown-button"
+        onClick={toggleOpen}
         type="button"
       >
         V
