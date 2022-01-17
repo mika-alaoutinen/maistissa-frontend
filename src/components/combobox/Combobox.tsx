@@ -25,12 +25,6 @@ const Combobox: React.FC<Props> = ({
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [input, setInput] = useState<string>('');
-  const [selected, setSelected] = useState<string[]>([]);
-
-  const updateSelected = (newSelected: string[]): void => {
-    setSelected(newSelected);
-    onChange(newSelected);
-  };
 
   const onFilterChange = (e: ChangeEvent): void => {
     const { value } = e.target;
@@ -41,11 +35,11 @@ const Combobox: React.FC<Props> = ({
   };
 
   const addSelected = (item: string): void => {
-    updateSelected(selected.concat(item));
+    onChange(values.concat(item));
   };
 
   const removeSelected = (item: string): void => {
-    updateSelected(selected.filter((s) => s !== item));
+    onChange(values.filter((s) => s !== item));
   };
 
   const filteredOptions = options.filter((opt) => opt.includes(input));

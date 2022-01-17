@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Selected: React.FC<Props> = ({ remove, selected }) => (
-  <div>
+  <div className="selected_items" data-testid="selected_items">
     {selected.map((item) => (
       <SelectedItem
         key={item}
