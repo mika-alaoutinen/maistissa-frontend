@@ -6,6 +6,7 @@ import {
   Combobox, Input, NumberInput, RadioGroup, Select, SubmitButton,
 } from '../../components/index';
 import { WineType } from '../../api/wineAPI';
+import utils from '../../api/wineUtils';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);
@@ -36,7 +37,7 @@ const AddWine: React.FC = () => {
       <RadioGroup
         id="new-wine-type"
         label="Wine type"
-        onChange={onChange('type')}
+        onChange={(e) => onChange('type')(utils.parseWineType(e))}
         validationErrors={errors.type}
         values={Object.keys(WineType)}
       />
