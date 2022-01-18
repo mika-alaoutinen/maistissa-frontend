@@ -18,9 +18,7 @@ const Input: React.FC<Props> = ({
   value,
 }) => (
   <div className={styles.input}>
-    <div>
-      <ValidationError errors={validationErrors} />
-    </div>
+    <ValidationError errors={validationErrors} />
 
     <label htmlFor={id}>
       {label}

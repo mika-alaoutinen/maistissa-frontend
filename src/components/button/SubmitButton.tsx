@@ -8,14 +8,16 @@ interface Props {
 }
 
 const SubmitButton: React.FC<Props> = ({ id, text, onClick }) => (
-  <button
-    id={id}
-    className={styles.submit_button}
-    onClick={onClick}
-    type="submit"
-  >
-    {text}
-  </button>
+  <div>
+    <button
+      id={id}
+      className={styles.submit_button}
+      onClick={onClick}
+      type="submit"
+    >
+      {text}
+    </button>
+  </div>
 );
 
 export default SubmitButton;

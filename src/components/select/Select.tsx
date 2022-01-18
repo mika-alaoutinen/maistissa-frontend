@@ -20,9 +20,7 @@ const Select: React.FC<Props> = ({
   value,
 }) => (
   <div className={styles.select}>
-    <div>
-      <ValidationError errors={validationErrors} />
-    </div>
+    <ValidationError errors={validationErrors} />
 
     <label htmlFor={id}>{label}</label>
 
