@@ -1,9 +1,10 @@
 .selected_pill {
-  border: none;
-  color: blue;
-  padding-right: .5em;
+  background-color: whitesmoke;
+  padding: 0.5em 0.5em 0 0;
 }
 
 .selected_pill button {
+  background-color: lightgrey;
   border: none;
+  border-radius: 50%;
 }

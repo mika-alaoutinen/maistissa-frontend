@@ -9,6 +9,7 @@ import {
 } from '../../components/index';
 import { initialState, validationRules } from './constants';
 import { useForm } from '../form/useForm';
+import './AddWine.module.css';
 
 const AddWine: React.FC = () => {
   const { countries, descriptions, foodPairings } = useAppSelector(selectWineInfo);

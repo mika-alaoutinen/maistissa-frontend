@@ -48,17 +48,15 @@ const Combobox: React.FC<Props> = ({
     <div className={styles.combobox}>
       <ValidationError errors={validationErrors} />
 
+      <Selected remove={removeSelected} selected={values} />
+
       <label htmlFor={id}>{label}</label>
 
-      <span className={styles.filter_input}>
-        <Selected remove={removeSelected} selected={values} />
-
-        <input
-          id={id}
-          onChange={onFilterChange}
-          value={filter}
-        />
-      </span>
+      <input
+        id={id}
+        onChange={onFilterChange}
+        value={filter}
+      />
 
       <Dropdown
         isOpen={dropdownOpen}
