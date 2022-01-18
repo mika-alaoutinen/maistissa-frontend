@@ -1,5 +1,5 @@
 import React from 'react';
-import { NewWine, Wine, WineType } from '../../api/wineAPI';
+import { NewWine, WineType } from '../../api/wineAPI';
 import utils from '../../api/wineUtils';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { addWine } from '../../app/wineSlice';
@@ -18,12 +18,9 @@ const AddWine: React.FC = () => {
   } = useForm<NewWine>(initialState, validationRules);
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async (newWine: NewWine): Promise<Wine> => {
+  const handleSubmit = async (newWine: NewWine): Promise<void> => {
+    void dispatch(addWine(newWine));
     resetForm();
-    const response = dispatch(addWine(newWine));
-    const wine = await response.unwrap();
-    console.log('added wine', wine);
-    return wine;
   };
 
   return (
