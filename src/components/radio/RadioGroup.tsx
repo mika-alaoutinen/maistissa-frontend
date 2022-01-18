@@ -26,9 +26,7 @@ const RadioGroup: React.FC<Props> = ({
     onChange={(e: ChangeEvent) => onChange(e.target.value)}
     role="radiogroup"
   >
-    <div>
-      <ValidationError errors={validationErrors} />
-    </div>
+    <ValidationError errors={validationErrors} />
 
     <span className={styles.radio_group_label}>
       {label}

@@ -1,7 +1,11 @@
-.dropdown_options {
+.dropdown {
+  height: 200px;
   list-style-type: none; 
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 20%;
 }
 
-.dropdown_option button {
+.dropdown button {
   border: none;
 }

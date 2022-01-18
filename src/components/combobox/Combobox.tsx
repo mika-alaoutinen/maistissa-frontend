@@ -24,11 +24,11 @@ const Combobox: React.FC<Props> = ({
   validationErrors = [],
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-  const [input, setInput] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
 
   const onFilterChange = (e: ChangeEvent): void => {
     const { value } = e.target;
-    setInput(value);
+    setFilter(value);
     if (value.length > 0) {
       setDropdownOpen(true);
     }
@@ -42,13 +42,11 @@ const Combobox: React.FC<Props> = ({
     onChange(values.filter((s) => s !== item));
   };
 
-  const filteredOptions = options.filter((opt) => opt.includes(input));
+  const filteredOptions = options.filter((opt) => opt.includes(filter));
 
   return (
     <div className={styles.combobox}>
-      <div>
-        <ValidationError errors={validationErrors} />
-      </div>
+      <ValidationError errors={validationErrors} />
 
       <label htmlFor={id}>{label}</label>
 
@@ -58,7 +56,7 @@ const Combobox: React.FC<Props> = ({
         <input
           id={id}
           onChange={onFilterChange}
-          value={input}
+          value={filter}
         />
       </span>
 

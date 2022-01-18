@@ -14,7 +14,7 @@ const Dropdown: React.FC<Props> = ({
   options,
   toggleOpen,
 }) => {
-  const renderOption = (option: string): JSX.Element => (
+  const renderOption = (option: string) => (
     <li key={option} className={styles.dropdown_option}>
       <button
         onClick={() => onClick(option)}
@@ -26,7 +26,7 @@ const Dropdown: React.FC<Props> = ({
   );
 
   const dropdown = (
-    <ul className={styles.dropdown_options}>
+    <ul className={styles.dropdown}>
       {options.map(renderOption)}
     </ul>
   );

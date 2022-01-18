@@ -28,9 +28,7 @@ const NumberInput: React.FC<Props> = ({
 
   return (
     <div className={styles.number_input}>
-      <div>
-        <ValidationError errors={validationErrors} />
-      </div>
+      <ValidationError errors={validationErrors} />
 
       <label htmlFor={id}>
         {label}
