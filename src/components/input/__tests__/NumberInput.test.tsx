@@ -29,14 +29,14 @@ describe('Component interactions', () => {
     <NumberInput id="input-id" label="input label" onChange={onChangeMock} />,
   ));
 
-  it('input passes change events via onChange function', () => {
-    userEvent.type(screen.getByLabelText('input label'), '20');
-    expect(onChangeMock).toHaveBeenCalledTimes(2);
+  it('input passes change events via onChange function', async () => {
+    await userEvent.type(screen.getByLabelText('input label'), '20');
+    expect(onChangeMock).toHaveBeenCalledTimes(1);
   });
 
-  it('resets value to 0 if empty value is given', () => {
+  it('resets value to 0 if empty value is given', async () => {
     const input = screen.getByLabelText('input label');
-    userEvent.clear(input);
+    await userEvent.clear(input);
     expect(input).toHaveValue(0);
   });
 });

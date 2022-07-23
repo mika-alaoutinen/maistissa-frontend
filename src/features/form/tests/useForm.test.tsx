@@ -17,12 +17,12 @@ const validationRequired: ValidationRules<Data> = {
   },
 };
 
-const typeIntoInput = (text: string): void => {
-  userEvent.type(screen.getByTestId('test-input'), text);
+const typeIntoInput = async (text: string) => {
+  await userEvent.type(screen.getByTestId('test-input'), text);
 };
 
-const clearInput = (): void => {
-  userEvent.clear(screen.getByTestId('test-input'));
+const clearInput = async () => {
+  await userEvent.clear(screen.getByTestId('test-input'));
 };
 
 describe('Data is displayed', () => {
@@ -33,16 +33,16 @@ describe('Data is displayed', () => {
 });
 
 describe('Errors are displayed based on given validation rules', () => {
-  it('error is displayed when required field is empty', () => {
+  it('error is displayed when required field is empty', async () => {
     render(<TestComponent initialData={{ value: 'initial' }} rules={validationRequired} />);
     expect(screen.queryByText(/required/)).not.toBeInTheDocument();
 
-    typeIntoInput('foo');
-    clearInput();
+    await typeIntoInput('foo');
+    await clearInput();
     expect(screen.getByText(/required/)).toBeInTheDocument();
   });
 
-  it('error is displayed when custom validation function fails', () => {
+  it('error is displayed when custom validation function fails', async () => {
     const rules: ValidationRules<Data> = {
       mode: 'ON_CHANGE',
       validations: {
@@ -57,28 +57,28 @@ describe('Errors are displayed based on given validation rules', () => {
 
     render(<TestComponent initialData={{ value: '' }} rules={rules} />);
 
-    typeIntoInput('f');
+    await typeIntoInput('f');
     expect(screen.queryByText(/failed/)).not.toBeInTheDocument();
 
-    typeIntoInput('o');
+    await typeIntoInput('o');
     expect(screen.getByText(/failed/)).toBeInTheDocument();
   });
 });
 
 describe('IsValid can be used to manually validate the form', () => {
-  it('isValid validates the form', () => {
+  it('isValid validates the form', async () => {
     render(<TestComponent initialData={{ value: '' }} rules={validationRequired} />);
-    userEvent.click(screen.getByText('Validate'));
+    await userEvent.click(screen.getByText('Validate'));
     expect(screen.getByText(/required/)).toBeInTheDocument();
   });
 });
 
 describe('OnChange updates the hooks internal state', () => {
-  it('onChange updates data', () => {
+  it('onChange updates data', async () => {
     render(<TestComponent initialData={{ value: '' }} />);
     expect(screen.queryByText(/foo/)).not.toBeInTheDocument();
 
-    typeIntoInput('foo');
+    await typeIntoInput('foo');
     expect(screen.getByText(/foo/)).toBeInTheDocument();
   });
 });
@@ -86,36 +86,36 @@ describe('OnChange updates the hooks internal state', () => {
 describe('OnSubmit is used to validate and submit the form', () => {
   const submitHandler = jest.fn();
 
-  const clickSubmit = (): void => {
-    userEvent.click(screen.getByText('Submit'));
+  const clickSubmit = async () => {
+    await userEvent.click(screen.getByText('Submit'));
   };
 
-  it('onSubmit calls submit handler function that is given as parameter', () => {
+  it('onSubmit calls submit handler function that is given as parameter', async () => {
     render(<TestComponent initialData={{ value: '' }} submitHandler={submitHandler} />);
-    clickSubmit();
+    await clickSubmit();
     expect(submitHandler).toHaveBeenCalledTimes(1);
   });
 
-  it('onSubmit validates form before submitting if there are validation rules', () => {
+  it('onSubmit validates form before submitting if there are validation rules', async () => {
     render(<TestComponent
       initialData={{ value: '' }}
       rules={validationRequired}
       submitHandler={submitHandler}
     />);
-    clickSubmit();
+    await clickSubmit();
     expect(submitHandler).not.toHaveBeenCalled();
   });
 });
 
 describe('ResetForm resets form to its initial state', () => {
-  it('value field is reset', () => {
+  it('value field is reset', async () => {
     render(<TestComponent initialData={{ value: 'initial' }} />);
 
-    clearInput();
-    typeIntoInput('foo');
+    await clearInput();
+    await typeIntoInput('foo');
     expect(screen.getByText(/foo/)).toBeInTheDocument();
 
-    userEvent.click(screen.getByText('Reset'));
+    await userEvent.click(screen.getByText('Reset'));
     expect(screen.getByText(/initial/)).toBeInTheDocument();
   });
 });

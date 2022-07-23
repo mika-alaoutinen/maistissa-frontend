@@ -59,12 +59,12 @@ describe('Wine information is presented as a table', () => {
 });
 
 describe('Clicking on headers sorts wines', () => {
-  it('sort wines by name', () => {
+  it('sort wines by name', async () => {
     const { container } = renderWithStore(<WineTable />);
     const initialWineName = getFirstRow(container).firstChild?.textContent;
 
     // Sort wines and check that the first row has different wine
-    userEvent.click(screen.getByText(/Name/));
+    await userEvent.click(screen.getByText(/Name/));
     const wineNameAfterSorting = getFirstRow(container).firstChild?.textContent;
 
     expect(initialWineName).not.toEqual(wineNameAfterSorting);
@@ -72,15 +72,15 @@ describe('Clicking on headers sorts wines', () => {
 
   it('ascending sort is indicated in the header by an up arrow', async () => {
     const { container } = renderWithStore(<WineTable />);
-    userEvent.click(screen.getByText(/Price/));
+    await userEvent.click(screen.getByText(/Price/));
     expect(container.querySelector('#wine-sort-up-arrow')).toBeInTheDocument();
   });
 
   it('descending sort is indicated in the header by a down arrow', async () => {
     const { container } = renderWithStore(<WineTable />);
     const header = screen.getByText(/Price/);
-    userEvent.click(header);
-    userEvent.click(header);
+    await userEvent.click(header);
+    await userEvent.click(header);
     expect(container.querySelector('#wine-sort-down-arrow')).toBeInTheDocument();
   });
 });

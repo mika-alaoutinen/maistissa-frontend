@@ -16,8 +16,8 @@ describe('Component renders correctly', () => {
 });
 
 describe('Component interactions', () => {
-  it('clicking on button emits onClick function', () => {
-    userEvent.click(screen.getByRole('button'));
+  it('clicking on button emits onClick function', async () => {
+    await userEvent.click(screen.getByRole('button'));
     expect(onClickMock).toHaveBeenCalledTimes(1);
   });
 });

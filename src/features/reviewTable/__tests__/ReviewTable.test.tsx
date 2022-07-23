@@ -58,12 +58,12 @@ describe('Review information is presented as a table', () => {
 });
 
 describe('Clicking on headers sorts reviews', () => {
-  it('sort reviews by author', () => {
+  it('sort reviews by author', async () => {
     const { container } = renderWithStore(<ReviewTable />);
     const initialReviewAuthor = getFirstRow(container).firstChild?.textContent;
 
     // Sort reviews and check that the first row has different review
-    userEvent.click(screen.getByText(/Author/));
+    await userEvent.click(screen.getByText(/Author/));
     const reviewAuthorAfterSorting = getFirstRow(container).firstChild?.textContent;
 
     expect(initialReviewAuthor).not.toEqual(reviewAuthorAfterSorting);
