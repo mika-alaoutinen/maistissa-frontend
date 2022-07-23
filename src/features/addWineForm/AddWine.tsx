@@ -95,7 +95,9 @@ const AddWine: React.FC = () => {
 
       <SubmitButton
         id="add-wine-form-submit"
-        onClick={(e) => onSubmit(e, handleSubmit)}
+        onClick={(e) => {
+          void onSubmit(e, handleSubmit);
+        }}
         text="Add wine"
       />
     </form>
