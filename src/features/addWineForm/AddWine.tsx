@@ -23,6 +23,10 @@ const AddWine: React.FC = () => {
     resetForm();
   };
 
+  const submitForm = () => {
+    void onSubmit(handleSubmit);
+  };
+
   return (
     <form id="add-wine-form">
 
@@ -95,9 +99,7 @@ const AddWine: React.FC = () => {
 
       <SubmitButton
         id="add-wine-form-submit"
-        onClick={(e) => {
-          void onSubmit(e, handleSubmit);
-        }}
+        onClick={submitForm}
         text="Add wine"
       />
     </form>
