@@ -41,22 +41,22 @@ describe('Component interactions', () => {
     />,
   ));
 
-  it('clicking on label selects radio button', () => {
+  it('clicking on label selects radio button', async () => {
     const radioButton = screen.getByLabelText('a');
     expect(radioButton).not.toBeChecked();
-    userEvent.click(screen.getByText('a'));
+    await userEvent.click(screen.getByText('a'));
     expect(radioButton).toBeChecked();
   });
 
-  it('selecting radiobutton unselects previous selection', () => {
+  it('selecting radiobutton unselects previous selection', async () => {
     const radioButtonA = screen.getByLabelText('a');
-    userEvent.click(radioButtonA);
-    userEvent.click(screen.getByLabelText('b'));
+    await userEvent.click(radioButtonA);
+    await userEvent.click(screen.getByLabelText('b'));
     expect(radioButtonA).not.toBeChecked();
   });
 
-  it('selecting radiobutton emits onChange function', () => {
-    userEvent.click(screen.getByLabelText('c'));
+  it('selecting radiobutton emits onChange function', async () => {
+    await userEvent.click(screen.getByLabelText('c'));
     expect(onChangeMock).toHaveBeenCalledTimes(1);
   });
 });

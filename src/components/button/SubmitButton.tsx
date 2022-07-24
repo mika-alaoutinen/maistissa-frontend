@@ -4,20 +4,27 @@ import styles from './SubmitButton.module.css';
 interface Props {
   id: string;
   text: string;
-  onClick: (e: React.MouseEvent<HTMLElement>) => void;
+  onClick: () => void;
 }
 
-const SubmitButton: React.FC<Props> = ({ id, text, onClick }) => (
-  <div>
-    <button
-      id={id}
-      className={styles.submit_button}
-      onClick={onClick}
-      type="submit"
-    >
-      {text}
-    </button>
-  </div>
-);
+const SubmitButton: React.FC<Props> = ({ id, text, onClick }) => {
+  const handleSubmit = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    onClick();
+  };
+
+  return (
+    <div>
+      <button
+        id={id}
+        className={styles.submit_button}
+        onClick={handleSubmit}
+        type="submit"
+      >
+        {text}
+      </button>
+    </div>
+  );
+};
 
 export default SubmitButton;

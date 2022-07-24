@@ -52,7 +52,7 @@ const TestComponent: React.FC<Props> = ({
         Validate
       </button>
 
-      <button onClick={(e) => onSubmit(e, submitHandler)} type="submit">
+      <button onClick={() => { void onSubmit(submitHandler); }} type="submit">
         Submit
       </button>
 

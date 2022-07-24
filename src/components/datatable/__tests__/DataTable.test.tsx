@@ -76,7 +76,7 @@ describe('Component displays column sorting direction', () => {
 });
 
 describe('Component interactions', () => {
-  it('clicking on header emits sortingFn', () => {
+  it('clicking on header emits sortingFn', async () => {
     const sortingFnMock = jest.fn();
 
     render(
@@ -87,7 +87,7 @@ describe('Component interactions', () => {
       />,
     );
 
-    userEvent.click(screen.getByText('Age'));
+    await userEvent.click(screen.getByText('Age'));
     expect(sortingFnMock).toHaveBeenCalledTimes(1);
   });
 });

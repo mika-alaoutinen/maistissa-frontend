@@ -44,13 +44,13 @@ describe('Form should have all input fields', () => {
 });
 
 describe('Adding a new wine', () => {
-  const clearInputAndType = (labelText: string, value: number): void => {
+  const clearInputAndType = async (labelText: string, value: number) => {
     const input = screen.getByLabelText(labelText);
-    userEvent.clear(input);
-    userEvent.type(input, value.toString());
+    await userEvent.clear(input);
+    await userEvent.type(input, value.toString());
   };
 
-  it('clicking add wine button calls wineAPI', () => {
+  it('clicking add wine button calls wineAPI', async () => {
     const newWine: NewWine = {
       name: 'Gato Negro',
       country: 'Spain',
@@ -63,32 +63,32 @@ describe('Adding a new wine', () => {
     };
 
     // Fill out the form
-    userEvent.type(screen.getByLabelText(/Name/), newWine.name);
-    userEvent.selectOptions(screen.getByLabelText(/Country/), newWine.country);
-    userEvent.click(screen.getByLabelText(/white/));
-    clearInputAndType('Price', newWine.price);
-    clearInputAndType('Volume (l)', newWine.volume);
+    await userEvent.type(screen.getByLabelText(/Name/), newWine.name);
+    await userEvent.selectOptions(screen.getByLabelText(/Country/), newWine.country);
+    await userEvent.click(screen.getByLabelText(/white/));
+    await clearInputAndType('Price', newWine.price);
+    await clearInputAndType('Volume (l)', newWine.volume);
 
     // Submit form
-    userEvent.click(screen.getByText(/Add wine/));
+    await userEvent.click(screen.getByText(/Add wine/));
     expect(mockAPI.addWine).toHaveBeenCalledTimes(1);
     expect(mockAPI.addWine).toHaveBeenCalledWith(newWine);
   });
 
-  it('trying to submit an invalid form displays error messages and does not submit form', () => {
-    userEvent.click(screen.getByText(/Add wine/));
+  it('trying to submit an invalid form displays error messages and does not submit form', async () => {
+    await userEvent.click(screen.getByText(/Add wine/));
     expect(screen.getByText('Name is required')).toBeInTheDocument();
     expect(mockAPI.addWine).not.toBeCalled();
   });
 
-  it('should clear form after submit', () => {
+  it('should clear form after submit', async () => {
     const wineName = 'Gato Negro';
     const nameInput = screen.getByLabelText(/Name/);
 
-    userEvent.type(nameInput, wineName);
+    await userEvent.type(nameInput, wineName);
     expect(nameInput).toHaveValue(wineName);
 
-    userEvent.click(screen.getByText(/Add wine/));
+    await userEvent.click(screen.getByText(/Add wine/));
     expect(screen.queryByText(wineName)).not.toBeInTheDocument();
   });
 });

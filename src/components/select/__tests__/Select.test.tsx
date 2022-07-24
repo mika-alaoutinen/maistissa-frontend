@@ -42,17 +42,17 @@ describe('Component interactions', () => {
     />);
   });
 
-  it('mouse click opens a dropdown with options', () => {
+  it('mouse click opens a dropdown with options', async () => {
     const select = getByLabel();
-    userEvent.click(select);
+    await userEvent.click(select);
 
     ['opt a', 'opt b', 'opt c']
       .map((option) => within(select).getByText(option))
       .forEach((option) => expect(option).toBeInTheDocument());
   });
 
-  it('selecting an option emits onClick', () => {
-    userEvent.selectOptions(getByLabel(), 'opt a');
+  it('selecting an option emits onClick', async () => {
+    await userEvent.selectOptions(getByLabel(), 'opt a');
     expect(onChangeMock).toHaveBeenCalledTimes(1);
   });
 });

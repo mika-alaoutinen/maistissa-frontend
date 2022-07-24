@@ -28,13 +28,13 @@ describe('Component interactions', () => {
     <Input id="input-id" label="input label" onChange={onChangeMock} />,
   ));
 
-  it('user can type in the input text field', () => {
-    userEvent.type(screen.getByLabelText('input label'), 'test input');
+  it('user can type in the input text field', async () => {
+    await userEvent.type(screen.getByLabelText('input label'), 'test input');
     expect(screen.getByDisplayValue('test input')).toBeInTheDocument();
   });
 
-  it('input passes change events via onChange function', () => {
-    userEvent.type(screen.getByLabelText('input label'), 'test');
+  it('input passes change events via onChange function', async () => {
+    await userEvent.type(screen.getByLabelText('input label'), 'test');
     expect(onChangeMock).toHaveBeenCalledTimes(4);
   });
 });

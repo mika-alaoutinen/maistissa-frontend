@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import validation, { ValidationError, ValidationRules } from './validation';
 
-export type SubmitEvent = React.MouseEvent<HTMLElement>;
 export type SubmitHandler<T, R> = (data: T) => Promise<R>;
 export type SubmitResponse<T, R> = Promise<R | ValidationError<T>>;
 
@@ -10,7 +9,7 @@ export interface Form<T> {
   errors: ValidationError<T>;
   isValid: () => boolean;
   onChange: <K extends keyof T>(key: K) => (value: T[K]) => void;
-  onSubmit: <R>(e: SubmitEvent, handler: SubmitHandler<T, R>) => SubmitResponse<T, R>;
+  onSubmit: <R>(handler: SubmitHandler<T, R>) => SubmitResponse<T, R>;
   resetForm: () => void;
 }
 
@@ -43,12 +42,8 @@ export const useForm = <T>(initialState: T, rules?: ValidationRules<T>): Form<T>
   };
 
   const onSubmit = async <R>(
-    e: SubmitEvent,
     submitHandler: SubmitHandler<T, R>,
-  ): SubmitResponse<T, R> => {
-    e.preventDefault();
-    return validate(data) ? submitHandler(data) : Promise.resolve(errors);
-  };
+  ): SubmitResponse<T, R> => (validate(data) ? submitHandler(data) : Promise.resolve(errors));
 
   const resetForm = (): void => {
     setErrors(emptyErrors);
